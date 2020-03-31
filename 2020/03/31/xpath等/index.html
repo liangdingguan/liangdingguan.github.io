@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="liangdingguan">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="liangdingguan">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="star from here">
+    <meta name="description" content="什么是XPath？xpath（XML Path Language）是一门在XML和HTML文档中查找信息的语言，可用来在XML和HTML文档中对元素和属性进行遍历。 XPath开发工具 Chrome插件XPath Helper。 Firefox插件Try XPath。  XPath语法选取节点：XPath 使用路径表达式来选取 XML 文档中的节点或者节点集。这些路径表达式和我们在常规的电脑文件系">
+<meta property="og:type" content="article">
+<meta property="og:title" content="xpath等">
+<meta property="og:url" content="https://liangdingguan.github.io/2020/03/31/xpath%E7%AD%89/index.html">
+<meta property="og:site_name" content="liangdingguan">
+<meta property="og:description" content="什么是XPath？xpath（XML Path Language）是一门在XML和HTML文档中查找信息的语言，可用来在XML和HTML文档中对元素和属性进行遍历。 XPath开发工具 Chrome插件XPath Helper。 Firefox插件Try XPath。  XPath语法选取节点：XPath 使用路径表达式来选取 XML 文档中的节点或者节点集。这些路径表达式和我们在常规的电脑文件系">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-31T07:32:46.000Z">
+<meta property="article:modified_time" content="2020-03-31T11:33:33.398Z">
+<meta property="article:author" content="liangdingguan">
+<meta property="article:tag" content="爬虫相关">
+<meta name="twitter:card" content="summary">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    
+    <title>xpath等 · liangdingguan ao</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/favicon.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >liangdingguan ao</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">xpath等</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>liangdingguan ao</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            xpath等
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "爬虫相关">爬虫相关</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">2.2k</span>阅读时长: <span class="post-count reading-time">10 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/03/31</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id=""><a href="#" class="headerlink" title=""></a></h1><h2 id="什么是XPath？"><a href="#什么是XPath？" class="headerlink" title="什么是XPath？"></a>什么是XPath？</h2><p>xpath（XML Path Language）是一门在XML和HTML文档中查找信息的语言，可用来在XML和HTML文档中对元素和属性进行遍历。</p>
+<h2 id="XPath开发工具"><a href="#XPath开发工具" class="headerlink" title="XPath开发工具"></a>XPath开发工具</h2><ol>
+<li>Chrome插件XPath Helper。</li>
+<li>Firefox插件Try XPath。</li>
+</ol>
+<h2 id="XPath语法"><a href="#XPath语法" class="headerlink" title="XPath语法"></a>XPath语法</h2><h3 id="选取节点："><a href="#选取节点：" class="headerlink" title="选取节点："></a>选取节点：</h3><p>XPath 使用路径表达式来选取 XML 文档中的节点或者节点集。这些路径表达式和我们在常规的电脑文件系统中看到的表达式非常相似。</p>
+<table>
+<thead>
+<tr>
+<th>表达式</th>
+<th>描述</th>
+<th>示例</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>nodename</td>
+<td>选取此节点的所有子节点</td>
+<td>bookstore</td>
+<td>选取bookstore下所有的子节点</td>
+</tr>
+<tr>
+<td>/</td>
+<td>如果是在最前面，代表从根节点选取。否则选择某节点下的某个节点</td>
+<td>/bookstore</td>
+<td>选取根元素下所有的bookstore节点</td>
+</tr>
+<tr>
+<td>//</td>
+<td>从全局节点中选择节点，随便在哪个位置</td>
+<td>//book</td>
+<td>从全局节点中找到所有的book节点</td>
+</tr>
+<tr>
+<td>@</td>
+<td>选取某个节点的属性</td>
+<td>//book[@price]</td>
+<td>选择所有拥有price属性的book节点</td>
+</tr>
+<tr>
+<td>.</td>
+<td>当前节点</td>
+<td>./a</td>
+<td>选取当前节点下的a标签</td>
+</tr>
+</tbody></table>
+<h3 id="谓语："><a href="#谓语：" class="headerlink" title="谓语："></a>谓语：</h3><p>谓语用来查找某个特定的节点或者包含某个指定的值的节点，被嵌在方括号中。<br>在下面的表格中，我们列出了带有谓语的一些路径表达式，以及表达式的结果：</p>
+<table>
+<thead>
+<tr>
+<th>路径表达式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>/bookstore/book[1]</td>
+<td>选取bookstore下的第一个子元素</td>
+</tr>
+<tr>
+<td>/bookstore/book[last()]</td>
+<td>选取bookstore下的倒数第二个book元素。</td>
+</tr>
+<tr>
+<td>bookstore/book[position()&lt;3]</td>
+<td>选取bookstore下前面两个子元素。</td>
+</tr>
+<tr>
+<td>//book[@price]</td>
+<td>选取拥有price属性的book元素</td>
+</tr>
+<tr>
+<td>//book[@price=10]</td>
+<td>选取所有属性price等于10的book元素</td>
+</tr>
+</tbody></table>
+<h3 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h3><p>*表示通配符。</p>
+<table>
+<thead>
+<tr>
+<th align="left">通配符</th>
+<th align="left">描述</th>
+<th align="left">示例</th>
+<th align="left">结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">*</td>
+<td align="left">匹配任意节点</td>
+<td align="left">/bookstore/*</td>
+<td align="left">选取bookstore下的所有子元素。</td>
+</tr>
+<tr>
+<td align="left">@*</td>
+<td align="left">匹配节点中的任何属性</td>
+<td align="left">//book[@*]</td>
+<td align="left">选取所有带有属性的book元素。</td>
+</tr>
+</tbody></table>
+<h3 id="选取多个路径："><a href="#选取多个路径：" class="headerlink" title="选取多个路径："></a>选取多个路径：</h3><p>通过在路径表达式中使用“|”运算符，可以选取若干个路径。<br>示例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;bookstore&#x2F;book | &#x2F;&#x2F;book&#x2F;title</span><br><span class="line"># 选取所有book元素以及book元素下所有的title元素</span><br></pre></td></tr></table></figure>
+
+<h3 id="运算符："><a href="#运算符：" class="headerlink" title="运算符："></a>运算符：</h3><table>
+<thead>
+<tr>
+<th align="left">运算符</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+<th align="left">返回值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">|</td>
+<td align="left">计算两个节点集</td>
+<td align="left">//book | //cd</td>
+<td align="left">返回所有拥有 book 和 cd 元素的节点集</td>
+</tr>
+<tr>
+<td align="left">+</td>
+<td align="left">加法</td>
+<td align="left">6 + 4</td>
+<td align="left">10</td>
+</tr>
+<tr>
+<td align="left">-</td>
+<td align="left">减法</td>
+<td align="left">6 - 4</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">*</td>
+<td align="left">乘法</td>
+<td align="left">6 * 4</td>
+<td align="left">24</td>
+</tr>
+<tr>
+<td align="left">div</td>
+<td align="left">除法</td>
+<td align="left">8 div 4</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">=</td>
+<td align="left">等于</td>
+<td align="left">price=9.80</td>
+<td align="left">如果 price 是 9.80，则返回 true。如果 price 是 9.90，则返回 false。</td>
+</tr>
+<tr>
+<td align="left">!=</td>
+<td align="left">不等于</td>
+<td align="left">price!=9.80</td>
+<td align="left">如果 price 是 9.90，则返回 true。如果 price 是 9.80，则返回 false。</td>
+</tr>
+<tr>
+<td align="left">&lt;</td>
+<td align="left">小于</td>
+<td align="left">price&lt;9.80</td>
+<td align="left">如果 price 是 9.00，则返回 true。如果 price 是 9.90，则返回 false。</td>
+</tr>
+<tr>
+<td align="left">&lt;=</td>
+<td align="left">小于或等于</td>
+<td align="left">price&lt;=9.80</td>
+<td align="left">如果 price 是 9.00，则返回 true。如果 price 是 9.90，则返回 false。</td>
+</tr>
+<tr>
+<td align="left">&gt;</td>
+<td align="left">大于</td>
+<td align="left">price&gt;9.80</td>
+<td align="left">如果 price 是 9.90，则返回 true。如果 price 是 9.80，则返回 false。</td>
+</tr>
+<tr>
+<td align="left">&gt;=</td>
+<td align="left">大于或等于</td>
+<td align="left">price&gt;=9.80</td>
+<td align="left">如果 price 是 9.90，则返回 true。如果 price 是 9.70，则返回 false。</td>
+</tr>
+<tr>
+<td align="left">or</td>
+<td align="left">或</td>
+<td align="left">price=9.80 or price=9.70</td>
+<td align="left">如果 price 是 9.80，则返回 true。如果 price 是 9.50，则返回 false。</td>
+</tr>
+<tr>
+<td align="left">and</td>
+<td align="left">与</td>
+<td align="left">price&gt;9.00 and price&lt;9.90</td>
+<td align="left">如果 price 是 9.80，则返回 true。如果 price 是 8.50，则返回 false。</td>
+</tr>
+<tr>
+<td align="left">mod</td>
+<td align="left">计算除法的余数</td>
+<td align="left">5 mod 2</td>
+<td align="left">1</td>
+</tr>
+</tbody></table>
+<h2 id="lxml库"><a href="#lxml库" class="headerlink" title="lxml库"></a>lxml库</h2><p>lxml 是 一个HTML/XML的解析器，主要的功能是如何解析和提取 HTML/XML 数据。</p>
+<p>lxml和正则一样，也是用 C 实现的，是一款高性能的 Python HTML/XML 解析器，我们可以利用之前学习的XPath语法，来快速的定位特定元素以及节点信息。</p>
+<p>lxml python 官方文档：<a href="http://lxml.de/index.html" target="_blank" rel="noopener">http://lxml.de/index.html</a></p>
+<p>需要安装C语言库，可使用 pip 安装：pip install lxml</p>
+<h3 id="基本使用："><a href="#基本使用：" class="headerlink" title="基本使用："></a>基本使用：</h3><p>我们可以利用他来解析HTML代码，并且在解析HTML代码的时候，如果HTML代码不规范，他会自动的进行补全。示例代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 lxml 的 etree 库</span></span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree </span><br><span class="line"></span><br><span class="line">text = <span class="string">'''</span></span><br><span class="line"><span class="string">&lt;div&gt;</span></span><br><span class="line"><span class="string">    &lt;ul&gt;</span></span><br><span class="line"><span class="string">         &lt;li class="item-0"&gt;&lt;a href="link1.html"&gt;first item&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="string">         &lt;li class="item-1"&gt;&lt;a href="link2.html"&gt;second item&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="string">         &lt;li class="item-inactive"&gt;&lt;a href="link3.html"&gt;third item&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="string">         &lt;li class="item-1"&gt;&lt;a href="link4.html"&gt;fourth item&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="string">         &lt;li class="item-0"&gt;&lt;a href="link5.html"&gt;fifth item&lt;/a&gt; # 注意，此处缺少一个 &lt;/li&gt; 闭合标签</span></span><br><span class="line"><span class="string">     &lt;/ul&gt;</span></span><br><span class="line"><span class="string"> &lt;/div&gt;</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#利用etree.HTML，将字符串解析为HTML文档</span></span><br><span class="line">html = etree.HTML(text) </span><br><span class="line"></span><br><span class="line"><span class="comment"># 按字符串序列化HTML文档</span></span><br><span class="line">result = etree.tostring(html) </span><br><span class="line"></span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+
+<p>输入结果如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item-0"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"link1.html"</span>&gt;</span>first item<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item-1"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"link2.html"</span>&gt;</span>second item<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item-inactive"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"link3.html"</span>&gt;</span>third item<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item-1"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"link4.html"</span>&gt;</span>fourth item<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item-0"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"link5.html"</span>&gt;</span>fifth item<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到。lxml会自动修改HTML代码。例子中不仅补全了li标签，还添加了body，html标签。</p>
+<h3 id="从文件中读取html代码："><a href="#从文件中读取html代码：" class="headerlink" title="从文件中读取html代码："></a>从文件中读取html代码：</h3><p>除了直接使用字符串进行解析，lxml还支持从文件中读取内容。我们新建一个hello.html文件：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- hello.html --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item-0"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"link1.html"</span>&gt;</span>first item<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item-1"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"link2.html"</span>&gt;</span>second item<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item-inactive"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"link3.html"</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"bold"</span>&gt;</span>third item<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item-1"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"link4.html"</span>&gt;</span>fourth item<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item-0"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"link5.html"</span>&gt;</span>fifth item<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后利用<code>etree.parse()</code>方法来读取文件。示例代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取外部文件 hello.html</span></span><br><span class="line">html = etree.parse(<span class="string">'hello.html'</span>)</span><br><span class="line">result = etree.tostring(html, pretty_print=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+
+<p>输入结果和之前是相同的。</p>
+<h3 id="在lxml中使用XPath语法："><a href="#在lxml中使用XPath语法：" class="headerlink" title="在lxml中使用XPath语法："></a>在lxml中使用XPath语法：</h3><ol>
+<li><p>获取所有li标签：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">   </span><br><span class="line">html = etree.parse(<span class="string">'hello.html'</span>)</span><br><span class="line"><span class="keyword">print</span> type(html)  <span class="comment"># 显示etree.parse() 返回类型</span></span><br><span class="line">   </span><br><span class="line">result = html.xpath(<span class="string">'//li'</span>)</span><br><span class="line">   </span><br><span class="line">print(result)  <span class="comment"># 打印&lt;li&gt;标签的元素集合</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取所有li元素下的所有class属性的值：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">   </span><br><span class="line">html = etree.parse(<span class="string">'hello.html'</span>)</span><br><span class="line">result = html.xpath(<span class="string">'//li/@class'</span>)</span><br><span class="line">   </span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取li标签下href为<code>www.baidu.com</code>的a标签：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">   </span><br><span class="line">html = etree.parse(<span class="string">'hello.html'</span>)</span><br><span class="line">result = html.xpath(<span class="string">'//li/a[@href="www.baidu.com"]'</span>)</span><br><span class="line">   </span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取li标签下所有span标签：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">   </span><br><span class="line">html = etree.parse(<span class="string">'hello.html'</span>)</span><br><span class="line">   </span><br><span class="line"><span class="comment">#result = html.xpath('//li/span')</span></span><br><span class="line"><span class="comment">#注意这么写是不对的：</span></span><br><span class="line"><span class="comment">#因为 / 是用来获取子元素的，而 &lt;span&gt; 并不是 &lt;li&gt; 的子元素，所以，要用双斜杠</span></span><br><span class="line">   </span><br><span class="line">result = html.xpath(<span class="string">'//li//span'</span>)</span><br><span class="line">   </span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取li标签下的a标签里的所有class：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">   </span><br><span class="line">html = etree.parse(<span class="string">'hello.html'</span>)</span><br><span class="line">result = html.xpath(<span class="string">'//li/a//@class'</span>)</span><br><span class="line">   </span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取最后一个li的a的href属性对应的值：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">   </span><br><span class="line">html = etree.parse(<span class="string">'hello.html'</span>)</span><br><span class="line">   </span><br><span class="line">result = html.xpath(<span class="string">'//li[last()]/a/@href'</span>)</span><br><span class="line"><span class="comment"># 谓语 [last()] 可以找到最后一个元素</span></span><br><span class="line">   </span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取倒数第二个li元素的内容：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">   </span><br><span class="line">html = etree.parse(<span class="string">'hello.html'</span>)</span><br><span class="line">result = html.xpath(<span class="string">'//li[last()-1]/a'</span>)</span><br><span class="line">   </span><br><span class="line"><span class="comment"># text 方法可以获取元素内容</span></span><br><span class="line">print(result[<span class="number">0</span>].text)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取倒数第二个li元素的内容的第二种方式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">   </span><br><span class="line">html = etree.parse(<span class="string">'hello.html'</span>)</span><br><span class="line">result = html.xpath(<span class="string">'//li[last()-1]/a/text()'</span>)</span><br><span class="line">   </span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="使用requests和xpath爬取电影天堂"><a href="#使用requests和xpath爬取电影天堂" class="headerlink" title="使用requests和xpath爬取电影天堂"></a>使用requests和xpath爬取电影天堂</h2><p>示例代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"></span><br><span class="line">BASE_DOMAIN = <span class="string">'http://www.dytt8.net'</span></span><br><span class="line">HEADERS = &#123;</span><br><span class="line">    <span class="string">'User-Agent'</span>: <span class="string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'</span>,</span><br><span class="line">    <span class="string">'Referer'</span>: <span class="string">'http://www.dytt8.net/html/gndy/dyzz/list_23_2.html'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">spider</span><span class="params">()</span>:</span></span><br><span class="line">    url = <span class="string">'http://www.dytt8.net/html/gndy/dyzz/list_23_1.html'</span></span><br><span class="line">    resp = requests.get(url,headers=HEADERS)</span><br><span class="line">    <span class="comment"># resp.content：经过编码后的字符串</span></span><br><span class="line">    <span class="comment"># resp.text：没有经过编码，也就是unicode字符串</span></span><br><span class="line">    <span class="comment"># text：相当于是网页中的源代码了</span></span><br><span class="line">    text = resp.content.decode(<span class="string">'gbk'</span>)</span><br><span class="line">    <span class="comment"># tree：经过lxml解析后的一个对象，以后使用这个对象的xpath方法，就可以</span></span><br><span class="line">    <span class="comment"># 提取一些想要的数据了</span></span><br><span class="line">    tree = etree.HTML(text)</span><br><span class="line">    <span class="comment"># xpath/beautifulsou4</span></span><br><span class="line">    all_a = tree.xpath(<span class="string">"//div[@class='co_content8']//a"</span>)</span><br><span class="line">    <span class="keyword">for</span> a <span class="keyword">in</span> all_a:</span><br><span class="line">        title = a.xpath(<span class="string">"text()"</span>)[<span class="number">0</span>]</span><br><span class="line">        href = a.xpath(<span class="string">"@href"</span>)[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">if</span> href.startswith(<span class="string">'/'</span>):</span><br><span class="line">            detail_url = BASE_DOMAIN + href</span><br><span class="line">            crawl_detail(detail_url)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">crawl_detail</span><span class="params">(url)</span>:</span></span><br><span class="line">    resp = requests.get(url,headers=HEADERS)</span><br><span class="line">    text = resp.content.decode(<span class="string">'gbk'</span>)</span><br><span class="line">    tree = etree.HTML(text)</span><br><span class="line">    create_time = tree.xpath(<span class="string">"//div[@class='co_content8']/ul/text()"</span>)[<span class="number">0</span>].strip()</span><br><span class="line">    imgs = tree.xpath(<span class="string">"//div[@id='Zoom']//img/@src"</span>)</span><br><span class="line">    <span class="comment"># 电影海报</span></span><br><span class="line">    cover = imgs[<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># 电影截图</span></span><br><span class="line">    screenshoot = imgs[<span class="number">1</span>]</span><br><span class="line">    <span class="comment"># 获取span标签下所有的文本</span></span><br><span class="line">    infos = tree.xpath(<span class="string">"//div[@id='Zoom']//text()"</span>)</span><br><span class="line">    <span class="keyword">for</span> index,info <span class="keyword">in</span> enumerate(infos):</span><br><span class="line">        <span class="keyword">if</span> info.startswith(<span class="string">"◎年　　代"</span>):</span><br><span class="line">            year = info.replace(<span class="string">"◎年　　代"</span>,<span class="string">""</span>).strip()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> info.startswith(<span class="string">"◎豆瓣评分"</span>):</span><br><span class="line">            douban_rating = info.replace(<span class="string">"◎豆瓣评分"</span>,<span class="string">''</span>).strip()</span><br><span class="line">            print(douban_rating)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> info.startswith(<span class="string">"◎主　　演"</span>):</span><br><span class="line">            <span class="comment"># 从当前位置，一直往下面遍历</span></span><br><span class="line">            actors = [info]</span><br><span class="line">            <span class="keyword">for</span> x <span class="keyword">in</span> range(index+<span class="number">1</span>,len(infos)):</span><br><span class="line">                actor = infos[x]</span><br><span class="line">                <span class="keyword">if</span> actor.startswith(<span class="string">"◎"</span>):</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                actors.append(actor.strip())</span><br><span class="line">            print(<span class="string">","</span>.join(actors))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    spider()</span><br></pre></td></tr></table></figure>
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="https://liangdingguan.github.io">liangdingguan</a>
+            <p>原文链接：<a href="https://liangdingguan.github.io/2020/03/31/xpath%E7%AD%89/">https://liangdingguan.github.io/2020/03/31/xpath%E7%AD%89/</a>
+            <p>发表日期：<a href="https://liangdingguan.github.io/2020/03/31/xpath%E7%AD%89/">三月 31日 2020, 3:32:46 下午</a>
+            <p>更新日期：<a href="https://liangdingguan.github.io/2020/03/31/xpath%E7%AD%89/">March 31st 2020, 7:33:33 pm</a>
+            <p>版权声明：本文采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2020/03/31/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%98%E5%82%A8%E5%8D%95%E4%BD%8D/" title= "计算机存储单位">
+                    <div class="nextTitle">计算机存储单位</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2020/03/31/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title= "正则表达式">
+                    <div class="prevTitle">正则表达式</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- gitalk评论 -->
+
+    <!-- utteranc评论 -->
+
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:2280426623@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/liangdingguan" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer qq" title=qq>
+                  
+                  <img class="profile-qr" src="/assets/qq.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">1.</span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是XPath？"><span class="toc-number">1.1.</span> <span class="toc-text">什么是XPath？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XPath开发工具"><span class="toc-number">1.2.</span> <span class="toc-text">XPath开发工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XPath语法"><span class="toc-number">1.3.</span> <span class="toc-text">XPath语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#选取节点："><span class="toc-number">1.3.1.</span> <span class="toc-text">选取节点：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#谓语："><span class="toc-number">1.3.2.</span> <span class="toc-text">谓语：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通配符"><span class="toc-number">1.3.3.</span> <span class="toc-text">通配符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#选取多个路径："><span class="toc-number">1.3.4.</span> <span class="toc-text">选取多个路径：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运算符："><span class="toc-number">1.3.5.</span> <span class="toc-text">运算符：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lxml库"><span class="toc-number">1.4.</span> <span class="toc-text">lxml库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本使用："><span class="toc-number">1.4.1.</span> <span class="toc-text">基本使用：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#从文件中读取html代码："><span class="toc-number">1.4.2.</span> <span class="toc-text">从文件中读取html代码：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在lxml中使用XPath语法："><span class="toc-number">1.4.3.</span> <span class="toc-text">在lxml中使用XPath语法：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用requests和xpath爬取电影天堂"><span class="toc-number">1.5.</span> <span class="toc-text">使用requests和xpath爬取电影天堂</span></a></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 3
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/31</span><a class="archive-post-title" href= "/2020/03/31/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" >正则表达式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/31</span><a class="archive-post-title" href= "/2020/03/31/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%98%E5%82%A8%E5%8D%95%E4%BD%8D/" >计算机存储单位</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/31</span><a class="archive-post-title" href= "/2020/03/31/xpath%E7%AD%89/" >xpath等</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="计算机"><span class="iconfont-archer">&#xe606;</span>计算机</span>
+    
+        <span class="sidebar-tag-name" data-tags="爬虫相关"><span class="iconfont-archer">&#xe606;</span>爬虫相关</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "liangdingguan"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
