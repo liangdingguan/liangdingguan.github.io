@@ -356,6 +356,43 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/04/05/%E4%BC%9A%E8%AF%9D%E4%BF%9D%E6%8C%81%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" >
+            
+                <span>会话保持与负载均衡</span>
+        </a>
+        <div class="abstract-content">
+            浏览前需要明白的一些概念： 
+1.连接和会话的区别 
+2.何为NAT转换 
+3.集群中的IP地址 
+简单来说，用户不需要登录就是连接，需要登录或登录后的才能进行的操作就是会话 
+“NAT转换”简单来说，就是私网或局域网中的IP地址反应为合法的公有IP，是一种IP数据包通过路由器或firewall的时候重写源IP的一种技术。说白了，就是局域网IP和公网通过”子网掩码”转换的一种方式。 
+集群中每一个服务器的IP可以简单理解为局域网中的IP同一网段(公网IP)但集群内IP不同。 
+——————正文分割线—————— 
+首先我们需要清楚一个概念“原始负载均衡”的基本原理，对于同一个连接中的数据...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/05</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "计算机网络相关">计算机网络相关</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/03/31/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%98%E5%82%A8%E5%8D%95%E4%BD%8D/" >
             
                 <span>计算机存储单位</span>
@@ -592,9 +629,20 @@ bookstore
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 3
+        Total : 4
         </div>
         <!-- search  -->
         
@@ -607,6 +655,11 @@ bookstore
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/05</span><a class="archive-post-title" href= "/2020/04/05/%E4%BC%9A%E8%AF%9D%E4%BF%9D%E6%8C%81%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" >会话保持与负载均衡</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -631,6 +684,8 @@ bookstore
         <span class="sidebar-tag-name" data-tags="爬虫相关"><span class="iconfont-archer">&#xe606;</span>爬虫相关</span>
     
         <span class="sidebar-tag-name" data-tags="计算机基础"><span class="iconfont-archer">&#xe606;</span>计算机基础</span>
+    
+        <span class="sidebar-tag-name" data-tags="计算机网络相关"><span class="iconfont-archer">&#xe606;</span>计算机网络相关</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
