@@ -23,7 +23,7 @@
     <meta name="description" content="star from here">
 <meta property="og:type" content="website">
 <meta property="og:title" content="liangdingguan">
-<meta property="og:url" content="https://liangdingguan.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3/index.html">
+<meta property="og:url" content="https://liangdingguan.github.io/tags/%E7%88%AC%E8%99%AB/index.html">
 <meta property="og:site_name" content="liangdingguan">
 <meta property="og:description" content="star from here">
 <meta property="og:locale" content="zh_CN">
@@ -356,64 +356,31 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2020/04/07/%E5%BC%82%E6%AD%A5%E3%80%81%E5%90%8C%E6%AD%A5%EF%BC%8C%E5%B9%B6%E5%8F%91%E3%80%81%E5%B9%B6%E8%A1%8C%EF%BC%8C%E9%98%BB%E5%A1%9E%E9%9D%9E%E9%98%BB%E5%A1%9E/" >
+        <a class="abstract-title" href = "/2020/04/08/beautiful-%E9%87%8D%E7%82%B9%E7%AE%80%E8%BF%B0/" >
             
-                <span>异步、同步，并发、并行，阻塞非阻塞</span>
+                <span>beautiful 重点简述</span>
         </a>
         <div class="abstract-content">
-            1.同步和异步关注的是”消息通信机制” 
-2.阻塞和非阻塞关注的是程序在等待调用结果时的状态 
-同步：简单来说就是一个发出一个”调用”时，没有得到结果之前，该”调用”就不返回。但是一旦调用返回，就得到返回值了。是“调用者”主动等待这个”调用”结果。(另外一个任务在等待调用结果的时候就会阻塞，返回结果之前这个”调用”不会阻塞当前线程叫”非阻塞”) 
-异步: 则跟同步相反，”调用”发起后,这个”调用”就直接返回了，所以没有返回结果。实际上仅仅是这个”调用”以某种形式返回了，结果可能还正在处理。(回调函数处理) 
-并发：当多个线程在操作时，如果系统只有一个CPU，它会合理分配给多个线程去执行任...
+            对象种类 
+beautiful soup中 将复杂的HTMl文档转换成一个复杂的树形结构，每个节点都是python对象，所有对象可以归纳为4中：tag ，navigablestring，beautifulsoup，comment  
+Tag对象与 xml 或tml原生文档中的tag相同 
+得到 一个tag对象 soup=BeautifulSoup(html) 
+Tag对象常用的属性 ： 
+tag.name 获取tag的名称 
+tag[属性] 获取属性对应的值 或 .attrs 结果是以“ 属性：属性值 ” 的形式呈现 
+注：tag对属性的操作跟字典几乎无差别 
+属性有多个值 例如 &lt...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/07</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/08</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "计算机网络相关">计算机网络相关</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/04/05/%E4%BC%9A%E8%AF%9D%E4%BF%9D%E6%8C%81%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" >
-            
-                <span>会话保持与负载均衡</span>
-        </a>
-        <div class="abstract-content">
-            浏览前需要明白的一些概念： 
-1.连接和会话的区别 
-2.何为NAT转换 
-3.集群中的IP地址 
-简单来说，用户不需要登录就是连接，需要登录或登录后的才能进行的操作就是会话 
-“NAT转换”简单来说，就是私网或局域网中的IP地址反应为合法的公有IP，是一种IP数据包通过路由器或firewall的时候重写源IP的一种技术。说白了，就是局域网IP和公网通过”子网掩码”转换的一种方式。 
-集群中每一个服务器的IP可以简单理解为局域网中的IP同一网段(公网IP)但集群内IP不同。 
-——————正文分割线—————— 
-首先我们需要清楚一个概念“原始负载均衡”的基本原理，对于同一个连接中的数据...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/05</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "计算机网络相关">计算机网络相关</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "爬虫">爬虫</a>
     
 </div>
             
