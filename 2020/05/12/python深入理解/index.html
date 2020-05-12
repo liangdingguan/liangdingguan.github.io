@@ -28,7 +28,7 @@
 <meta property="og:description" content="关于多态 java中 父类的类型决定了子类的类型  当调用函数需要传入一个参数 这个参数的类型是声明好的 传入的时候应当是这个类型的参数或者它的子类，这就是多态   python中则 无需关心类型 传入什么类型的参数就是什么类型 指向的是当前传入的对象   继承的一些注意点： 1.类名调用实例方法需要传入self和其他参数   2.父类类名调用init方法与1 一样  3.多继承 super()调">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-12T03:38:48.000Z">
-<meta property="article:modified_time" content="2020-05-12T03:39:41.586Z">
+<meta property="article:modified_time" content="2020-05-12T04:03:51.230Z">
 <meta property="article:author" content="liangdingguan">
 <meta property="article:tag" content="Python相关">
 <meta name="twitter:card" content="summary">
@@ -472,111 +472,27 @@ height:50vh;
 <p><strong>property属性</strong></p>
 <p>被@property装饰的函数可以在调用当作一个属性来调用 </p>
 <p>新式类具有三种@property装饰器  </p>
-<p>class Goods: </p>
-<p>​    “””python3中默认继承object类 </p>
-<p>​        以python2、3执行此程序的结果不同，因为只有在python3中才有@xxx.setter  @xxx.deleter</p>
-<p>​    “””</p>
-<p>​    @property</p>
-<p>​    def price(self): </p>
-<p>​        print(‘@property’)</p>
-<p>​        return ‘1000’ </p>
-<p>​    @price.setter</p>
-<p>​    def price(self, value): </p>
-<p>​        print(‘@price.setter’)</p>
-<p>​    @price.deleter</p>
-<p>​    def price(self): </p>
-<p>​        print(‘@price.deleter’)</p>
-<p>obj = Goods()</p>
-<p>print(obj.price)  # 自动执行 @property 修饰的 price 方法，并获取方法的返回值 </p>
-<p>obj.price = 123  # 自动执行 @price.setter 修饰的 price 方法，并将  123 赋值给方法的参数 </p>
-<p>del obj.price  # 自动执行 @price.deleter 修饰的 price 方法 </p>
-<p>值为property的类属性 </p>
-<p>#coding=utf-8</p>
-<p>class Foo(object): </p>
-<p>​    def get_bar(self): </p>
-<p>​        print(“getter…”)</p>
-<p>​        return ‘laowang’ </p>
-<p>​    def set_bar(self, value): </p>
-<p>​        “””必须两个参数””” </p>
-<p>​        print(“setter…”)</p>
-<p>​        return ‘set value’ + value </p>
-<p>​    def del_bar(self): </p>
-<p>​        print(“deleter…”)</p>
-<p>​        return ‘laowang’ </p>
-<p>​    BAR = property(get_bar, set_bar, del_bar, “description…”) </p>
-<p>obj = Foo()</p>
-<p>obj.BAR  # 自动调用第一个参数中定义的方法：get_bar </p>
-<p>obj.BAR = “alex”  # 自动调用第二个参数中定义的方法：set_bar方法，并将“alex”当作参数传入 </p>
-<p>desc = Foo.BAR.<strong>doc</strong>  # 自动获取第四个参数中设置的值：description… </p>
-<p>print(desc)</p>
-<p>del obj.BAR  # 自动调用第三个参数中定义的方法：del_bar方法 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Goods</span>:</span> </span><br><span class="line"></span><br><span class="line">​    <span class="string">"""python3中默认继承object类 </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">​        以python2、3执行此程序的结果不同，因为只有在python3中才有@xxx.setter  @xxx.deleter</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">​    """</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​    @property</span><br><span class="line"></span><br><span class="line">​    <span class="function"><span class="keyword">def</span> <span class="title">price</span><span class="params">(self)</span>:</span> </span><br><span class="line"></span><br><span class="line">​        print(<span class="string">'@property'</span>)</span><br><span class="line"></span><br><span class="line">​        <span class="keyword">return</span> <span class="string">'1000'</span> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​    @price.setter</span><br><span class="line"></span><br><span class="line">​    <span class="function"><span class="keyword">def</span> <span class="title">price</span><span class="params">(self, value)</span>:</span> </span><br><span class="line"></span><br><span class="line">​        print(<span class="string">'@price.setter'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​    @price.deleter</span><br><span class="line"></span><br><span class="line">​    <span class="function"><span class="keyword">def</span> <span class="title">price</span><span class="params">(self)</span>:</span> </span><br><span class="line"></span><br><span class="line">​        print(<span class="string">'@price.deleter'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">obj = Goods()</span><br><span class="line"></span><br><span class="line">print(obj.price)  <span class="comment"># 自动执行 @property 修饰的 price 方法，并获取方法的返回值 </span></span><br><span class="line"></span><br><span class="line">obj.price = <span class="number">123</span>  <span class="comment"># 自动执行 @price.setter 修饰的 price 方法，并将  123 赋值给方法的参数 </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">del</span> obj.price  <span class="comment"># 自动执行 @price.deleter 修饰的 price 方法 </span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">值为property的类属性 </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">\<span class="comment">#coding=utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span><span class="params">(object)</span>:</span> </span><br><span class="line"></span><br><span class="line">​    <span class="function"><span class="keyword">def</span> <span class="title">get_bar</span><span class="params">(self)</span>:</span> </span><br><span class="line"></span><br><span class="line">​        print(<span class="string">"getter..."</span>)</span><br><span class="line"></span><br><span class="line">​        <span class="keyword">return</span> <span class="string">'laowang'</span> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​    <span class="function"><span class="keyword">def</span> <span class="title">set_bar</span><span class="params">(self, value)</span>:</span> </span><br><span class="line"></span><br><span class="line">​        <span class="string">"""必须两个参数"""</span> </span><br><span class="line"></span><br><span class="line">​        print(<span class="string">"setter..."</span>)</span><br><span class="line"></span><br><span class="line">​        <span class="keyword">return</span> <span class="string">'set value'</span> + value </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​    <span class="function"><span class="keyword">def</span> <span class="title">del_bar</span><span class="params">(self)</span>:</span> </span><br><span class="line"></span><br><span class="line">​        print(<span class="string">"deleter..."</span>)</span><br><span class="line"></span><br><span class="line">​        <span class="keyword">return</span> <span class="string">'laowang'</span> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​    BAR = property(get_bar, set_bar, del_bar, <span class="string">"description..."</span>) </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">obj = Foo()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">obj.BAR  <span class="comment"># 自动调用第一个参数中定义的方法：get_bar </span></span><br><span class="line"></span><br><span class="line">obj.BAR = <span class="string">"alex"</span>  <span class="comment"># 自动调用第二个参数中定义的方法：set_bar方法，并将“alex”当作参数传入 </span></span><br><span class="line"></span><br><span class="line">desc = Foo.BAR.__doc__  <span class="comment"># 自动获取第四个参数中设置的值：description... </span></span><br><span class="line"></span><br><span class="line">print(desc)</span><br><span class="line"></span><br><span class="line"><span class="keyword">del</span> obj.BAR  <span class="comment"># 自动调用第三个参数中定义的方法：del_bar方法</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
 <p><strong>Django框架中应用property属性</strong></p>
-<p>class WSGIRequest(http.HttpRequest): </p>
-<p>​    def <strong>init</strong>(self, environ): </p>
-<p>​        script_name = get_script_name(environ)</p>
-<p>​        path_info = get_path_info(environ)</p>
-<p>​        if not path_info: </p>
-<p>​            # Sometimes PATH_INFO exists, but is empty (e.g. accessing </p>
-<p>​            # the SCRIPT_NAME URL without a trailing slash). We really need to </p>
-<p>​            # operate as if they’d requested ‘/‘. Not amazingly nice to force </p>
-<p>​            # the path like this, but should be harmless. </p>
-<p>​            path_info = ‘/‘ </p>
-<p>​        self.environ = environ</p>
-<p>​        self.path_info = path_info</p>
-<p>​        self.path = ‘%s/%s’ % (script_name.rstrip(‘/‘), path_info.lstrip(‘/‘)) </p>
-<p>​        self.META = environ</p>
-<p>​        self.META[‘PATH_INFO’] = path_info</p>
-<p>​        self.META[‘SCRIPT_NAME’] = script_name</p>
-<p>​        self.method = environ[‘REQUEST_METHOD’].upper()</p>
-<p>​        _, content_params = cgi.parse_header(environ.get(‘CONTENT_TYPE’, ‘’)) </p>
-<p>​        if ‘charset’ in content_params: </p>
-<p>​            try: </p>
-<p>​                codecs.lookup(content_params[‘charset’])</p>
-<p>​            except LookupError: </p>
-<p>​                pass </p>
-<p>​            else: </p>
-<p>​                self.encoding = content_params[‘charset’]</p>
-<p>​        self._post_parse_error = False </p>
-<p>​        try: </p>
-<p>​            content_length = int(environ.get(‘CONTENT_LENGTH’))</p>
-<p>​        except (ValueError, TypeError): </p>
-<p>​            content_length = 0 </p>
-<p>​        self._stream = LimitedStream(self.environ[‘wsgi.input’], content_length)</p>
-<p>​        self._read_started = False </p>
-<p>​        self.resolver_match = None </p>
-<p>​    def _get_scheme(self): </p>
-<p>​        return self.environ.get(‘wsgi.url_scheme’) </p>
-<p>​    def _get_request(self): </p>
-<p>​        warnings.warn(‘<code>request.REQUEST</code> is deprecated, use <code>request.GET</code> or ‘</p>
-<p>​                      ‘<code>request.POST</code> instead.’, RemovedInDjango19Warning, 2) </p>
-<p>​        if not hasattr(self, ‘_request’): </p>
-<p>​            self._request = datastructures.MergeDict(self.POST, self.GET)</p>
-<p>​        return self._request </p>
-<p>​    @cached_property</p>
-<p>​    def GET(self): </p>
-<p>​        # The WSGI spec says ‘QUERY_STRING’ may be absent. </p>
-<p>​        raw_query_string = get_bytes_from_wsgi(self.environ, ‘QUERY_STRING’, ‘’) </p>
-<p>​        return http.QueryDict(raw_query_string, encoding=self._encoding) </p>
-<p>​    # ############### 看这里看这里  ############### </p>
-<p>​    def _get_post(self): </p>
-<p>​        if not hasattr(self, ‘_post’): </p>
-<p>​            self._load_post_and_files()</p>
-<p>​        return self._post </p>
-<p>​    # ############### 看这里看这里  ############### </p>
-<p>​    def _set_post(self, post): </p>
-<p>​        self._post = post</p>
-<p>​    @cached_property</p>
-<p>​    def COOKIES(self): </p>
-<p>​        raw_cookie = get_str_from_wsgi(self.environ, ‘HTTP_COOKIE’, ‘’) </p>
-<p>​        return http.parse_cookie(raw_cookie) </p>
-<p>​    def _get_files(self): </p>
-<p>​        if not hasattr(self, ‘_files’): </p>
-<p>​            self._load_post_and_files()</p>
-<p>​        return self._files </p>
-<p>​    # ############### 看这里看这里  ############### </p>
-<p>​    POST = property(_get_post, _set_post)</p>
-<p>​    FILES = property(_get_files)</p>
-<p>​    REQUEST = property(_get_request)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WSGIRequest</span><span class="params">(http.HttpRequest)</span>:</span> </span><br><span class="line"></span><br><span class="line">​    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, environ)</span>:</span> </span><br><span class="line"></span><br><span class="line">​        script_name = get_script_name(environ)</span><br><span class="line"></span><br><span class="line">​        path_info = get_path_info(environ)</span><br><span class="line"></span><br><span class="line">​        <span class="keyword">if</span> <span class="keyword">not</span> path_info: </span><br><span class="line"></span><br><span class="line">​            \<span class="comment"># Sometimes PATH_INFO exists, but is empty (e.g. accessing </span></span><br><span class="line"></span><br><span class="line">​            \<span class="comment"># the SCRIPT_NAME URL without a trailing slash). We really need to </span></span><br><span class="line"></span><br><span class="line">​            \<span class="comment"># operate as if they'd requested '/'. Not amazingly nice to force </span></span><br><span class="line"></span><br><span class="line">​            \<span class="comment"># the path like this, but should be harmless. </span></span><br><span class="line"></span><br><span class="line">​            path_info = <span class="string">'/'</span> </span><br><span class="line"></span><br><span class="line">​        self.environ = environ</span><br><span class="line"></span><br><span class="line">​        self.path_info = path_info</span><br><span class="line"></span><br><span class="line">​        self.path = <span class="string">'%s/%s'</span> % (script_name.rstrip(<span class="string">'/'</span>), path_info.lstrip(<span class="string">'/'</span>)) </span><br><span class="line"></span><br><span class="line">​        self.META = environ</span><br><span class="line"></span><br><span class="line">​        self.META[<span class="string">'PATH_INFO'</span>] = path_info</span><br><span class="line"></span><br><span class="line">​        self.META[<span class="string">'SCRIPT_NAME'</span>] = script_name</span><br><span class="line"></span><br><span class="line">​        self.method = environ[<span class="string">'REQUEST_METHOD'</span>].upper()</span><br><span class="line"></span><br><span class="line">​        _, content_params = cgi.parse_header(environ.get(<span class="string">'CONTENT_TYPE'</span>, <span class="string">''</span>)) </span><br><span class="line"></span><br><span class="line">​        <span class="keyword">if</span> <span class="string">'charset'</span> <span class="keyword">in</span> content_params: </span><br><span class="line"></span><br><span class="line">​            <span class="keyword">try</span>: </span><br><span class="line"></span><br><span class="line">​                codecs.lookup(content_params[<span class="string">'charset'</span>])</span><br><span class="line"></span><br><span class="line">​            <span class="keyword">except</span> LookupError: </span><br><span class="line"></span><br><span class="line">​                <span class="keyword">pass</span> </span><br><span class="line"></span><br><span class="line">​            <span class="keyword">else</span>: </span><br><span class="line"></span><br><span class="line">​                self.encoding = content_params[<span class="string">'charset'</span>]</span><br><span class="line"></span><br><span class="line">​        self._post_parse_error = <span class="literal">False</span> </span><br><span class="line"></span><br><span class="line">​        <span class="keyword">try</span>: </span><br><span class="line"></span><br><span class="line">​            content_length = int(environ.get(<span class="string">'CONTENT_LENGTH'</span>))</span><br><span class="line"></span><br><span class="line">​        <span class="keyword">except</span> (ValueError, TypeError): </span><br><span class="line"></span><br><span class="line">​            content_length = <span class="number">0</span> </span><br><span class="line"></span><br><span class="line">​        self._stream = LimitedStream(self.environ[<span class="string">'wsgi.input'</span>], content_length)</span><br><span class="line"></span><br><span class="line">​        self._read_started = <span class="literal">False</span> </span><br><span class="line"></span><br><span class="line">​        self.resolver_match = <span class="literal">None</span> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​    <span class="function"><span class="keyword">def</span> <span class="title">_get_scheme</span><span class="params">(self)</span>:</span> </span><br><span class="line"></span><br><span class="line">​        <span class="keyword">return</span> self.environ.get(<span class="string">'wsgi.url_scheme'</span>) </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​    <span class="function"><span class="keyword">def</span> <span class="title">_get_request</span><span class="params">(self)</span>:</span> </span><br><span class="line"></span><br><span class="line">​        warnings.warn(<span class="string">'`request.REQUEST` is deprecated, use `request.GET` or '</span></span><br><span class="line"></span><br><span class="line">​                      <span class="string">'`request.POST` instead.'</span>, RemovedInDjango19Warning, <span class="number">2</span>) </span><br><span class="line"></span><br><span class="line">​        <span class="keyword">if</span> <span class="keyword">not</span> hasattr(self, <span class="string">'_request'</span>): </span><br><span class="line"></span><br><span class="line">​            self._request = datastructures.MergeDict(self.POST, self.GET)</span><br><span class="line"></span><br><span class="line">​        <span class="keyword">return</span> self._request </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​    @cached_property</span><br><span class="line"></span><br><span class="line">​    <span class="function"><span class="keyword">def</span> <span class="title">GET</span><span class="params">(self)</span>:</span> </span><br><span class="line"></span><br><span class="line">​        \<span class="comment"># The WSGI spec says 'QUERY_STRING' may be absent. </span></span><br><span class="line"></span><br><span class="line">​        raw_query_string = get_bytes_from_wsgi(self.environ, <span class="string">'QUERY_STRING'</span>, <span class="string">''</span>) </span><br><span class="line"></span><br><span class="line">​        <span class="keyword">return</span> http.QueryDict(raw_query_string, encoding=self._encoding) </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​    \<span class="comment"># ############### 看这里看这里  ############### </span></span><br><span class="line"></span><br><span class="line">​    <span class="function"><span class="keyword">def</span> <span class="title">_get_post</span><span class="params">(self)</span>:</span> </span><br><span class="line"></span><br><span class="line">​        <span class="keyword">if</span> <span class="keyword">not</span> hasattr(self, <span class="string">'_post'</span>): </span><br><span class="line"></span><br><span class="line">​            self._load_post_and_files()</span><br><span class="line"></span><br><span class="line">​        <span class="keyword">return</span> self._post </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​    \<span class="comment"># ############### 看这里看这里  ############### </span></span><br><span class="line"></span><br><span class="line">​    <span class="function"><span class="keyword">def</span> <span class="title">_set_post</span><span class="params">(self, post)</span>:</span> </span><br><span class="line"></span><br><span class="line">​        self._post = post</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​    @cached_property</span><br><span class="line"></span><br><span class="line">​    <span class="function"><span class="keyword">def</span> <span class="title">COOKIES</span><span class="params">(self)</span>:</span> </span><br><span class="line"></span><br><span class="line">​        raw_cookie = get_str_from_wsgi(self.environ, <span class="string">'HTTP_COOKIE'</span>, <span class="string">''</span>) </span><br><span class="line"></span><br><span class="line">​        <span class="keyword">return</span> http.parse_cookie(raw_cookie) </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​    <span class="function"><span class="keyword">def</span> <span class="title">_get_files</span><span class="params">(self)</span>:</span> </span><br><span class="line"></span><br><span class="line">​        <span class="keyword">if</span> <span class="keyword">not</span> hasattr(self, <span class="string">'_files'</span>): </span><br><span class="line"></span><br><span class="line">​            self._load_post_and_files()</span><br><span class="line"></span><br><span class="line">​        <span class="keyword">return</span> self._files </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​    \<span class="comment"># ############### 看这里看这里  ############### </span></span><br><span class="line"></span><br><span class="line">​    POST = property(_get_post, _set_post)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​    FILES = property(_get_files)</span><br><span class="line"></span><br><span class="line">​    REQUEST = property(_get_request)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
 <p><strong>进程、线程、协程</strong></p>
 <p>单独一个章节讲 </p>
 <p><strong>关于python垃圾回收</strong></p>
@@ -591,8 +507,8 @@ height:50vh;
         <div class="license-wrapper">
             <p>原文作者：<a href="https://liangdingguan.github.io">liangdingguan</a>
             <p>原文链接：<a href="https://liangdingguan.github.io/2020/05/12/python%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/">https://liangdingguan.github.io/2020/05/12/python%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/</a>
-            <p>发表日期：<a href="https://liangdingguan.github.io/2020/05/12/python%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/">五月 12日 2020, 11:38:48 中午</a>
-            <p>更新日期：<a href="https://liangdingguan.github.io/2020/05/12/python%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/">May 12th 2020, 11:39:41 am</a>
+            <p>发表日期：<a href="https://liangdingguan.github.io/2020/05/12/python%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/">May 12th 2020, 11:38:48 am</a>
+            <p>更新日期：<a href="https://liangdingguan.github.io/2020/05/12/python%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/">May 12th 2020, 12:03:51 pm</a>
             <p>版权声明：本文采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -833,8 +749,6 @@ top:50vh;
     
     
     
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 9
@@ -863,12 +777,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2020/04/07/%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95%E9%83%A8%E5%88%86-%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0/" >基本语法部分(持续更新)</a>
+            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2020/04/07/Python%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0-v1-0/" >Python复习总结 v1.0 </a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2020/04/07/Python%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0-v1-0/" >Python复习总结 v1.0 </a>
+            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2020/04/07/%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95%E9%83%A8%E5%88%86-%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0/" >基本语法部分(持续更新)</a>
         </li>
     
     
@@ -901,15 +815,15 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
+        <span class="sidebar-tag-name" data-tags="Python相关"><span class="iconfont-archer">&#xe606;</span>Python相关</span>
+    
         <span class="sidebar-tag-name" data-tags="爬虫"><span class="iconfont-archer">&#xe606;</span>爬虫</span>
+    
+        <span class="sidebar-tag-name" data-tags="计算机网络相关"><span class="iconfont-archer">&#xe606;</span>计算机网络相关</span>
     
         <span class="sidebar-tag-name" data-tags="英语"><span class="iconfont-archer">&#xe606;</span>英语</span>
     
-        <span class="sidebar-tag-name" data-tags="Python相关"><span class="iconfont-archer">&#xe606;</span>Python相关</span>
-    
         <span class="sidebar-tag-name" data-tags="爬虫相关"><span class="iconfont-archer">&#xe606;</span>爬虫相关</span>
-    
-        <span class="sidebar-tag-name" data-tags="计算机网络相关"><span class="iconfont-archer">&#xe606;</span>计算机网络相关</span>
     
         <span class="sidebar-tag-name" data-tags="计算机基础"><span class="iconfont-archer">&#xe606;</span>计算机基础</span>
     
