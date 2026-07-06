@@ -46,12 +46,23 @@
       ]
     },
     {
-      "title": "title: C/C++补充3:指针、引用、数组名",
+      "title": "C/C++补充3:指针、引用、数组名",
       "date": "2026-07-06",
-      "path": "posts/day3-c/",
-      "permalink": "https://liangdingguan.github.io/posts/day3-c/",
+      "path": "posts/c-cpp-basic-syntax-content23/",
+      "permalink": "https://liangdingguan.github.io/posts/c-cpp-basic-syntax-content23/",
       "categories": [],
-      "tags": []
+      "tags": [
+        {
+          "name": "C++",
+          "slug": "c",
+          "permalink": ""
+        },
+        {
+          "name": "笔记",
+          "slug": "note",
+          "permalink": ""
+        }
+      ]
     },
     {
       "title": "进程、线程、协程",
