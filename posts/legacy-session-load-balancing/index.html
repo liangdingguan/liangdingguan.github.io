@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="liangdingguan">
+  <meta name="description" content="会话保持、NAT 与负载均衡基础概念。">
+  <title>会话保持与负载均衡 | liangdingguan</title>
+  <link rel="icon" href="/assets/favicon.ico">
+  <link rel="stylesheet" href="/css/redesign.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">liangdingguan</a>
+    <nav class="nav" aria-label="主导航">
+      <a href="/">首页</a>
+      <a href="/#notes">文章</a>
+      <a href="/about/">关于</a>
+      <a href="https://github.com/liangdingguan" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </header>
+  <main class="article-page">
+    <article class="article-shell">
+      <header class="article-hero">
+        <p class="eyebrow">计算机网络相关</p>
+        <h1>会话保持与负载均衡</h1>
+        <p>2020-04-05 · 来源：2020/04/05/会话保持与负载均衡/index.html</p>
+      </header>
+      <div class="article-content">
+        <p class="article-note">这篇文章从 2020 旧页面迁移而来，旧链接仍保留：<a href="/2020/04/05/会话保持与负载均衡/">查看旧版</a></p>
+<p>浏览前需要明白的一些概念： </p>
+<p>1.连接和会话的区别 </p>
+<p>2.何为NAT转换 </p>
+<p>3.集群中的IP地址 </p>
+<p>简单来说，用户不需要登录就是连接，需要登录或登录后的才能进行的操作就是会话 </p>
+<p>“NAT转换”简单来说，就是私网或局域网中的IP地址反应为合法的公有IP，是一种IP数据包通过路由器或firewall的时候重写源IP的一种技术。说白了，就是局域网IP和公网通过”子网掩码”转换的一种方式。 </p>
+<p>集群中每一个服务器的IP可以简单理解为局域网中的IP同一网段(公网IP)但集群内IP不同。 </p>
+<p>——————正文分割线—————— </p>
+<p>首先我们需要清楚一个概念“原始负载均衡”的基本原理，对于同一个连接中的数据包，负载均衡会将其进行”NAT转换”，转发后至后端的”固定服务器” 进行处理。简单来说，负载均衡最基本最原始的作用就是1.通过子网掩码来区分同一网段下用户，2.将该用户的发来的数据包，单纯满足”均衡”发送到服务器或者集群。 </p>
+<p>第二个概念是”最大并发连接数”，在负载均衡系统中会有一张专门的表，用来记录连接状况，包括源IP 目的IP 服务器IP以及“空闲超时时间（ldle Timeout）”等。由于这张表需要消耗系统内存资源，因此这张表不可能无限大，这张表的大小一般称为“最大并发连接数”，当”空闲超时时间”过去，该连接没有任何数据流量，系统会自动删除该连接的记录，释放资源。 </p>
+<p>有了会话之后，使用原始的负载均衡就会有问题，常见的异常场景包括：</p>
+<p>\1.        客户端输入了正确的用户名和口令，但却反复跳到登录页面；</p>
+<p>\2.        用户输入了正确的验证码，但是总提示验证码错误；</p>
+<p>\3.        客户端放入购物篮的物品丢失</p>
+<p>\4.        …</p>
+<p>因此会话保持机制的意义就在于，确保相同客户端的请求能发送到与之请求相关的服务器上去。如果按照“原始负载均衡”的原理，出现同一笔交易需要点击多个链接跳转，可能会重用链接也可能会新建链接，那么此时就会出现各种异常。 </p>
+<p>会话保持事指在负载均衡器上的一种机制，会将子网掩码过后的IP认为是同一用户，并且保持到一台固定服务器上去。超过“超时时间”就会断开会话。 </p>
+<p>注意：会话保持时间和连接保持时间不一样。 </p>
+<p>关于 其他会话保持相关（cookie session token） 具体参考<a href="https://www.cnblogs.com/moyand/p/9047978.html" target="_blank" rel="noopener">https://www.cnblogs.com/moyand/p/9047978.html</a> </p>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <a href="/">回到首页</a>
+    <span>© liangdingguan</span>
+  </footer>
+</body>
+</html>
