@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="liangdingguan">
+  <meta name="description" content="面向对象相关">
+  <title>content2 | liangdingguan</title>
+  <link rel="icon" href="/assets/favicon.ico">
+  <link rel="stylesheet" href="/css/redesign.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">liangdingguan</a>
+    <nav class="nav" aria-label="主导航">
+      <a href="/">首页</a>
+      <a href="/#notes">文章</a>
+      <a href="/archives/">归档</a>
+      <a href="/about/">关于</a>
+      <a href="https://github.com/liangdingguan" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </header>
+  <main class="article-page">
+    <article class="article-shell">
+      <header class="article-hero">
+        <p class="eyebrow">C++、课程笔记</p>
+        <h1>content2</h1>
+        <p>2026-07-06 · 来源：notes/day2：面向对象与类详解.md</p>
+      </header>
+      <div class="article-content">
+<h2>进阶学习其二：面向对象与类详解</h2>
+<blockquote>author:梁鼎冠</blockquote>
+<h3>一、面向对象编程（OOP）思想简介</h3>
+<ul>
+<li><strong>程序 = 数据 + 算法</strong> → 传统过程式编程以函数为核心。</li>
+<li><strong>OOP</strong>：将数据和对数据的操作封装在一起，形成“对象”，通过对象之间的交互解决问题。</li>
+<li><strong>三大特性</strong>：封装、继承、多态。</li>
+</ul>
+<hr>
+<h3>二、类（Class）与对象（Object）</h3>
+<ul>
+<li><strong>类</strong>：用户自定义的数据类型，是对象的“蓝图”或“模板”。它描述了该类对象具有的数据成员（属性）和成员函数（方法）。</li>
+<li><strong>对象</strong>：根据类创建的具体实例，占用实际内存。</li>
+</ul>
+<h4>示例1：定义一个简单的<code>Student</code>类并创建对象</h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+// 类的定义
+class Student {
+public:   // 公共访问权限
+    // 数据成员
+    string name;
+    int age;
+    float score;
+
+    // 成员函数
+    void display() {
+        cout &lt;&lt; &quot;Name: &quot; &lt;&lt; name &lt;&lt; &quot;, Age: &quot; &lt;&lt; age &lt;&lt; &quot;, Score: &quot; &lt;&lt; score &lt;&lt; endl;
+    }
+};
+
+int main() {
+    // 创建对象
+    Student stu1;
+    stu1.name = &quot;张三&quot;;
+    stu1.age = 20;
+    stu1.score = 89.5;
+    stu1.display();
+
+    Student stu2 = {&quot;李四&quot;, 21, 93.0}; // C++11 聚合初始化
+    stu2.display();
+
+    return 0;
+}</code></pre>
+<hr>
+<h3>三、访问修饰符（Access Modifiers）</h3>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>修饰符</th>
+<th>类内部</th>
+<th>派生类</th>
+<th>类外部（对象）</th>
+</tr></thead><tbody>
+<tr>
+<td><code>public</code></td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+</tr>
+<tr>
+<td><code>protected</code></td>
+<td>✔️</td>
+<td>✔️</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><code>private</code></td>
+<td>✔️</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li><strong>封装原则</strong>：将数据成员设为 <code>private</code>，通过 <code>public</code> 成员函数间接访问，以保护数据完整性。</li>
+</ul>
+<h4>示例2：使用<code>private</code>与<code>public</code>实现封装</h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class BankAccount {
+private:
+    string owner;
+    double balance;   // 私有，外部不能直接访问
+
+public:
+    // 存款
+    void deposit(double amount) {
+        if (amount &gt; 0) {
+            balance += amount;
+            cout &lt;&lt; &quot;存款成功，当前余额: &quot; &lt;&lt; balance &lt;&lt; endl;
+        } else {
+            cout &lt;&lt; &quot;存款金额无效&quot; &lt;&lt; endl;
+        }
+    }
+
+    // 取款
+    void withdraw(double amount) {
+        if (amount &gt; 0 &amp;&amp; amount &lt;= balance) {
+            balance -= amount;
+            cout &lt;&lt; &quot;取款成功，当前余额: &quot; &lt;&lt; balance &lt;&lt; endl;
+        } else {
+            cout &lt;&lt; &quot;余额不足或金额无效&quot; &lt;&lt; endl;
+        }
+    }
+
+    // 查询余额（只读）
+    double getBalance() const {
+        return balance;
+    }
+
+    // 设置账户持有人
+    void setOwner(const string&amp; name) {
+        owner = name;
+    }
+
+    string getOwner() const {
+        return owner;
+    }
+};
+
+int main() {
+    BankAccount myAccount;
+    myAccount.setOwner(&quot;王小明&quot;);
+    // myAccount.balance = 10000;  // 错误：private成员不可访问
+    myAccount.deposit(1000);
+    myAccount.withdraw(300);
+    cout &lt;&lt; &quot;账户持有者: &quot; &lt;&lt; myAccount.getOwner() &lt;&lt; endl;
+    cout &lt;&lt; &quot;最终余额: &quot; &lt;&lt; myAccount.getBalance() &lt;&lt; endl;
+    return 0;
+}</code></pre>
+<hr>
+<h3>四、构造函数（Constructor）</h3>
+<ul>
+<li>构造函数在对象创建时自动调用，用于初始化对象。</li>
+<li>函数名与类名相同，<strong>无返回值</strong>，可以有参数（支持重载）。</li>
+<li>如果不写任何构造函数，编译器自动生成一个默认构造函数（不初始化成员）。</li>
+</ul>
+<h4>示例3：编写多种构造函数</h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Book {
+private:
+    string title;
+    string author;
+    double price;
+
+public:
+    // 无参构造函数（默认构造函数）
+    Book() {
+        title = &quot;未命名&quot;;
+        author = &quot;未知&quot;;
+        price = 0.0;
+        cout &lt;&lt; &quot;默认构造函数被调用&quot; &lt;&lt; endl;
+    }
+
+    // 带参数构造函数
+    Book(const string&amp; t, const string&amp; a, double p) {
+        title = t;
+        author = a;
+        price = p;
+        cout &lt;&lt; &quot;带参数构造函数被调用&quot; &lt;&lt; endl;
+    }
+
+    // 显示信息
+    void display() const {
+        cout &lt;&lt; &quot;《&quot; &lt;&lt; title &lt;&lt; &quot;》 作者: &quot; &lt;&lt; author &lt;&lt; &quot; 价格: &quot; &lt;&lt; price &lt;&lt; &quot;元&quot; &lt;&lt; endl;
+    }
+};
+
+int main() {
+    Book book1;                     // 调用无参构造函数
+    Book book2(&quot;C++ Primer&quot;, &quot;Stanley B. Lippman&quot;, 128.0); // 调用有参构造函数
+
+    book1.display();
+    book2.display();
+
+    return 0;
+}</code></pre>
+<hr>
+<h3>五、*初始化列表（Initializer List）</h3>
+<ul>
+<li>在构造函数体执行之前对成员进行初始化。</li>
+<li>对于 <code>const</code> 成员或引用成员，必须使用初始化列表。</li>
+<li>效率高于在函数体内赋值。</li>
+</ul>
+<h4>示例4：使用初始化列表</h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+class Point {
+private:
+    const int id;      // const成员必须初始化
+    int x, y;
+
+public:
+    // 初始化列表 : 成员(值), ...
+    Point(int _id, int _x, int _y) : id(_id), x(_x), y(_y) {
+        // 这里可以写其他初始化代码
+        cout &lt;&lt; &quot;Point对象 &quot; &lt;&lt; id &lt;&lt; &quot; 创建: (&quot; &lt;&lt; x &lt;&lt; &quot;, &quot; &lt;&lt; y &lt;&lt; &quot;)&quot; &lt;&lt; endl;
+    }
+
+    void print() const {
+        cout &lt;&lt; &quot;Point(&quot; &lt;&lt; x &lt;&lt; &quot;, &quot; &lt;&lt; y &lt;&lt; &quot;)&quot; &lt;&lt; endl;
+    }
+};
+
+int main() {
+    Point p(101, 3, 5);
+    p.print();
+    return 0;
+}</code></pre>
+<hr>
+<h3>六、析构函数（Destructor）</h3>
+<ul>
+<li>对象生命周期结束时（如离开作用域、<code>delete</code>）自动调用。</li>
+<li>函数名为 <code>~类名</code>，无参数，无返回值，不可重载。</li>
+<li>用于释放动态分配的资源（如 <code>new</code> 的内存、文件句柄等）。</li>
+</ul>
+<h4>示例5：析构函数演示</h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+using namespace std;
+
+class String {
+private:
+    char* data;
+
+public:
+    // 构造函数：分配内存并复制字符串
+    String(const char* str = &quot;&quot;) {
+        data = new char[strlen(str) + 1];
+        strcpy(data, str);
+        cout &lt;&lt; &quot;构造: &quot; &lt;&lt; data &lt;&lt; endl;
+    }
+
+    // 析构函数：释放内存
+    ~String() {
+        cout &lt;&lt; &quot;析构: &quot; &lt;&lt; data &lt;&lt; endl;
+        delete[] data;
+    }
+
+    void print() const {
+        cout &lt;&lt; data &lt;&lt; endl;
+    }
+};
+
+int main() {
+    String s1(&quot;Hello&quot;);
+    String s2(&quot;World&quot;);
+    s1.print();
+    s2.print();
+    // 当main结束时，s1和s2自动调用析构函数
+    return 0;
+}</code></pre>
+<hr>
+<h3>七、<code>this</code> 指针</h3>
+<ul>
+<li>每个非静态成员函数内部都有一个隐含的 <code>this</code> 指针，指向当前对象本身。</li>
+<li>常用于：</li>
+</ul>
+<p>1. 区分同名参数和成员变量。 2. 返回对象自身的引用（实现链式调用）。</p>
+<h4>示例6：使用<code>this</code>指针</h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+class Counter {
+private:
+    int value;
+
+public:
+    Counter(int value = 0) {
+        this-&gt;value = value;   // this-&gt;value 指成员变量
+    }
+
+    Counter&amp; increment() {    // 返回当前对象的引用
+        this-&gt;value++;
+        return *this;
+    }
+
+    void print() const {
+        cout &lt;&lt; &quot;value = &quot; &lt;&lt; this-&gt;value &lt;&lt; endl;
+    }
+};
+
+int main() {
+    Counter c(5);
+    c.increment().increment().increment(); // 链式调用
+    c.print();  // 输出 value = 8
+    return 0;
+}</code></pre>
+<hr>
+<h3>八、类的分离式开发（头文件与源文件分离）</h3>
+<ul>
+<li>通常将类声明放在 <code>.h</code> 头文件中，成员函数实现放在 <code>.cpp</code> 文件中。</li>
+<li>好处：接口与实现分离，便于团队开发与编译。</li>
+</ul>
+<h4>示例7：分离式文件结构</h4>
+<p><strong><code>Rectangle.h</code></strong></p>
+<pre><code class="language-cpp">#ifndef RECTANGLE_H
+#define RECTANGLE_H
+
+class Rectangle {
+private:
+    double width, height;
+
+public:
+    Rectangle(double w = 1.0, double h = 1.0);
+    double area() const;
+    void scale(double factor);
+};
+
+#endif</code></pre>
+<p><strong><code>Rectangle.cpp</code></strong></p>
+<pre><code class="language-cpp">#include &quot;Rectangle.h&quot;
+
+Rectangle::Rectangle(double w, double h) : width(w), height(h) {}
+
+double Rectangle::area() const {
+    return width * height;
+}
+
+void Rectangle::scale(double factor) {
+    width *= factor;
+    height *= factor;
+}</code></pre>
+<p><strong><code>main.cpp</code></strong></p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &quot;Rectangle.h&quot;
+using namespace std;
+
+int main() {
+    Rectangle rect(3, 4);
+    cout &lt;&lt; &quot;Area: &quot; &lt;&lt; rect.area() &lt;&lt; endl;
+    rect.scale(2);
+    cout &lt;&lt; &quot;After scaling, area: &quot; &lt;&lt; rect.area() &lt;&lt; endl;
+    return 0;
+}</code></pre>
+<p>编译命令（g++）：</p>
+<pre><code class="language-bash">g++ -c Rectangle.cpp -o Rectangle.o
+g++ -c main.cpp -o main.o
+g++ Rectangle.o main.o -o program</code></pre>
+<hr>
+<h3>九、静态成员（static）</h3>
+<ul>
+<li><strong>静态数据成员</strong>：属于整个类，所有对象共享一份，必须在类外单独定义和初始化。</li>
+<li><strong>静态成员函数</strong>：不依赖于具体对象，只能访问静态成员。</li>
+</ul>
+<h4>示例8：静态成员的使用</h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+class Student {
+private:
+    string name;
+    static int totalCount;   // 声明静态成员
+
+public:
+    Student(const string&amp; n) : name(n) {
+        totalCount++;
+        cout &lt;&lt; &quot;学生 &quot; &lt;&lt; name &lt;&lt; &quot; 入学，当前总人数: &quot; &lt;&lt; totalCount &lt;&lt; endl;
+    }
+
+    ~Student() {
+        totalCount--;
+        cout &lt;&lt; &quot;学生 &quot; &lt;&lt; name &lt;&lt; &quot; 离校，当前总人数: &quot; &lt;&lt; totalCount &lt;&lt; endl;
+    }
+
+    static int getTotalCount() {   // 静态成员函数
+        return totalCount;
+    }
+};
+
+// 定义并初始化静态成员
+int Student::totalCount = 0;
+
+int main() {
+    cout &lt;&lt; &quot;初始学生人数: &quot; &lt;&lt; Student::getTotalCount() &lt;&lt; endl;
+    Student s1(&quot;张三&quot;);
+    Student s2(&quot;李四&quot;);
+    {
+        Student s3(&quot;王五&quot;);
+        cout &lt;&lt; &quot;当前人数: &quot; &lt;&lt; Student::getTotalCount() &lt;&lt; endl;
+    }
+    cout &lt;&lt; &quot;最终人数: &quot; &lt;&lt; Student::getTotalCount() &lt;&lt; endl;
+    return 0;
+}</code></pre>
+<hr>
+<h3>十、常量成员函数（const）</h3>
+<ul>
+<li>在函数参数列表后加 <code>const</code>，表示该函数不会修改任何数据成员。</li>
+<li><code>const</code> 对象只能调用 <code>const</code> 成员函数。</li>
+</ul>
+<h4>示例9：const成员函数</h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+class Data {
+private:
+    int value;
+public:
+    Data(int v) : value(v) {}
+
+    // 非常量成员函数，可以修改成员
+    void setValue(int v) {
+        value = v;
+    }
+
+    // 常量成员函数，只读
+    int getValue() const {
+        // value = 10;  // 错误：const函数中不能修改成员
+        return value;
+    }
+};
+
+void printData(const Data&amp; d) {
+    // d.setValue(100);   // 错误：d是const引用，不能调用非常量成员
+    cout &lt;&lt; d.getValue() &lt;&lt; endl;  // 可以调用const成员
+}
+
+int main() {
+    Data d(42);
+    printData(d);
+    return 0;
+}</code></pre>
+<hr>
+<h3>十一、综合练习：设计一个简单的<code>Clock</code>类</h3>
+<p>要求：</p>
+<ul>
+<li>私有成员：<code>hour</code>, <code>minute</code>, <code>second</code></li>
+<li>公有成员函数：</li>
+<ul>
+<li>构造函数（带默认参数）</li>
+<li><code>setTime</code> 设置时间</li>
+<li><code>tick</code> 增加一秒（处理进位）</li>
+<li><code>display</code> 显示时间</li>
+</ul>
+<li>使用封装和合理性检查（小时0-23，分钟0-59，秒0-59）</li>
+</ul>
+<h4>示例10：<code>Clock</code> 类实现</h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+using namespace std;
+
+class Clock {
+private:
+    int hour, minute, second;
+
+    // 辅助函数：调整时间合法性
+    void normalize() {
+        if (second &gt;= 60) {
+            minute += second / 60;
+            second %= 60;
+        }
+        if (minute &gt;= 60) {
+            hour += minute / 60;
+            minute %= 60;
+        }
+        if (hour &gt;= 24) {
+            hour %= 24;
+        }
+        // 负数处理略，实际可以进一步扩展
+    }
+
+public:
+    Clock(int h = 0, int m = 0, int s = 0) {
+        setTime(h, m, s);
+    }
+
+    void setTime(int h, int m, int s) {
+        hour = h;
+        minute = m;
+        second = s;
+        normalize();
+    }
+
+    void tick() {
+        second++;
+        normalize();
+    }
+
+    void display() const {
+        cout &lt;&lt; setfill(&#x27;0&#x27;);
+        cout &lt;&lt; setw(2) &lt;&lt; hour &lt;&lt; &quot;:&quot;
+             &lt;&lt; setw(2) &lt;&lt; minute &lt;&lt; &quot;:&quot;
+             &lt;&lt; setw(2) &lt;&lt; second &lt;&lt; endl;
+    }
+};
+
+int main() {
+    Clock c(23, 59, 55);
+    for (int i = 0; i &lt; 10; i++) {
+        c.display();
+        c.tick();
+    }
+    return 0;
+}</code></pre>
+<hr>
+<h3>十二、常见错误与注意事项</h3>
+<p>1. <strong>忘记在类定义末尾加分号<code>;</code></strong> → 编译错误。 2. <strong>访问私有成员</strong> → 必须在类内定义 <code>public</code> 函数接口。 3. <strong>使用未初始化的对象</strong> → 最好提供构造函数。 4. <strong>动态内存忘记释放</strong> → 在析构函数中 <code>delete</code>。 5. <strong>浅拷贝问题</strong> → 当类成员包含指针时，需要自定义拷贝构造函数和赋值运算符（后续进阶内容）。</p>
+<hr>
+<h3>十三、课后作业</h3>
+<p>1. 定义一个 <code>Circle</code> 类，包含半径（<code>private</code>），成员函数：设置半径、计算面积、计算周长。 2. 定义一个 <code>Student</code> 类，包含姓名、学号、三门课成绩，成员函数：计算平均分、输出信息。使用构造函初始化，并编写一个简单的主程序测试。 3. 改进 <code>Clock</code> 类，增加一个 <code>setAlarm</code> 功能（思考如何设计）。</p>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <a href="/">回到首页</a>
+    <span>© liangdingguan</span>
+  </footer>
+</body>
+</html>

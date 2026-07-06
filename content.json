@@ -25,6 +25,25 @@
           "permalink": ""
         }
       ]
+    },
+    {
+      "title": "content2",
+      "date": "2026-07-06",
+      "path": "posts/c-cpp-basic-syntax-content2/",
+      "permalink": "https://liangdingguan.github.io/posts/c-cpp-basic-syntax-content2/",
+      "categories": [],
+      "tags": [
+        {
+          "name": "C++",
+          "slug": "c",
+          "permalink": ""
+        },
+        {
+          "name": "课程笔记",
+          "slug": "note",
+          "permalink": ""
+        }
+      ]
     }
   ]
 }
