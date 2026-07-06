@@ -18,19 +18,18 @@
     <a class="brand" href="/">liangdingguan</a>
     <nav class="nav" aria-label="主导航">
       <a href="#notes">文章</a>
-      <a href="/archives/">归档</a>
       <a href="/about/">关于</a>
       <a href="https://github.com/liangdingguan" target="_blank" rel="noreferrer">GitHub</a>
     </nav>
   </header>
 
   <main>
-    <section class="hero">
+    <section class="hero compact-hero">
       <div class="hero-bg" aria-hidden="true"></div>
       <div class="hero-inner">
         <p class="eyebrow">Personal Homepage</p>
-        <h1>你好，我是 DywerLeung</h1>
-        <p class="hero-copy">这里收集我的技术笔记、学习路线和一些阶段性的思考。</p>
+        <h1>liangdingguan</h1>
+        <p class="hero-copy">技术笔记、课程记录和阶段性思考。新文章从 notes/*.md 自动生成，旧文章也已迁移到统一的 posts 阅读样式。</p>
         <div class="hero-actions">
           <a class="button primary" href="#notes">查看文章</a>
           <a class="button" href="mailto:2280426623@qq.com">联系我</a>
@@ -40,104 +39,124 @@
 
     <section class="overview" aria-label="站点概览">
       <article>
-        <span class="stat">13</span>
-        <p>篇文章，Markdown 自动发布</p>
+        <span class="stat">11</span>
+        <p>篇文章统一收进 posts</p>
       </article>
       <article>
         <span class="stat">notes</span>
-        <p>新增、修改、删除都从 notes/*.md 开始</p>
+        <p>新文章继续维护 notes/*.md</p>
       </article>
       <article>
-        <span class="stat">Auto</span>
-        <p>GitHub Actions 自动生成页面</p>
+        <span class="stat">legacy</span>
+        <p>2020 旧文已迁移为统一样式</p>
       </article>
     </section>
 
     <section class="content-shell" id="notes">
       <div class="section-heading">
         <p class="eyebrow">Notes</p>
-        <h2>最近的技术笔记</h2>
+        <h2>文章</h2>
       </div>
 
-      <div class="layout">
+      <div class="home-layout">
         <div class="posts">
           <article class="post-card featured">
-            <a href="/posts/c-cpp-basic-syntax-day1/">C/C++补充1：C与C++基本语法对比与补充</a>
+            <a href="/posts/c-cpp-basic-syntax-day1/">day1：C与C++基本语法对比与补充</a>
             <p>从 C/C++ 基础关系、语法差异、函数与运算符重载，到 C++11/14/17 常用现代特性的一篇课程笔记。</p>
             <span>2026/07/06 · C++、课程笔记</span>
           </article>
-          <article class="post-card featured">
-            <a href="/posts/c-cpp-basic-syntax-content2/">C/C++补充2:面向对象与类详解</a>
-            <p>面向对象相关</p>
-            <span>2026/07/06 · C++、课程笔记</span>
-          </article>
-          <article class="post-card featured">
-            <a href="/posts/day3-c/">title: C/C++补充3:指针、引用、数组名</a>
-            <p>title: C/C++补充3:指针、引用、数组名 date: 20260706 tags: [C++, 课程笔记] summary: 内存与指针相关内容 slug: ccppbasicsyntaxcontent2 进阶...</p>
-            <span>2026/07/06 · Notes</span>
-          </article>
           <article class="post-card">
-            <a href="/2020/05/12/%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E3%80%81%E5%8D%8F%E7%A8%8B/">进程、线程、协程</a>
-            <p>整理并发相关基础概念，区分进程、线程与协程的职责边界。</p>
+            <a href="/posts/legacy-process-thread-coroutine/">进程、线程、协程</a>
+            <p>进程、线程、协程与并发执行模型的早期学习笔记。</p>
             <span>2020/05/12 · Python 相关</span>
           </article>
           <article class="post-card">
-            <a href="/2020/05/12/python%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/">Python 深入理解</a>
+            <a href="/posts/legacy-python-deep-dive/">Python 深入理解</a>
             <p>围绕 Python 面向对象、继承、初始化流程和常见语言特性做复习。</p>
             <span>2020/05/12 · Python 相关</span>
           </article>
           <article class="post-card">
-            <a href="/2020/04/08/beautiful-%E9%87%8D%E7%82%B9%E7%AE%80%E8%BF%B0/">Beautiful Soup 重点简述</a>
-            <p>记录 Beautiful Soup 的对象类型、选择方式和爬虫解析常用操作。</p>
+            <a href="/posts/legacy-beautiful-soup-notes/">Beautiful Soup 重点简述</a>
+            <p>Beautiful Soup 对象类型、选择方式和爬虫解析常用操作。</p>
             <span>2020/04/08 · 爬虫</span>
           </article>
           <article class="post-card">
-            <a href="/2020/04/07/%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95%E9%83%A8%E5%88%86-%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0/">基本语法部分（持续更新）</a>
-            <p>英语语法与基础概念笔记，适合作为长期补充的知识清单。</p>
-            <span>2020/04/07 · 英语</span>
-          </article>
-          <article class="post-card">
-            <a href="/2020/04/07/Python%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0-v1-0/">Python 基础复习笔记 v1.0</a>
+            <a href="/posts/legacy-python-basic-review/">Python 基础复习笔记 v1.0</a>
             <p>从标识符、关键字、函数、切片等角度回顾 Python 基础。</p>
             <span>2020/04/07 · Python 相关</span>
           </article>
           <article class="post-card">
-            <a href="/2020/04/07/%E5%BC%82%E6%AD%A5%E3%80%81%E5%90%8C%E6%AD%A5%EF%BC%8C%E5%B9%B6%E5%8F%91%E3%80%81%E5%B9%B6%E8%A1%8C%EF%BC%8C%E9%98%BB%E5%A1%9E%E9%9D%9E%E9%98%BB%E5%A1%9E/">异步、同步，并发、并行，阻塞非阻塞</a>
-            <p>把容易混淆的执行模型概念放在一起对比。</p>
+            <a href="/posts/legacy-basic-grammar/">基本语法部分（持续更新）</a>
+            <p>英语语法与基础概念笔记。</p>
+            <span>2020/04/07 · 英语</span>
+          </article>
+          <article class="post-card">
+            <a href="/posts/legacy-async-sync-concurrency/">异步、同步，并发、并行，阻塞非阻塞</a>
+            <p>同步、异步、并发、并行、阻塞与非阻塞概念对比。</p>
             <span>2020/04/07 · 计算机网络相关</span>
+          </article>
+          <article class="post-card">
+            <a href="/posts/legacy-session-load-balancing/">会话保持与负载均衡</a>
+            <p>会话保持、NAT 与负载均衡基础概念。</p>
+            <span>2020/04/05 · 计算机网络相关</span>
+          </article>
+          <article class="post-card">
+            <a href="/posts/legacy-storage-units/">计算机存储单位</a>
+            <p>bit、byte、KB、MB、GB 等计算机存储单位换算。</p>
+            <span>2020/03/31 · 计算机基础</span>
+          </article>
+          <article class="post-card">
+            <a href="/posts/legacy-xpath-notes/">XPath 等</a>
+            <p>XPath 基础语法与 HTML/XML 节点选择笔记。</p>
+            <span>2020/03/31 · 爬虫相关</span>
+          </article>
+          <article class="post-card">
+            <a href="/posts/legacy-regex-notes/">正则表达式</a>
+            <p>正则表达式和 Python re 模块基础笔记。</p>
+            <span>2020/03/31 · 其他</span>
           </article>
         </div>
 
-        <aside class="profile" aria-label="个人信息">
-          <img src="/avatar/Misaka.jpg" alt="liangdingguan 的头像">
-          <h2>liangdingguan</h2>
-          <p>持续学习，持续记录。现在这个页面可以从 Markdown 自动生成，适合长期维护课程笔记、技术文章和项目记录。</p>
-          <div class="profile-links">
-            <a href="mailto:2280426623@qq.com">Email</a>
-            <a href="https://github.com/liangdingguan" target="_blank" rel="noreferrer">GitHub</a>
-            <a href="/about/">About</a>
+        <aside class="archive-sidebar" aria-label="文章归档">
+          <div class="sidebar-card profile-mini">
+            <img src="/avatar/Misaka.jpg" alt="liangdingguan 的头像">
+            <div>
+              <h2>liangdingguan</h2>
+              <p>持续学习，持续记录。</p>
+            </div>
+          </div>
+          <div class="sidebar-card">
+            <p class="eyebrow">Archive</p>
+          <section>
+            <h3>2026</h3>
+            <div class="archive-list">
+              <a href="/posts/c-cpp-basic-syntax-day1/"><span>07/06</span>day1：C与C++基本语法对比与补充</a>
+            </div>
+          </section>
+          <section>
+            <h3>2020</h3>
+            <div class="archive-list">
+              <a href="/posts/legacy-process-thread-coroutine/"><span>05/12</span>进程、线程、协程</a>
+              <a href="/posts/legacy-python-deep-dive/"><span>05/12</span>Python 深入理解</a>
+              <a href="/posts/legacy-beautiful-soup-notes/"><span>04/08</span>Beautiful Soup 重点简述</a>
+              <a href="/posts/legacy-python-basic-review/"><span>04/07</span>Python 基础复习笔记 v1.0</a>
+              <a href="/posts/legacy-basic-grammar/"><span>04/07</span>基本语法部分（持续更新）</a>
+              <a href="/posts/legacy-async-sync-concurrency/"><span>04/07</span>异步、同步，并发、并行，阻塞非阻塞</a>
+              <a href="/posts/legacy-session-load-balancing/"><span>04/05</span>会话保持与负载均衡</a>
+              <a href="/posts/legacy-storage-units/"><span>03/31</span>计算机存储单位</a>
+              <a href="/posts/legacy-xpath-notes/"><span>03/31</span>XPath 等</a>
+              <a href="/posts/legacy-regex-notes/"><span>03/31</span>正则表达式</a>
+            </div>
+          </section>
           </div>
         </aside>
-      </div>
-    </section>
-
-    <section class="archive-strip">
-      <div>
-        <p class="eyebrow">Archive</p>
-        <h2>更多旧文仍然保留</h2>
-      </div>
-      <div class="archive-links">
-        <a href="/2020/04/05/%E4%BC%9A%E8%AF%9D%E4%BF%9D%E6%8C%81%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/">会话保持与负载均衡</a>
-        <a href="/2020/03/31/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%98%E5%82%A8%E5%8D%95%E4%BD%8D/">计算机存储单位</a>
-        <a href="/2020/03/31/xpath%E7%AD%89/">XPath 等</a>
-        <a href="/2020/03/31/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式</a>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <span>© liangdingguan</span>
-    <span>Built from notes/*.md</span>
+    <span>Built from notes/*.md and legacy HTML</span>
   </footer>
 </body>
 </html>
