@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="liangdingguan">
+  <meta name="description" content="XPath 基础语法与 HTML/XML 节点选择笔记。">
+  <title>XPath 等 | liangdingguan</title>
+  <link rel="icon" href="/assets/favicon.ico">
+  <link rel="stylesheet" href="/css/redesign.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">liangdingguan</a>
+    <nav class="nav" aria-label="主导航">
+      <a href="/">首页</a>
+      <a href="/#notes">文章</a>
+      <a href="/about/">关于</a>
+      <a href="https://github.com/liangdingguan" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </header>
+  <main class="article-page">
+    <article class="article-shell">
+      <header class="article-hero">
+        <p class="eyebrow">爬虫相关</p>
+        <h1>XPath 等</h1>
+        <p>2020-03-31 · 来源：2020/03/31/xpath等/index.html</p>
+      </header>
+      <div class="article-content">
+        <p class="article-note">这篇文章从 2020 旧页面迁移而来，旧链接仍保留：<a href="/2020/03/31/xpath等/">查看旧版</a></p>
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h2 id="什么是XPath？"><a href="#什么是XPath？" class="headerlink" title="什么是XPath？"></a>什么是XPath？</h2><p>xpath（XML Path Language）是一门在XML和HTML文档中查找信息的语言，可用来在XML和HTML文档中对元素和属性进行遍历。</p>
+<h2 id="XPath开发工具"><a href="#XPath开发工具" class="headerlink" title="XPath开发工具"></a>XPath开发工具</h2><ol>
+<li>Chrome插件XPath Helper。</li>
+<li>Firefox插件Try XPath。</li>
+</ol>
+<h2 id="XPath语法"><a href="#XPath语法" class="headerlink" title="XPath语法"></a>XPath语法</h2><h3 id="选取节点："><a href="#选取节点：" class="headerlink" title="选取节点："></a>选取节点：</h3><p>XPath 使用路径表达式来选取 XML 文档中的节点或者节点集。这些路径表达式和我们在常规的电脑文件系统中看到的表达式非常相似。</p>
+<table>
+<thead>
+<tr>
+<th>表达式</th>
+<th>描述</th>
+<th>示例</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>nodename</td>
+<td>选取此节点的所有子节点</td>
+<td>bookstore</td>
+<td>选取bookstore下所有的子节点</td>
+</tr>
+<tr>
+<td>/</td>
+<td>如果是在最前面，代表从根节点选取。否则选择某节点下的某个节点</td>
+<td>/bookstore</td>
+<td>选取根元素下所有的bookstore节点</td>
+</tr>
+<tr>
+<td>//</td>
+<td>从全局节点中选择节点，随便在哪个位置</td>
+<td>//book</td>
+<td>从全局节点中找到所有的book节点</td>
+</tr>
+<tr>
+<td>@</td>
+<td>选取某个节点的属性</td>
+<td>//book[@price]</td>
+<td>选择所有拥有price属性的book节点</td>
+</tr>
+<tr>
+<td>.</td>
+<td>当前节点</td>
+<td>./a</td>
+<td>选取当前节点下的a标签</td>
+</tr>
+</tbody></table>
+<h3 id="谓语："><a href="#谓语：" class="headerlink" title="谓语："></a>谓语：</h3><p>谓语用来查找某个特定的节点或者包含某个指定的值的节点，被嵌在方括号中。<br>在下面的表格中，我们列出了带有谓语的一些路径表达式，以及表达式的结果：</p>
+<table>
+<thead>
+<tr>
+<th>路径表达式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>/bookstore/book[1]</td>
+<td>选取bookstore下的第一个子元素</td>
+</tr>
+<tr>
+<td>/bookstore/book[last()]</td>
+<td>选取bookstore下的倒数第二个book元素。</td>
+</tr>
+<tr>
+<td>bookstore/book[position()&lt;3]</td>
+<td>选取bookstore下前面两个子元素。</td>
+</tr>
+<tr>
+<td>//book[@price]</td>
+<td>选取拥有price属性的book元素</td>
+</tr>
+<tr>
+<td>//book[@price=10]</td>
+<td>选取所有属性price等于10的book元素</td>
+</tr>
+</tbody></table>
+<h3 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h3><p>*表示通配符。</p>
+<table>
+<thead>
+<tr>
+<th align="left">通配符</th>
+<th align="left">描述</th>
+<th align="left">示例</th>
+<th align="left">结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">*</td>
+<td align="left">匹配任意节点</td>
+<td align="left">/bookstore/*</td>
+<td align="left">选取bookstore下的所有子元素。</td>
+</tr>
+<tr>
+<td align="left">@*</td>
+<td align="left">匹配节点中的任何属性</td>
+<td align="left">//book[@*]</td>
+<td align="left">选取所有带有属性的book元素。</td>
+</tr>
+</tbody></table>
+<h3 id="选取多个路径："><a href="#选取多个路径：" class="headerlink" title="选取多个路径："></a>选取多个路径：</h3><p>通过在路径表达式中使用“|”运算符，可以选取若干个路径。<br>示例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;bookstore&#x2F;book | &#x2F;&#x2F;book&#x2F;title</span><br><span class="line"># 选取所有book元素以及book元素下所有的title元素</span><br></pre></td></tr></table></figure>
+
+<h3 id="运算符："><a href="#运算符：" class="headerlink" title="运算符："></a>运算符：</h3><table>
+<thead>
+<tr>
+<th align="left">运算符</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+<th align="left">返回值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">|</td>
+<td align="left">计算两个节点集</td>
+<td align="left">//book | //cd</td>
+<td align="left">返回所有拥有 book 和 cd 元素的节点集</td>
+</tr>
+<tr>
+<td align="left">+</td>
+<td align="left">加法</td>
+<td align="left">6 + 4</td>
+<td align="left">10</td>
+</tr>
+<tr>
+<td align="left">-</td>
+<td align="left">减法</td>
+<td align="left">6 - 4</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">*</td>
+<td align="left">乘法</td>
+<td align="left">6 * 4</td>
+<td align="left">24</td>
+</tr>
+<tr>
+<td align="left">div</td>
+<td align="left">除法</td>
+<td align="left">8 div 4</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">=</td>
+<td align="left">等于</td>
+<td align="left">price=9.80</td>
+<td align="left">如果 price 是 9.80，则返回 true。如果 price 是 9.90，则返回 false。</td>
+</tr>
+<tr>
+<td align="left">!=</td>
+<td align="left">不等于</td>
+<td align="left">price!=9.80</td>
+<td align="left">如果 price 是 9.90，则返回 true。如果 price 是 9.80，则返回 false。</td>
+</tr>
+<tr>
+<td align="left">&lt;</td>
+<td align="left">小于</td>
+<td align="left">price&lt;9.80</td>
+<td align="left">如果 price 是 9.00，则返回 true。如果 price 是 9.90，则返回 false。</td>
+</tr>
+<tr>
+<td align="left">&lt;=</td>
+<td align="left">小于或等于</td>
+<td align="left">price&lt;=9.80</td>
+<td align="left">如果 price 是 9.00，则返回 true。如果 price 是 9.90，则返回 false。</td>
+</tr>
+<tr>
+<td align="left">&gt;</td>
+<td align="left">大于</td>
+<td align="left">price&gt;9.80</td>
+<td align="left">如果 price 是 9.90，则返回 true。如果 price 是 9.80，则返回 false。</td>
+</tr>
+<tr>
+<td align="left">&gt;=</td>
+<td align="left">大于或等于</td>
+<td align="left">price&gt;=9.80</td>
+<td align="left">如果 price 是 9.90，则返回 true。如果 price 是 9.70，则返回 false。</td>
+</tr>
+<tr>
+<td align="left">or</td>
+<td align="left">或</td>
+<td align="left">price=9.80 or price=9.70</td>
+<td align="left">如果 price 是 9.80，则返回 true。如果 price 是 9.50，则返回 false。</td>
+</tr>
+<tr>
+<td align="left">and</td>
+<td align="left">与</td>
+<td align="left">price&gt;9.00 and price&lt;9.90</td>
+<td align="left">如果 price 是 9.80，则返回 true。如果 price 是 8.50，则返回 false。</td>
+</tr>
+<tr>
+<td align="left">mod</td>
+<td align="left">计算除法的余数</td>
+<td align="left">5 mod 2</td>
+<td align="left">1</td>
+</tr>
+</tbody></table>
+<h2 id="lxml库"><a href="#lxml库" class="headerlink" title="lxml库"></a>lxml库</h2><p>lxml 是 一个HTML/XML的解析器，主要的功能是如何解析和提取 HTML/XML 数据。</p>
+<p>lxml和正则一样，也是用 C 实现的，是一款高性能的 Python HTML/XML 解析器，我们可以利用之前学习的XPath语法，来快速的定位特定元素以及节点信息。</p>
+<p>lxml python 官方文档：<a href="http://lxml.de/index.html" target="_blank" rel="noopener">http://lxml.de/index.html</a></p>
+<p>需要安装C语言库，可使用 pip 安装：pip install lxml</p>
+<h3 id="基本使用："><a href="#基本使用：" class="headerlink" title="基本使用："></a>基本使用：</h3><p>我们可以利用他来解析HTML代码，并且在解析HTML代码的时候，如果HTML代码不规范，他会自动的进行补全。示例代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 lxml 的 etree 库</span></span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree </span><br><span class="line"></span><br><span class="line">text = <span class="string">'''</span></span><br><span class="line"><span class="string">&lt;div&gt;</span></span><br><span class="line"><span class="string">    &lt;ul&gt;</span></span><br><span class="line"><span class="string">         &lt;li class="item-0"&gt;&lt;a href="link1.html"&gt;first item&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="string">         &lt;li class="item-1"&gt;&lt;a href="link2.html"&gt;second item&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="string">         &lt;li class="item-inactive"&gt;&lt;a href="link3.html"&gt;third item&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="string">         &lt;li class="item-1"&gt;&lt;a href="link4.html"&gt;fourth item&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="string">         &lt;li class="item-0"&gt;&lt;a href="link5.html"&gt;fifth item&lt;/a&gt; # 注意，此处缺少一个 &lt;/li&gt; 闭合标签</span></span><br><span class="line"><span class="string">     &lt;/ul&gt;</span></span><br><span class="line"><span class="string"> &lt;/div&gt;</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#利用etree.HTML，将字符串解析为HTML文档</span></span><br><span class="line">html = etree.HTML(text) </span><br><span class="line"></span><br><span class="line"><span class="comment"># 按字符串序列化HTML文档</span></span><br><span class="line">result = etree.tostring(html) </span><br><span class="line"></span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+
+<p>输入结果如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item-0"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"link1.html"</span>&gt;</span>first item<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item-1"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"link2.html"</span>&gt;</span>second item<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item-inactive"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"link3.html"</span>&gt;</span>third item<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item-1"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"link4.html"</span>&gt;</span>fourth item<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item-0"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"link5.html"</span>&gt;</span>fifth item<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到。lxml会自动修改HTML代码。例子中不仅补全了li标签，还添加了body，html标签。</p>
+<h3 id="从文件中读取html代码："><a href="#从文件中读取html代码：" class="headerlink" title="从文件中读取html代码："></a>从文件中读取html代码：</h3><p>除了直接使用字符串进行解析，lxml还支持从文件中读取内容。我们新建一个hello.html文件：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- hello.html --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item-0"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"link1.html"</span>&gt;</span>first item<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item-1"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"link2.html"</span>&gt;</span>second item<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item-inactive"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"link3.html"</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"bold"</span>&gt;</span>third item<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item-1"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"link4.html"</span>&gt;</span>fourth item<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"item-0"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"link5.html"</span>&gt;</span>fifth item<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后利用<code>etree.parse()</code>方法来读取文件。示例代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取外部文件 hello.html</span></span><br><span class="line">html = etree.parse(<span class="string">'hello.html'</span>)</span><br><span class="line">result = etree.tostring(html, pretty_print=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+
+<p>输入结果和之前是相同的。</p>
+<h3 id="在lxml中使用XPath语法："><a href="#在lxml中使用XPath语法：" class="headerlink" title="在lxml中使用XPath语法："></a>在lxml中使用XPath语法：</h3><ol>
+<li><p>获取所有li标签：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">   </span><br><span class="line">html = etree.parse(<span class="string">'hello.html'</span>)</span><br><span class="line"><span class="keyword">print</span> type(html)  <span class="comment"># 显示etree.parse() 返回类型</span></span><br><span class="line">   </span><br><span class="line">result = html.xpath(<span class="string">'//li'</span>)</span><br><span class="line">   </span><br><span class="line">print(result)  <span class="comment"># 打印&lt;li&gt;标签的元素集合</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取所有li元素下的所有class属性的值：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">   </span><br><span class="line">html = etree.parse(<span class="string">'hello.html'</span>)</span><br><span class="line">result = html.xpath(<span class="string">'//li/@class'</span>)</span><br><span class="line">   </span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取li标签下href为<code>www.baidu.com</code>的a标签：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">   </span><br><span class="line">html = etree.parse(<span class="string">'hello.html'</span>)</span><br><span class="line">result = html.xpath(<span class="string">'//li/a[@href="www.baidu.com"]'</span>)</span><br><span class="line">   </span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取li标签下所有span标签：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">   </span><br><span class="line">html = etree.parse(<span class="string">'hello.html'</span>)</span><br><span class="line">   </span><br><span class="line"><span class="comment">#result = html.xpath('//li/span')</span></span><br><span class="line"><span class="comment">#注意这么写是不对的：</span></span><br><span class="line"><span class="comment">#因为 / 是用来获取子元素的，而 &lt;span&gt; 并不是 &lt;li&gt; 的子元素，所以，要用双斜杠</span></span><br><span class="line">   </span><br><span class="line">result = html.xpath(<span class="string">'//li//span'</span>)</span><br><span class="line">   </span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取li标签下的a标签里的所有class：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">   </span><br><span class="line">html = etree.parse(<span class="string">'hello.html'</span>)</span><br><span class="line">result = html.xpath(<span class="string">'//li/a//@class'</span>)</span><br><span class="line">   </span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取最后一个li的a的href属性对应的值：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">   </span><br><span class="line">html = etree.parse(<span class="string">'hello.html'</span>)</span><br><span class="line">   </span><br><span class="line">result = html.xpath(<span class="string">'//li[last()]/a/@href'</span>)</span><br><span class="line"><span class="comment"># 谓语 [last()] 可以找到最后一个元素</span></span><br><span class="line">   </span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取倒数第二个li元素的内容：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">   </span><br><span class="line">html = etree.parse(<span class="string">'hello.html'</span>)</span><br><span class="line">result = html.xpath(<span class="string">'//li[last()-1]/a'</span>)</span><br><span class="line">   </span><br><span class="line"><span class="comment"># text 方法可以获取元素内容</span></span><br><span class="line">print(result[<span class="number">0</span>].text)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取倒数第二个li元素的内容的第二种方式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">   </span><br><span class="line">html = etree.parse(<span class="string">'hello.html'</span>)</span><br><span class="line">result = html.xpath(<span class="string">'//li[last()-1]/a/text()'</span>)</span><br><span class="line">   </span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="使用requests和xpath爬取电影天堂"><a href="#使用requests和xpath爬取电影天堂" class="headerlink" title="使用requests和xpath爬取电影天堂"></a>使用requests和xpath爬取电影天堂</h2><p>示例代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"></span><br><span class="line">BASE_DOMAIN = <span class="string">'http://www.dytt8.net'</span></span><br><span class="line">HEADERS = &#123;</span><br><span class="line">    <span class="string">'User-Agent'</span>: <span class="string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'</span>,</span><br><span class="line">    <span class="string">'Referer'</span>: <span class="string">'http://www.dytt8.net/html/gndy/dyzz/list_23_2.html'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">spider</span><span class="params">()</span>:</span></span><br><span class="line">    url = <span class="string">'http://www.dytt8.net/html/gndy/dyzz/list_23_1.html'</span></span><br><span class="line">    resp = requests.get(url,headers=HEADERS)</span><br><span class="line">    <span class="comment"># resp.content：经过编码后的字符串</span></span><br><span class="line">    <span class="comment"># resp.text：没有经过编码，也就是unicode字符串</span></span><br><span class="line">    <span class="comment"># text：相当于是网页中的源代码了</span></span><br><span class="line">    text = resp.content.decode(<span class="string">'gbk'</span>)</span><br><span class="line">    <span class="comment"># tree：经过lxml解析后的一个对象，以后使用这个对象的xpath方法，就可以</span></span><br><span class="line">    <span class="comment"># 提取一些想要的数据了</span></span><br><span class="line">    tree = etree.HTML(text)</span><br><span class="line">    <span class="comment"># xpath/beautifulsou4</span></span><br><span class="line">    all_a = tree.xpath(<span class="string">"//div[@class='co_content8']//a"</span>)</span><br><span class="line">    <span class="keyword">for</span> a <span class="keyword">in</span> all_a:</span><br><span class="line">        title = a.xpath(<span class="string">"text()"</span>)[<span class="number">0</span>]</span><br><span class="line">        href = a.xpath(<span class="string">"@href"</span>)[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">if</span> href.startswith(<span class="string">'/'</span>):</span><br><span class="line">            detail_url = BASE_DOMAIN + href</span><br><span class="line">            crawl_detail(detail_url)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">crawl_detail</span><span class="params">(url)</span>:</span></span><br><span class="line">    resp = requests.get(url,headers=HEADERS)</span><br><span class="line">    text = resp.content.decode(<span class="string">'gbk'</span>)</span><br><span class="line">    tree = etree.HTML(text)</span><br><span class="line">    create_time = tree.xpath(<span class="string">"//div[@class='co_content8']/ul/text()"</span>)[<span class="number">0</span>].strip()</span><br><span class="line">    imgs = tree.xpath(<span class="string">"//div[@id='Zoom']//img/@src"</span>)</span><br><span class="line">    <span class="comment"># 电影海报</span></span><br><span class="line">    cover = imgs[<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># 电影截图</span></span><br><span class="line">    screenshoot = imgs[<span class="number">1</span>]</span><br><span class="line">    <span class="comment"># 获取span标签下所有的文本</span></span><br><span class="line">    infos = tree.xpath(<span class="string">"//div[@id='Zoom']//text()"</span>)</span><br><span class="line">    <span class="keyword">for</span> index,info <span class="keyword">in</span> enumerate(infos):</span><br><span class="line">        <span class="keyword">if</span> info.startswith(<span class="string">"◎年　　代"</span>):</span><br><span class="line">            year = info.replace(<span class="string">"◎年　　代"</span>,<span class="string">""</span>).strip()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> info.startswith(<span class="string">"◎豆瓣评分"</span>):</span><br><span class="line">            douban_rating = info.replace(<span class="string">"◎豆瓣评分"</span>,<span class="string">''</span>).strip()</span><br><span class="line">            print(douban_rating)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> info.startswith(<span class="string">"◎主　　演"</span>):</span><br><span class="line">            <span class="comment"># 从当前位置，一直往下面遍历</span></span><br><span class="line">            actors = [info]</span><br><span class="line">            <span class="keyword">for</span> x <span class="keyword">in</span> range(index+<span class="number">1</span>,len(infos)):</span><br><span class="line">                actor = infos[x]</span><br><span class="line">                <span class="keyword">if</span> actor.startswith(<span class="string">"◎"</span>):</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                actors.append(actor.strip())</span><br><span class="line">            print(<span class="string">","</span>.join(actors))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    spider()</span><br></pre></td></tr></table></figure>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <a href="/">回到首页</a>
+    <span>© liangdingguan</span>
+  </footer>
+</body>
+</html>
