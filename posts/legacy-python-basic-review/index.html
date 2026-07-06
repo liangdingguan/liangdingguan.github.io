@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="liangdingguan">
+  <meta name="description" content="从标识符、关键字、函数、切片等角度回顾 Python 基础。">
+  <title>Python 基础复习笔记 v1.0 | liangdingguan</title>
+  <link rel="icon" href="/assets/favicon.ico">
+  <link rel="stylesheet" href="/css/redesign.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">liangdingguan</a>
+    <nav class="nav" aria-label="主导航">
+      <a href="/">首页</a>
+      <a href="/#notes">文章</a>
+      <a href="/about/">关于</a>
+      <a href="https://github.com/liangdingguan" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </header>
+  <main class="article-page">
+    <article class="article-shell">
+      <header class="article-hero">
+        <p class="eyebrow">Python 相关</p>
+        <h1>Python 基础复习笔记 v1.0</h1>
+        <p>2020-04-07 · 来源：2020/04/07/Python基础复习笔记-v1-0/index.html</p>
+      </header>
+      <div class="article-content">
+        <p class="article-note">这篇文章从 2020 旧页面迁移而来，旧链接仍保留：<a href="/2020/04/07/Python基础复习笔记-v1-0/">查看旧版</a></p>
+<p>标识符:开发人员自定义的变量名函数名等</p>
+<p>关键字:python中具有一些特殊功能等标识符 理论上是不允许开发人员定义与其同名的标识符</p>
+<p>break或continue: 只能存在于循环体中不能单独存在 循环嵌套时只作用于最近一层的循环</p>
+<p>下标索引:数组都支持下标索引 字符串实质上字符的数组也支持下标  (暂不讨论内存中如何存放 今后的修改更新后加入)</p>
+<p>切片：切片的语法：[起始:结束:步长]  数组都支持切片 不包含结束位</p>
+<p>函数：使用”函数名()”调用函数 每次调用函数时，函数都会从头开始执行，当这个函数中的代码执行完毕后，意味着调用结束了   当然了如果函数中执行到了return也会结束函数   使用”help(函数名)” 能查看该函数的说明/注释</p>
+<p>‘函数的局部变量’和‘全局变量’：局部变量是指在一个函数或类中存在的变量 作用域仅限于该函数或类中。而全局变量一般是当前页面存在的变量 该页面所有的函数或类中都可使用该变量    注：函数或类中的局部变量跟全局变量重名，操作该变量的时候 默认作用于局部变量能 若要在“局部”修改全局变量 需在变量名前加上global来声明  （何谓声明？ 修改版本中会加入说明）</p>
+<p>函数中多个返回值用逗号隔开，默认返回的是元组</p>
+<p>函数参数：1.缺省参数 </p>
+<p>​                    缺省参数一般是指 有默认值的参数，参数传递的时候如果有值就使用传递过来的值 如果没值则使用默认值</p>
+<p>​                    2.不定长参数</p>
+<p>​                    函数需要处理比当初声明时更多的参数 则需要用到不定长参数 <em>args用来接收未命名的参数默认是元组类型  *</em>kwargs用来接收k=v这种格式的参数 类型为字典</p>
+<p>​                      注：形参中有**kwargs 必须放到最后 而不是缺省参数</p>
+<p>引用：</p>
+<p>​                                引用是指变量中所储存的值的内存地址 该变量实际上是一个地址 该地址在内存中对应着内容</p>
+<p>可变类型与不可变类型：</p>
+<p>​                     想一个问题：a=1    在内存中创建一块数字1所在的内存  当a=2时 会新建一块内存用于存储数字2  </p>
+<p>​                    如果此时还有另外一个变量b=1 当变量a=2时 内存中的1还是会在原来的地方不会变  </p>
+<p>​                    如果不存在变量b时 那么当a=2时 数字1在内存中就会被释放  </p>
+<p>​                    可得知 数据类型的可变与不可变实质上是计算机内存的固有属性 与变量a和b都无关 类似于”惯性”不论物体是否运动 该物体都是有惯性的  所以数字1有变量引用它时它就存在 没有引用就释放 该变量引用其他数值也跟数字1无关 只要有变量引用它 它就一直存在一直不变 其中一个变量去引用其他的数值也不影响 这就是不可变类型                                               而可变类型 例如列表  我们把它当作一个整体 实质上列表里面的内容就是引用一些可变或不可变类型的数值而已                               列表的增删改实质上就是 新增引用 减少引用 减少原引用去用新引用而已</p>
+<p>递归函数：一个函数内部调用自己就叫做递归函数 递归函数常常用来求阶乘</p>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <a href="/">回到首页</a>
+    <span>© liangdingguan</span>
+  </footer>
+</body>
+</html>
