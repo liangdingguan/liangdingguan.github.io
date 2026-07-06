@@ -8,7 +8,7 @@
   },
   "posts": [
     {
-      "title": "C/C++补充1：C与C++基本语法对比与补充",
+      "title": "day1：C与C++基本语法对比与补充",
       "date": "2026-07-06",
       "path": "posts/c-cpp-basic-syntax-day1/",
       "permalink": "https://liangdingguan.github.io/posts/c-cpp-basic-syntax-day1/",
@@ -27,31 +27,144 @@
       ]
     },
     {
-      "title": "C/C++补充2:面向对象与类详解",
-      "date": "2026-07-06",
-      "path": "posts/c-cpp-basic-syntax-content2/",
-      "permalink": "https://liangdingguan.github.io/posts/c-cpp-basic-syntax-content2/",
+      "title": "进程、线程、协程",
+      "date": "2020-05-12",
+      "path": "posts/legacy-process-thread-coroutine/",
+      "permalink": "https://liangdingguan.github.io/posts/legacy-process-thread-coroutine/",
       "categories": [],
       "tags": [
         {
-          "name": "C++",
-          "slug": "c",
+          "name": "Python 相关",
+          "slug": "python",
           "permalink": ""
-        },
+        }
+      ]
+    },
+    {
+      "title": "Python 深入理解",
+      "date": "2020-05-12",
+      "path": "posts/legacy-python-deep-dive/",
+      "permalink": "https://liangdingguan.github.io/posts/legacy-python-deep-dive/",
+      "categories": [],
+      "tags": [
         {
-          "name": "课程笔记",
+          "name": "Python 相关",
+          "slug": "python",
+          "permalink": ""
+        }
+      ]
+    },
+    {
+      "title": "Beautiful Soup 重点简述",
+      "date": "2020-04-08",
+      "path": "posts/legacy-beautiful-soup-notes/",
+      "permalink": "https://liangdingguan.github.io/posts/legacy-beautiful-soup-notes/",
+      "categories": [],
+      "tags": [
+        {
+          "name": "爬虫",
           "slug": "note",
           "permalink": ""
         }
       ]
     },
     {
-      "title": "title: C/C++补充3:指针、引用、数组名",
-      "date": "2026-07-06",
-      "path": "posts/day3-c/",
-      "permalink": "https://liangdingguan.github.io/posts/day3-c/",
+      "title": "Python 基础复习笔记 v1.0",
+      "date": "2020-04-07",
+      "path": "posts/legacy-python-basic-review/",
+      "permalink": "https://liangdingguan.github.io/posts/legacy-python-basic-review/",
       "categories": [],
-      "tags": []
+      "tags": [
+        {
+          "name": "Python 相关",
+          "slug": "python",
+          "permalink": ""
+        }
+      ]
+    },
+    {
+      "title": "基本语法部分（持续更新）",
+      "date": "2020-04-07",
+      "path": "posts/legacy-basic-grammar/",
+      "permalink": "https://liangdingguan.github.io/posts/legacy-basic-grammar/",
+      "categories": [],
+      "tags": [
+        {
+          "name": "英语",
+          "slug": "note",
+          "permalink": ""
+        }
+      ]
+    },
+    {
+      "title": "异步、同步，并发、并行，阻塞非阻塞",
+      "date": "2020-04-07",
+      "path": "posts/legacy-async-sync-concurrency/",
+      "permalink": "https://liangdingguan.github.io/posts/legacy-async-sync-concurrency/",
+      "categories": [],
+      "tags": [
+        {
+          "name": "计算机网络相关",
+          "slug": "note",
+          "permalink": ""
+        }
+      ]
+    },
+    {
+      "title": "会话保持与负载均衡",
+      "date": "2020-04-05",
+      "path": "posts/legacy-session-load-balancing/",
+      "permalink": "https://liangdingguan.github.io/posts/legacy-session-load-balancing/",
+      "categories": [],
+      "tags": [
+        {
+          "name": "计算机网络相关",
+          "slug": "note",
+          "permalink": ""
+        }
+      ]
+    },
+    {
+      "title": "计算机存储单位",
+      "date": "2020-03-31",
+      "path": "posts/legacy-storage-units/",
+      "permalink": "https://liangdingguan.github.io/posts/legacy-storage-units/",
+      "categories": [],
+      "tags": [
+        {
+          "name": "计算机基础",
+          "slug": "note",
+          "permalink": ""
+        }
+      ]
+    },
+    {
+      "title": "XPath 等",
+      "date": "2020-03-31",
+      "path": "posts/legacy-xpath-notes/",
+      "permalink": "https://liangdingguan.github.io/posts/legacy-xpath-notes/",
+      "categories": [],
+      "tags": [
+        {
+          "name": "爬虫相关",
+          "slug": "note",
+          "permalink": ""
+        }
+      ]
+    },
+    {
+      "title": "正则表达式",
+      "date": "2020-03-31",
+      "path": "posts/legacy-regex-notes/",
+      "permalink": "https://liangdingguan.github.io/posts/legacy-regex-notes/",
+      "categories": [],
+      "tags": [
+        {
+          "name": "其他",
+          "slug": "note",
+          "permalink": ""
+        }
+      ]
     }
   ]
 }
