@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="liangdingguan">
+  <meta name="description" content="Beautiful Soup 对象类型、选择方式和爬虫解析常用操作。">
+  <title>Beautiful Soup 重点简述 | liangdingguan</title>
+  <link rel="icon" href="/assets/favicon.ico">
+  <link rel="stylesheet" href="/css/redesign.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">liangdingguan</a>
+    <nav class="nav" aria-label="主导航">
+      <a href="/">首页</a>
+      <a href="/#notes">文章</a>
+      <a href="/about/">关于</a>
+      <a href="https://github.com/liangdingguan" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </header>
+  <main class="article-page">
+    <article class="article-shell">
+      <header class="article-hero">
+        <p class="eyebrow">爬虫</p>
+        <h1>Beautiful Soup 重点简述</h1>
+        <p>2020-04-08 · 来源：2020/04/08/beautiful-重点简述/index.html</p>
+      </header>
+      <div class="article-content">
+        <p class="article-note">这篇文章从 2020 旧页面迁移而来，旧链接仍保留：<a href="/2020/04/08/beautiful-重点简述/">查看旧版</a></p>
+<p>对象种类 </p>
+<p>beautiful soup中 将复杂的HTMl文档转换成一个复杂的树形结构，每个节点都是python对象，所有对象可以归纳为4中：tag ，navigablestring，beautifulsoup，comment  </p>
+<p>Tag对象与 xml 或tml原生文档中的tag相同 </p>
+<p>得到 一个tag对象 soup=BeautifulSoup(html) </p>
+<p>Tag对象常用的属性 ： </p>
+<p>tag.name 获取tag的名称 </p>
+<p>tag[属性] 获取属性对应的值 或 .attrs 结果是以“ 属性：属性值 ” 的形式呈现 </p>
+<p>注：tag对属性的操作跟字典几乎无差别 </p>
+<p>属性有多个值 例如 &lt;p class=“my class” &gt;hhh</p> </p>
+<p>Tag中的字符串 Beautiful Soup用NavigableString类来包装tag中的字符串 该类与python中的Unicode字符串相同，通过unicode()方法可以直接讲NavigableString转为python的unicode字符串 </p>
+<p>获取tag只需要 “点”加tag名字即可，同时对于嵌套的情况可以 链式调用 但是每次只可获得符合的第一个对象 </p>
+<p>如果有多个tag对象需要获取出来 那么需要用到find_all()  返回的是一个所有符合情况的列表 </p>
+<p><strong>.contents</strong>会将tag对象的子节点以列表的方式输出 </p>
+<p>BS对象子节点包含 html标签  </p>
+<p>字符串没有contents属性，因为字符串不会有子节点 </p>
+<p>通过 tag 的<strong>.children</strong>生成器，可以对tag的子节点进行循环 </p>
+<p>tips: .contest 是以列表形式输出，.children得到一个生成器对象，可以遍历它。 </p>
+<p><strong>.descendants</strong>和<strong>.children</strong> 用法相似都是得到一个生成器对象，但是前者是所有节点 子孙。 </p>
+<p>find_all(name,attrs,recursive,text,**kwargs) 搜索当前tag所有子节点 </p>
+<p>name参数 可以查找所有名字为name的tag,字符串对象会被自动忽略掉 查询结果以列表形式出现。 </p>
+<p>可以 传入标签名  </p>
+<p>​        正则表达式 （找出符合正则的标签如b开头的标签） </p>
+<p>​        传列表 会将列表中任意匹配的内容返回，相当于传入多个标签名，返回满足的</p>
+<p>​        传入True 可以匹配任何值 但是不会返回字符串节点也就是tag 只会返回tag名</p>
+<p>​        传入方法 自定义一个规则 封装成函数/方法</p>
+<p>​                          </p>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <a href="/">回到首页</a>
+    <span>© liangdingguan</span>
+  </footer>
+</body>
+</html>
