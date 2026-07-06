@@ -6,7 +6,7 @@ summary: 从 C/C++ 基础关系、语法差异、函数与运算符重载，到 
 slug: c-cpp-basic-syntax-day1
 ---
 
-# day1：C与C++基本语法对比与补充
+# 进阶学习其一：C与C++基本语法对比与补充
 
 > author：梁鼎冠
 
