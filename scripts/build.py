@@ -10,57 +10,87 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 NOTES_DIR = ROOT / "notes"
 POSTS_DIR = ROOT / "posts"
 
-
 LEGACY_POSTS = [
     {
         "title": "进程、线程、协程",
-        "url": "/2020/05/12/%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E3%80%81%E5%8D%8F%E7%A8%8B/",
-        "summary": "整理并发相关基础概念，区分进程、线程与协程的职责边界。",
-        "date": "2020/05/12",
-        "tags": "Python 相关",
+        "slug": "legacy-process-thread-coroutine",
+        "source": "2020/05/12/进程、线程、协程/index.html",
+        "date": "2020-05-12",
+        "tags": ["Python 相关"],
+        "summary": "进程、线程、协程与并发执行模型的早期学习笔记。",
     },
     {
         "title": "Python 深入理解",
-        "url": "/2020/05/12/python%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/",
+        "slug": "legacy-python-deep-dive",
+        "source": "2020/05/12/python深入理解/index.html",
+        "date": "2020-05-12",
+        "tags": ["Python 相关"],
         "summary": "围绕 Python 面向对象、继承、初始化流程和常见语言特性做复习。",
-        "date": "2020/05/12",
-        "tags": "Python 相关",
     },
     {
         "title": "Beautiful Soup 重点简述",
-        "url": "/2020/04/08/beautiful-%E9%87%8D%E7%82%B9%E7%AE%80%E8%BF%B0/",
-        "summary": "记录 Beautiful Soup 的对象类型、选择方式和爬虫解析常用操作。",
-        "date": "2020/04/08",
-        "tags": "爬虫",
-    },
-    {
-        "title": "基本语法部分（持续更新）",
-        "url": "/2020/04/07/%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95%E9%83%A8%E5%88%86-%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0/",
-        "summary": "英语语法与基础概念笔记，适合作为长期补充的知识清单。",
-        "date": "2020/04/07",
-        "tags": "英语",
+        "slug": "legacy-beautiful-soup-notes",
+        "source": "2020/04/08/beautiful-重点简述/index.html",
+        "date": "2020-04-08",
+        "tags": ["爬虫"],
+        "summary": "Beautiful Soup 对象类型、选择方式和爬虫解析常用操作。",
     },
     {
         "title": "Python 基础复习笔记 v1.0",
-        "url": "/2020/04/07/Python%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0-v1-0/",
+        "slug": "legacy-python-basic-review",
+        "source": "2020/04/07/Python基础复习笔记-v1-0/index.html",
+        "date": "2020-04-07",
+        "tags": ["Python 相关"],
         "summary": "从标识符、关键字、函数、切片等角度回顾 Python 基础。",
-        "date": "2020/04/07",
-        "tags": "Python 相关",
+    },
+    {
+        "title": "基本语法部分（持续更新）",
+        "slug": "legacy-basic-grammar",
+        "source": "2020/04/07/基本语法部分-持续更新/index.html",
+        "date": "2020-04-07",
+        "tags": ["英语"],
+        "summary": "英语语法与基础概念笔记。",
     },
     {
         "title": "异步、同步，并发、并行，阻塞非阻塞",
-        "url": "/2020/04/07/%E5%BC%82%E6%AD%A5%E3%80%81%E5%90%8C%E6%AD%A5%EF%BC%8C%E5%B9%B6%E5%8F%91%E3%80%81%E5%B9%B6%E8%A1%8C%EF%BC%8C%E9%98%BB%E5%A1%9E%E9%9D%9E%E9%98%BB%E5%A1%9E/",
-        "summary": "把容易混淆的执行模型概念放在一起对比。",
-        "date": "2020/04/07",
-        "tags": "计算机网络相关",
+        "slug": "legacy-async-sync-concurrency",
+        "source": "2020/04/07/异步、同步，并发、并行，阻塞非阻塞/index.html",
+        "date": "2020-04-07",
+        "tags": ["计算机网络相关"],
+        "summary": "同步、异步、并发、并行、阻塞与非阻塞概念对比。",
     },
-]
-
-ARCHIVE_LINKS = [
-    ("会话保持与负载均衡", "/2020/04/05/%E4%BC%9A%E8%AF%9D%E4%BF%9D%E6%8C%81%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"),
-    ("计算机存储单位", "/2020/03/31/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%98%E5%82%A8%E5%8D%95%E4%BD%8D/"),
-    ("XPath 等", "/2020/03/31/xpath%E7%AD%89/"),
-    ("正则表达式", "/2020/03/31/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"),
+    {
+        "title": "会话保持与负载均衡",
+        "slug": "legacy-session-load-balancing",
+        "source": "2020/04/05/会话保持与负载均衡/index.html",
+        "date": "2020-04-05",
+        "tags": ["计算机网络相关"],
+        "summary": "会话保持、NAT 与负载均衡基础概念。",
+    },
+    {
+        "title": "计算机存储单位",
+        "slug": "legacy-storage-units",
+        "source": "2020/03/31/计算机存储单位/index.html",
+        "date": "2020-03-31",
+        "tags": ["计算机基础"],
+        "summary": "bit、byte、KB、MB、GB 等计算机存储单位换算。",
+    },
+    {
+        "title": "XPath 等",
+        "slug": "legacy-xpath-notes",
+        "source": "2020/03/31/xpath等/index.html",
+        "date": "2020-03-31",
+        "tags": ["爬虫相关"],
+        "summary": "XPath 基础语法与 HTML/XML 节点选择笔记。",
+    },
+    {
+        "title": "正则表达式",
+        "slug": "legacy-regex-notes",
+        "source": "2020/03/31/正则表达式/index.html",
+        "date": "2020-03-31",
+        "tags": ["其他"],
+        "summary": "正则表达式和 Python re 模块基础笔记。",
+    },
 ]
 
 
@@ -140,7 +170,6 @@ def markdown_to_html(md):
     while i < len(lines):
         raw = lines[i]
         stripped = raw.strip()
-
         if stripped.startswith("```"):
             close_paragraph()
             close_lists()
@@ -155,25 +184,21 @@ def markdown_to_html(md):
                 code_lang = ""
             i += 1
             continue
-
         if in_code:
             code_lines.append(raw)
             i += 1
             continue
-
         if not stripped:
             close_paragraph()
             close_lists()
             i += 1
             continue
-
         if stripped == "---":
             close_paragraph()
             close_lists()
             out.append("<hr>")
             i += 1
             continue
-
         if stripped.startswith("|") and i + 1 < len(lines) and re.match(r"^\s*\|?\s*:?-{3,}", lines[i + 1]):
             close_paragraph()
             close_lists()
@@ -183,7 +208,6 @@ def markdown_to_html(md):
                 i += 1
             out.append(table_block(table_lines))
             continue
-
         heading = re.match(r"^(#{1,6})\s+(.+)$", stripped)
         if heading:
             close_paragraph()
@@ -192,14 +216,12 @@ def markdown_to_html(md):
             out.append(f"<h{level}>{inline(heading.group(2))}</h{level}>")
             i += 1
             continue
-
         if stripped.startswith(">"):
             close_paragraph()
             close_lists()
             out.append(f"<blockquote>{inline(stripped.lstrip('>').strip())}</blockquote>")
             i += 1
             continue
-
         item = re.match(r"^(\s*)-\s+(.+)$", raw)
         if item:
             close_paragraph()
@@ -212,11 +234,9 @@ def markdown_to_html(md):
             out.append(f"<li>{inline(item.group(2).strip())}</li>")
             i += 1
             continue
-
         close_lists()
         paragraph.append(stripped)
         i += 1
-
     close_paragraph()
     close_lists()
     return "\n".join(out)
@@ -230,6 +250,16 @@ def excerpt_from(markdown):
     return text[:110] + ("..." if len(text) > 110 else "")
 
 
+def extract_legacy_body(path):
+    text = path.read_text(encoding="utf-8", errors="replace")
+    match = re.search(r'<article class="article-entry">\s*(.*?)\s*</article>', text, re.S)
+    if not match:
+        return "<p>旧文章正文提取失败，请查看原始页面。</p>"
+    body = match.group(1)
+    body = re.sub(r'<script.*?</script>', "", body, flags=re.S)
+    return body
+
+
 def load_notes():
     notes = []
     NOTES_DIR.mkdir(exist_ok=True)
@@ -237,36 +267,63 @@ def load_notes():
         raw = path.read_text(encoding="utf-8")
         meta, body = parse_frontmatter(raw)
         title = meta.get("title") or re.sub(r"^#\s*", "", body.splitlines()[0]).strip()
-        slug = meta.get("slug") or slugify(path.stem)
         tags = meta.get("tags") or []
         if isinstance(tags, str):
             tags = [tags]
+        slug = meta.get("slug") or slugify(path.stem)
         notes.append(
             {
+                "kind": "note",
                 "title": title,
                 "slug": slug,
                 "date": meta.get("date") or str(date.today()),
                 "summary": meta.get("summary") or excerpt_from(body),
                 "tags": tags,
-                "body": body,
+                "body": markdown_to_html(body),
                 "source": str(path.relative_to(ROOT)).replace("\\", "/"),
                 "url": f"/posts/{slug}/",
             }
         )
-    return sorted(notes, key=lambda item: item["date"], reverse=True)
+    return notes
 
 
-def render_post(note):
-    body = markdown_to_html(note["body"])
-    tag_text = "、".join(note["tags"]) if note["tags"] else "Notes"
+def load_legacy_posts():
+    posts = []
+    for item in LEGACY_POSTS:
+        source = ROOT / item["source"]
+        posts.append(
+            {
+                "kind": "legacy",
+                "title": item["title"],
+                "slug": item["slug"],
+                "date": item["date"],
+                "summary": item["summary"],
+                "tags": item["tags"],
+                "body": extract_legacy_body(source),
+                "source": item["source"],
+                "url": f"/posts/{item['slug']}/",
+                "old_url": "/" + item["source"].replace("index.html", "").replace("\\", "/"),
+            }
+        )
+    return posts
+
+
+def tag_text(post):
+    return "、".join(post["tags"]) if post["tags"] else "Notes"
+
+
+def render_post(post):
+    old_link = ""
+    if post.get("old_url"):
+        old_link = f'<p class="article-note">这篇文章从 2020 旧页面迁移而来，旧链接仍保留：<a href="{html.escape(post["old_url"])}">查看旧版</a></p>'
     return f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="liangdingguan">
-  <meta name="description" content="{html.escape(note['summary'])}">
-  <title>{html.escape(note['title'])} | liangdingguan</title>
+  <meta name="description" content="{html.escape(post['summary'])}">
+  <title>{html.escape(post['title'])} | liangdingguan</title>
   <link rel="icon" href="/assets/favicon.ico">
   <link rel="stylesheet" href="/css/redesign.css">
 </head>
@@ -276,7 +333,6 @@ def render_post(note):
     <nav class="nav" aria-label="主导航">
       <a href="/">首页</a>
       <a href="/#notes">文章</a>
-      <a href="/archives/">归档</a>
       <a href="/about/">关于</a>
       <a href="https://github.com/liangdingguan" target="_blank" rel="noreferrer">GitHub</a>
     </nav>
@@ -284,12 +340,13 @@ def render_post(note):
   <main class="article-page">
     <article class="article-shell">
       <header class="article-hero">
-        <p class="eyebrow">{html.escape(tag_text)}</p>
-        <h1>{html.escape(note['title'])}</h1>
-        <p>{html.escape(note['date'])} · 来源：{html.escape(note['source'])}</p>
+        <p class="eyebrow">{html.escape(tag_text(post))}</p>
+        <h1>{html.escape(post['title'])}</h1>
+        <p>{html.escape(post['date'])} · 来源：{html.escape(post['source'])}</p>
       </header>
       <div class="article-content">
-{body}
+        {old_link}
+{post['body']}
       </div>
     </article>
   </main>
@@ -302,27 +359,45 @@ def render_post(note):
 """
 
 
-def render_index(notes):
-    all_count = len(notes) + 10
-    dynamic_cards = []
-    for note in notes:
-        dynamic_cards.append(
-            f"""          <article class="post-card featured">
-            <a href="{html.escape(note['url'])}">{html.escape(note['title'])}</a>
-            <p>{html.escape(note['summary'])}</p>
-            <span>{html.escape(note['date'].replace('-', '/'))} · {html.escape('、'.join(note['tags']) or 'Notes')}</span>
+def render_post_cards(posts):
+    cards = []
+    for post in posts:
+        featured = " featured" if post["kind"] == "note" else ""
+        cards.append(
+            f"""          <article class="post-card{featured}">
+            <a href="{html.escape(post['url'])}">{html.escape(post['title'])}</a>
+            <p>{html.escape(post['summary'])}</p>
+            <span>{html.escape(post['date'].replace('-', '/'))} · {html.escape(tag_text(post))}</span>
           </article>"""
         )
-    for item in LEGACY_POSTS:
-        dynamic_cards.append(
-            f"""          <article class="post-card">
-            <a href="{item['url']}">{html.escape(item['title'])}</a>
-            <p>{html.escape(item['summary'])}</p>
-            <span>{item['date']} · {html.escape(item['tags'])}</span>
-          </article>"""
+    return "\n".join(cards)
+
+
+def render_sidebar(posts):
+    groups = {}
+    for post in posts:
+        year = post["date"][:4]
+        groups.setdefault(year, []).append(post)
+    sections = []
+    for year in sorted(groups.keys(), reverse=True):
+        links = "\n".join(
+            f'              <a href="{html.escape(post["url"])}"><span>{html.escape(post["date"][5:].replace("-", "/"))}</span>{html.escape(post["title"])}</a>'
+            for post in groups[year]
         )
-    archive_links = "\n".join(f'        <a href="{url}">{html.escape(title)}</a>' for title, url in ARCHIVE_LINKS)
-    post_cards = "\n".join(dynamic_cards)
+        sections.append(
+            f"""          <section>
+            <h3>{html.escape(year)}</h3>
+            <div class="archive-list">
+{links}
+            </div>
+          </section>"""
+        )
+    return "\n".join(sections)
+
+
+def render_index(posts):
+    post_cards = render_post_cards(posts)
+    sidebar = render_sidebar(posts)
     return f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -343,19 +418,18 @@ def render_index(notes):
     <a class="brand" href="/">liangdingguan</a>
     <nav class="nav" aria-label="主导航">
       <a href="#notes">文章</a>
-      <a href="/archives/">归档</a>
       <a href="/about/">关于</a>
       <a href="https://github.com/liangdingguan" target="_blank" rel="noreferrer">GitHub</a>
     </nav>
   </header>
 
   <main>
-    <section class="hero">
+    <section class="hero compact-hero">
       <div class="hero-bg" aria-hidden="true"></div>
       <div class="hero-inner">
         <p class="eyebrow">Personal Homepage</p>
-        <h1>你好，我是 liangdingguan。</h1>
-        <p class="hero-copy">这里收集我的技术笔记、学习路线和一些阶段性的思考。以后只需要维护 notes 里的 Markdown，网站会自动生成。</p>
+        <h1>liangdingguan</h1>
+        <p class="hero-copy">技术笔记、课程记录和阶段性思考。新文章从 notes/*.md 自动生成，旧文章也已迁移到统一的 posts 阅读样式。</p>
         <div class="hero-actions">
           <a class="button primary" href="#notes">查看文章</a>
           <a class="button" href="mailto:2280426623@qq.com">联系我</a>
@@ -365,64 +439,57 @@ def render_index(notes):
 
     <section class="overview" aria-label="站点概览">
       <article>
-        <span class="stat">{all_count}</span>
-        <p>篇文章，Markdown 自动发布</p>
+        <span class="stat">{len(posts)}</span>
+        <p>篇文章统一收进 posts</p>
       </article>
       <article>
         <span class="stat">notes</span>
-        <p>新增、修改、删除都从 notes/*.md 开始</p>
+        <p>新文章继续维护 notes/*.md</p>
       </article>
       <article>
-        <span class="stat">Auto</span>
-        <p>GitHub Actions 自动生成页面</p>
+        <span class="stat">legacy</span>
+        <p>2020 旧文已迁移为统一样式</p>
       </article>
     </section>
 
     <section class="content-shell" id="notes">
       <div class="section-heading">
         <p class="eyebrow">Notes</p>
-        <h2>最近的技术笔记</h2>
+        <h2>文章</h2>
       </div>
 
-      <div class="layout">
+      <div class="home-layout">
         <div class="posts">
 {post_cards}
         </div>
 
-        <aside class="profile" aria-label="个人信息">
-          <img src="/avatar/Misaka.jpg" alt="liangdingguan 的头像">
-          <h2>liangdingguan</h2>
-          <p>持续学习，持续记录。现在这个页面可以从 Markdown 自动生成，适合长期维护课程笔记、技术文章和项目记录。</p>
-          <div class="profile-links">
-            <a href="mailto:2280426623@qq.com">Email</a>
-            <a href="https://github.com/liangdingguan" target="_blank" rel="noreferrer">GitHub</a>
-            <a href="/about/">About</a>
+        <aside class="archive-sidebar" aria-label="文章归档">
+          <div class="sidebar-card profile-mini">
+            <img src="/avatar/Misaka.jpg" alt="liangdingguan 的头像">
+            <div>
+              <h2>liangdingguan</h2>
+              <p>持续学习，持续记录。</p>
+            </div>
+          </div>
+          <div class="sidebar-card">
+            <p class="eyebrow">Archive</p>
+{sidebar}
           </div>
         </aside>
-      </div>
-    </section>
-
-    <section class="archive-strip">
-      <div>
-        <p class="eyebrow">Archive</p>
-        <h2>更多旧文仍然保留</h2>
-      </div>
-      <div class="archive-links">
-{archive_links}
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <span>© liangdingguan</span>
-    <span>Built from notes/*.md</span>
+    <span>Built from notes/*.md and legacy HTML</span>
   </footer>
 </body>
 </html>
 """
 
 
-def build_content_json(notes):
+def build_content_json(posts):
     return {
         "meta": {
             "title": "liangdingguan",
@@ -433,33 +500,34 @@ def build_content_json(notes):
         },
         "posts": [
             {
-                "title": note["title"],
-                "date": note["date"],
-                "path": f"posts/{note['slug']}/",
-                "permalink": f"https://liangdingguan.github.io/posts/{note['slug']}/",
+                "title": post["title"],
+                "date": post["date"],
+                "path": f"posts/{post['slug']}/",
+                "permalink": f"https://liangdingguan.github.io/posts/{post['slug']}/",
                 "categories": [],
-                "tags": [{"name": tag, "slug": slugify(tag), "permalink": ""} for tag in note["tags"]],
+                "tags": [{"name": tag, "slug": slugify(tag), "permalink": ""} for tag in post["tags"]],
             }
-            for note in notes
+            for post in posts
         ],
     }
 
 
 def main():
-    notes = load_notes()
+    posts = load_notes() + load_legacy_posts()
+    posts = sorted(posts, key=lambda item: item["date"], reverse=True)
     if POSTS_DIR.exists():
         shutil.rmtree(POSTS_DIR)
     POSTS_DIR.mkdir(exist_ok=True)
-    for note in notes:
-        target = POSTS_DIR / note["slug"]
+    for post in posts:
+        target = POSTS_DIR / post["slug"]
         target.mkdir(parents=True, exist_ok=True)
-        (target / "index.html").write_text(render_post(note), encoding="utf-8")
-    (ROOT / "index.html").write_text(render_index(notes), encoding="utf-8")
+        (target / "index.html").write_text(render_post(post), encoding="utf-8")
+    (ROOT / "index.html").write_text(render_index(posts), encoding="utf-8")
     (ROOT / "content.json").write_text(
-        json.dumps(build_content_json(notes), ensure_ascii=False, indent=2),
+        json.dumps(build_content_json(posts), ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
-    print(f"Built {len(notes)} note(s).")
+    print(f"Built {len(posts)} post(s).")
 
 
 if __name__ == "__main__":
