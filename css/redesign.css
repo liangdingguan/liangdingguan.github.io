@@ -331,6 +331,66 @@ p {
   margin-top: 20px;
 }
 
+.archive-all-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  margin: 14px 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--accent-strong);
+  font-weight: 800;
+  background: #f4fbf9;
+}
+
+.archive-all-link:hover {
+  border-color: var(--accent);
+}
+
+.archive-year-panel {
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+  margin-top: 12px;
+}
+
+.archive-year-panel summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  color: var(--accent-strong);
+  font-size: 18px;
+  font-weight: 850;
+  list-style: none;
+}
+
+.archive-year-panel summary::-webkit-details-marker {
+  display: none;
+}
+
+.archive-year-panel summary::after {
+  content: "+";
+  color: var(--warm);
+  font-size: 18px;
+}
+
+.archive-year-panel[open] summary::after {
+  content: "-";
+}
+
+.archive-year-panel summary span {
+  margin-left: auto;
+  margin-right: 12px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.archive-year-panel .archive-list {
+  margin-top: 10px;
+}
+
 .archive-sidebar h3 {
   margin: 0 0 10px;
   color: var(--accent-strong);
@@ -358,6 +418,72 @@ p {
 .archive-list span {
   color: var(--warm);
   font-size: 12px;
+  font-weight: 800;
+}
+
+.archive-page {
+  width: min(1040px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 72px 0 88px;
+}
+
+.archive-page-hero {
+  margin-bottom: 34px;
+}
+
+.archive-page-hero h1 {
+  margin-bottom: 12px;
+  font-size: clamp(38px, 6vw, 72px);
+  line-height: 1.08;
+}
+
+.archive-page-hero p:last-child {
+  max-width: 680px;
+  color: var(--muted);
+}
+
+.archive-page-year {
+  margin-top: 34px;
+}
+
+.archive-page-year h2 {
+  margin-bottom: 16px;
+  color: var(--accent-strong);
+  font-size: 28px;
+}
+
+.archive-page-list {
+  display: grid;
+  gap: 12px;
+}
+
+.archive-page-item {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 14px 36px rgba(23, 33, 38, 0.06);
+  padding: 20px 22px;
+}
+
+.archive-page-item a {
+  display: inline-block;
+  margin-bottom: 8px;
+  font-size: 21px;
+  font-weight: 850;
+}
+
+.archive-page-item a:hover {
+  color: var(--accent);
+}
+
+.archive-page-item p {
+  margin-bottom: 10px;
+  color: var(--muted);
+}
+
+.archive-page-item span {
+  color: var(--warm);
+  font-size: 14px;
   font-weight: 800;
 }
 
