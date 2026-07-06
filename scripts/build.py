@@ -333,6 +333,7 @@ def render_post(post):
     <nav class="nav" aria-label="主导航">
       <a href="/">首页</a>
       <a href="/#notes">文章</a>
+      <a href="/posts/">全部文章</a>
       <a href="/about/">关于</a>
       <a href="https://github.com/liangdingguan" target="_blank" rel="noreferrer">GitHub</a>
     </nav>
@@ -376,23 +377,100 @@ def render_post_cards(posts):
 def render_sidebar(posts):
     groups = {}
     for post in posts:
-        year = post["date"][:4]
-        groups.setdefault(year, []).append(post)
+        groups.setdefault(post["date"][:4], []).append(post)
+
+    recent_links = "\n".join(
+        f'              <a href="{html.escape(post["url"])}"><span>{html.escape(post["date"][5:].replace("-", "/"))}</span>{html.escape(post["title"])}</a>'
+        for post in posts[:5]
+    )
+
+    years = sorted(groups.keys(), reverse=True)
     sections = []
-    for year in sorted(groups.keys(), reverse=True):
+    for index, year in enumerate(years):
         links = "\n".join(
             f'              <a href="{html.escape(post["url"])}"><span>{html.escape(post["date"][5:].replace("-", "/"))}</span>{html.escape(post["title"])}</a>'
             for post in groups[year]
         )
+        open_attr = " open" if index == 0 else ""
         sections.append(
-            f"""          <section>
-            <h3>{html.escape(year)}</h3>
+            f"""          <details class="archive-year-panel"{open_attr}>
+            <summary>{html.escape(year)} <span>{len(groups[year])}</span></summary>
             <div class="archive-list">
 {links}
             </div>
-          </section>"""
+          </details>"""
         )
-    return "\n".join(sections)
+
+    return f"""          <section>
+            <h3>最近文章</h3>
+            <div class="archive-list">
+{recent_links}
+            </div>
+          </section>
+          <a class="archive-all-link" href="/posts/">查看全部文章</a>
+{chr(10).join(sections)}"""
+
+
+def render_archive_index(posts):
+    groups = {}
+    for post in posts:
+        groups.setdefault(post["date"][:4], []).append(post)
+
+    sections = []
+    for year in sorted(groups.keys(), reverse=True):
+        cards = "\n".join(
+            f"""          <article class="archive-page-item">
+            <a href="{html.escape(post['url'])}">{html.escape(post['title'])}</a>
+            <p>{html.escape(post['summary'])}</p>
+            <span>{html.escape(post['date'].replace('-', '/'))} · {html.escape(tag_text(post))}</span>
+          </article>"""
+            for post in groups[year]
+        )
+        sections.append(
+            f"""      <section class="archive-page-year">
+        <h2>{html.escape(year)}</h2>
+        <div class="archive-page-list">
+{cards}
+        </div>
+      </section>"""
+        )
+
+    return f"""<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="liangdingguan">
+  <meta name="description" content="liangdingguan 的全部文章归档。">
+  <title>全部文章 | liangdingguan</title>
+  <link rel="icon" href="/assets/favicon.ico">
+  <link rel="stylesheet" href="/css/redesign.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">liangdingguan</a>
+    <nav class="nav" aria-label="主导航">
+      <a href="/">首页</a>
+      <a href="/posts/">全部文章</a>
+      <a href="/about/">关于</a>
+      <a href="https://github.com/liangdingguan" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </header>
+  <main class="archive-page">
+    <header class="archive-page-hero">
+      <p class="eyebrow">Archive</p>
+      <h1>全部文章</h1>
+      <p>共 {len(posts)} 篇，按年份归档。主页只保留最近文章和折叠入口，这里保留完整列表。</p>
+    </header>
+{chr(10).join(sections)}
+  </main>
+  <footer class="site-footer">
+    <a href="/">回到首页</a>
+    <span>© liangdingguan</span>
+  </footer>
+</body>
+</html>
+"""
 
 
 def render_index(posts):
@@ -522,6 +600,7 @@ def main():
         target = POSTS_DIR / post["slug"]
         target.mkdir(parents=True, exist_ok=True)
         (target / "index.html").write_text(render_post(post), encoding="utf-8")
+    (POSTS_DIR / "index.html").write_text(render_archive_index(posts), encoding="utf-8")
     (ROOT / "index.html").write_text(render_index(posts), encoding="utf-8")
     (ROOT / "content.json").write_text(
         json.dumps(build_content_json(posts), ensure_ascii=False, indent=2),
