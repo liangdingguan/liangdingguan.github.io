@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="liangdingguan">
+  <meta name="description" content="同步、异步、并发、并行、阻塞与非阻塞概念对比。">
+  <title>异步、同步，并发、并行，阻塞非阻塞 | liangdingguan</title>
+  <link rel="icon" href="/assets/favicon.ico">
+  <link rel="stylesheet" href="/css/redesign.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">liangdingguan</a>
+    <nav class="nav" aria-label="主导航">
+      <a href="/">首页</a>
+      <a href="/#notes">文章</a>
+      <a href="/about/">关于</a>
+      <a href="https://github.com/liangdingguan" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </header>
+  <main class="article-page">
+    <article class="article-shell">
+      <header class="article-hero">
+        <p class="eyebrow">计算机网络相关</p>
+        <h1>异步、同步，并发、并行，阻塞非阻塞</h1>
+        <p>2020-04-07 · 来源：2020/04/07/异步、同步，并发、并行，阻塞非阻塞/index.html</p>
+      </header>
+      <div class="article-content">
+        <p class="article-note">这篇文章从 2020 旧页面迁移而来，旧链接仍保留：<a href="/2020/04/07/异步、同步，并发、并行，阻塞非阻塞/">查看旧版</a></p>
+<p>1.同步和异步关注的是”消息通信机制” </p>
+<p>2.阻塞和非阻塞关注的是程序在等待调用结果时的状态 </p>
+<p>同步：简单来说就是一个发出一个”调用”时，没有得到结果之前，该”调用”就不返回。但是一旦调用返回，就得到返回值了。是“调用者”主动等待这个”调用”结果。(另外一个任务在等待调用结果的时候就会阻塞，返回结果之前这个”调用”不会阻塞当前线程叫”非阻塞”) </p>
+<p>异步: 则跟同步相反，”调用”发起后,这个”调用”就直接返回了，所以没有返回结果。实际上仅仅是这个”调用”以某种形式返回了，结果可能还正在处理。(回调函数处理) </p>
+<p>并发：当多个线程在操作时，如果系统只有一个CPU，它会合理分配给多个线程去执行任务，执行快的多分配，执行慢的就少分配。 </p>
+<p>并行：当系统有多个CPU时， 线程会分配到不同CPU，互不抢占资源，可以同时进行。 </p>
+<p>tips：并发和并行最大的区别就在于，是否同时。 </p>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <a href="/">回到首页</a>
+    <span>© liangdingguan</span>
+  </footer>
+</body>
+</html>
