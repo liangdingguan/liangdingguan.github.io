@@ -1,0 +1,30 @@
+name: Build notes
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "notes/**"
+      - "scripts/build.py"
+      - ".github/workflows/publish.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Build site from Markdown notes
+        run: python scripts/build.py
+      - name: Commit generated site
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Build site from notes"
+          file_pattern: "index.html content.json posts/**"
