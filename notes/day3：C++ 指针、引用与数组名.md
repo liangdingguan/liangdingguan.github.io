@@ -1,9 +1,10 @@
+---
 title: C/C++补充3:指针、引用、数组名
 date: 2026-07-06
-tags: [C++, 课程笔记]
-summary: 内存与指针相关内容
-slug: c-cpp-basic-syntax-content2
-
+tags: [C++, 笔记]
+summary:  内存与指针相关内容
+slug: c-cpp-basic-syntax-content23
+---
 ## 进阶学习其三：C++ 指针、引用与数组名
 
 > author:梁鼎冠
