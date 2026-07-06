@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="liangdingguan">
+  <meta name="description" content="title: C/C++补充3:指针、引用、数组名 date: 20260706 tags: [C++, 课程笔记] summary: 内存与指针相关内容 slug: ccppbasicsyntaxcontent2 进阶...">
+  <title>title: C/C++补充3:指针、引用、数组名 | liangdingguan</title>
+  <link rel="icon" href="/assets/favicon.ico">
+  <link rel="stylesheet" href="/css/redesign.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">liangdingguan</a>
+    <nav class="nav" aria-label="主导航">
+      <a href="/">首页</a>
+      <a href="/#notes">文章</a>
+      <a href="/archives/">归档</a>
+      <a href="/about/">关于</a>
+      <a href="https://github.com/liangdingguan" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </header>
+  <main class="article-page">
+    <article class="article-shell">
+      <header class="article-hero">
+        <p class="eyebrow">Notes</p>
+        <h1>title: C/C++补充3:指针、引用、数组名</h1>
+        <p>2026-07-06 · 来源：notes/day3：C++ 指针、引用与数组名.md</p>
+      </header>
+      <div class="article-content">
+<p>title: C/C++补充3:指针、引用、数组名 date: 2026-07-06 tags: [C++, 课程笔记] summary: 内存与指针相关内容 slug: c-cpp-basic-syntax-content2</p>
+<h3>进阶学习其三：C++ 指针、引用与数组名</h3>
+<blockquote>author:梁鼎冠</blockquote>
+<h3>一、指针（Pointer）基础</h3>
+<h4>1.1 什么是指针</h4>
+<ul>
+<li>指针是一个变量，存储另一个变量的<strong>内存地址</strong>。</li>
+<li>通过地址可以间接访问该变量。</li>
+<li>类型：<code>类型*</code>，例如 <code>int* p</code> 表示指向 <code>int</code> 的指针。</li>
+</ul>
+<h4>1.2 基本操作</h4>
+<ul>
+<li><code>&amp;</code> 取地址运算符。</li>
+<li><code>*</code> 解引用运算符（访问指针指向的对象）。</li>
+</ul>
+<h5>示例1：指针的基本声明、赋值与使用</h5>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int var = 42;
+    int* ptr = &amp;var;   // ptr 指向 var 的地址
+
+    cout &lt;&lt; &quot;var 的值: &quot; &lt;&lt; var &lt;&lt; endl;
+    cout &lt;&lt; &quot;var 的地址: &quot; &lt;&lt; &amp;var &lt;&lt; endl;
+    cout &lt;&lt; &quot;ptr 存储的地址: &quot; &lt;&lt; ptr &lt;&lt; endl;
+    cout &lt;&lt; &quot;ptr 解引用后的值: &quot; &lt;&lt; *ptr &lt;&lt; endl;
+
+    // 通过指针修改变量
+    *ptr = 100;
+    cout &lt;&lt; &quot;修改后 var 的值: &quot; &lt;&lt; var &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+<h4>1.3 指针的运算</h4>
+<ul>
+<li>指针加减整数：移动 <code>sizeof(指向类型)</code> 个字节。</li>
+<li>指针相减：得到元素个数差。</li>
+</ul>
+<h5>示例2：指针算术运算</h5>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int arr[5] = {10, 20, 30, 40, 50};
+    int* p = arr;      // 指向数组第一个元素
+    cout &lt;&lt; &quot;*p = &quot; &lt;&lt; *p &lt;&lt; endl;
+
+    p++;               // 现在指向 arr[1]
+    cout &lt;&lt; &quot;*p = &quot; &lt;&lt; *p &lt;&lt; endl;
+
+    p += 2;            // 指向 arr[3]
+    cout &lt;&lt; &quot;*p = &quot; &lt;&lt; *p &lt;&lt; endl;
+
+    int* q = &amp;arr[4];
+    cout &lt;&lt; &quot;q - p = &quot; &lt;&lt; q - p &lt;&lt; endl;  // 输出 1（相差1个元素）
+
+    return 0;
+}</code></pre>
+<h4>1.4 动态内存分配（new / delete）</h4>
+<ul>
+<li><code>new</code> 在堆上分配内存，返回指针。</li>
+<li><code>delete</code> 释放内存。</li>
+<li>对于数组：<code>new[]</code> 和 <code>delete[]</code> 匹配使用。</li>
+</ul>
+<h5>示例3：动态分配与释放</h5>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    // 单个对象
+    int* p = new int(99);
+    cout &lt;&lt; &quot;*p = &quot; &lt;&lt; *p &lt;&lt; endl;
+    delete p;
+
+    // 数组
+    int* arr = new int[10];
+    for (int i = 0; i &lt; 10; ++i)
+        arr[i] = i * i;
+
+    for (int i = 0; i &lt; 10; ++i)
+        cout &lt;&lt; arr[i] &lt;&lt; &quot; &quot;;
+    cout &lt;&lt; endl;
+
+    delete[] arr;   // 注意数组释放需用 delete[]
+
+    return 0;
+}</code></pre>
+<blockquote><strong>注意</strong>：避免内存泄漏，每个 <code>new</code> 都要有对应的 <code>delete</code>。</blockquote>
+<hr>
+<h3>二、引用（Reference）</h3>
+<h4>2.1 引用的概念</h4>
+<ul>
+<li>引用是已存在变量的<strong>别名</strong>，不占用额外内存（逻辑上）。</li>
+<li>定义时必须初始化，且不能再引用其他变量。</li>
+<li>语法：<code>类型&amp; 引用名 = 变量;</code></li>
+</ul>
+<h5>示例4：引用的基本使用</h5>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int original = 5;
+    int&amp; ref = original;   // ref 是 original 的别名
+
+    cout &lt;&lt; &quot;original = &quot; &lt;&lt; original &lt;&lt; &quot;, ref = &quot; &lt;&lt; ref &lt;&lt; endl;
+
+    ref = 10;
+    cout &lt;&lt; &quot;修改 ref 后：original = &quot; &lt;&lt; original &lt;&lt; endl;
+
+    // int&amp; ref2;  // 错误：引用必须初始化
+
+    return 0;
+}</code></pre>
+<h4>2.2 引用作为函数参数（传引用）</h4>
+<ul>
+<li>可以修改实参，避免拷贝开销（尤其是大对象）。</li>
+</ul>
+<h5>示例5：交换两个数（比较传值与传引用）</h5>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// 传值：无法改变实参
+void swapByValue(int a, int b) {
+    int temp = a; a = b; b = temp;
+}
+
+// 传指针：可以改变实参
+void swapByPointer(int* a, int* b) {
+    int temp = *a; *a = *b; *b = temp;
+}
+
+// 传引用：可以改变实参，语法更简洁
+void swapByReference(int&amp; a, int&amp; b) {
+    int temp = a; a = b; b = temp;
+}
+
+int main() {
+    int x = 1, y = 2;
+    swapByValue(x, y);
+    cout &lt;&lt; &quot;swapByValue: x=&quot; &lt;&lt; x &lt;&lt; &quot; y=&quot; &lt;&lt; y &lt;&lt; endl; // 未交换
+
+    x = 1; y = 2;
+    swapByPointer(&amp;x, &amp;y);
+    cout &lt;&lt; &quot;swapByPointer: x=&quot; &lt;&lt; x &lt;&lt; &quot; y=&quot; &lt;&lt; y &lt;&lt; endl;
+
+    x = 1; y = 2;
+    swapByReference(x, y);
+    cout &lt;&lt; &quot;swapByReference: x=&quot; &lt;&lt; x &lt;&lt; &quot; y=&quot; &lt;&lt; y &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+<h4>2.3 引用作为函数返回值</h4>
+<ul>
+<li>可以返回局部变量的引用？<strong>危险</strong>（局部变量在函数结束时销毁，返回悬空引用）。</li>
+<li>可返回静态变量、全局变量、类成员、或者通过参数传入的引用。</li>
+</ul>
+<h5>示例6：返回引用（正确用法）</h5>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int&amp; getElement(int arr[], int index) {
+    return arr[index];   // 返回数组元素的引用
+}
+
+int main() {
+    int arr[] = {10, 20, 30};
+    getElement(arr, 1) = 99;   // 通过引用修改数组元素
+    cout &lt;&lt; &quot;arr[1] = &quot; &lt;&lt; arr[1] &lt;&lt; endl;  // 输出 99
+    return 0;
+}</code></pre>
+<h4>2.4 指针与引用的区别总结</h4>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>特性</th>
+<th>指针</th>
+<th>引用</th>
+</tr></thead><tbody>
+<tr>
+<td>是否可为空</td>
+<td>是（需判空）</td>
+<td>否，必须初始化</td>
+</tr>
+<tr>
+<td>可否重新指向</td>
+<td>可以（改存地址）</td>
+<td>不可，终身绑定</td>
+</tr>
+<tr>
+<td>算术运算</td>
+<td>支持（如 ++）</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>占用内存</td>
+<td>通常占用4/8字节</td>
+<td>逻辑上不占（编译器实现可能占）</td>
+</tr>
+<tr>
+<td>访问成员</td>
+<td>用 <code>-&gt;</code> 或 <code>(*p).</code></td>
+<td>用 <code>.</code></td>
+</tr>
+</tbody></table></div>
+<blockquote>在C++中，推荐优先使用引用，除非需要“空值”或“重新绑定”的能力。</blockquote>
+<hr>
+<h3>三、数组名（Array Name）</h3>
+<h4>3.1 数组名是指针常量</h4>
+<ul>
+<li>一维数组名可以看作指向第一个元素的常量指针，不能改变其指向。</li>
+<li><code>sizeof(数组名)</code> 返回整个数组大小（字节），而 <code>sizeof(指针)</code> 返回指针本身大小。</li>
+</ul>
+<h5>示例7：数组名与指针的区别</h5>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int arr[5] = {1,2,3,4,5};
+    int* ptr = arr;   // 合法：数组名隐式转换为指针
+
+    cout &lt;&lt; &quot;sizeof(arr) = &quot; &lt;&lt; sizeof(arr) &lt;&lt; &quot; 字节&quot; &lt;&lt; endl; // 20 (4*5)
+    cout &lt;&lt; &quot;sizeof(ptr) = &quot; &lt;&lt; sizeof(ptr) &lt;&lt; &quot; 字节&quot; &lt;&lt; endl; // 8 (64位系统)
+
+    // arr = ptr;     // 错误：数组名是常量，不能赋值
+    ptr = arr + 2;    // 指针可以重新指向
+
+    cout &lt;&lt; &quot;arr[2] = &quot; &lt;&lt; arr[2] &lt;&lt; endl;
+    cout &lt;&lt; &quot;ptr[0] = &quot; &lt;&lt; ptr[0] &lt;&lt; endl;  // 指针也可用下标
+
+    return 0;
+}</code></pre>
+<h4>3.2 数组名作为函数参数</h4>
+<ul>
+<li>传递数组名实际上传递的是<strong>指向首元素的指针</strong>，大小信息丢失，需额外传递长度。</li>
+</ul>
+<h5>示例8：数组参数退化为指针</h5>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+void printArray(int arr[], int size) {   // 这里的 arr 其实是 int*
+    cout &lt;&lt; &quot;函数内 sizeof(arr) = &quot; &lt;&lt; sizeof(arr) &lt;&lt; endl; // 8（指针大小）
+    for (int i = 0; i &lt; size; ++i)
+        cout &lt;&lt; arr[i] &lt;&lt; &quot; &quot;;
+    cout &lt;&lt; endl;
+}
+
+int main() {
+    int arr[5] = {1,2,3,4,5};
+    cout &lt;&lt; &quot;main内 sizeof(arr) = &quot; &lt;&lt; sizeof(arr) &lt;&lt; endl; // 20
+    printArray(arr, 5);
+    return 0;
+}</code></pre>
+<hr>
+<h4>3.3 关于堆空间与栈空间的补充说明</h4>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>内存区域</th>
+<th>管理者</th>
+<th>分配速度</th>
+<th>大小限制</th>
+<th>生命周期</th>
+<th>典型用途</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>栈</strong></td>
+<td>编译器自动</td>
+<td>很快</td>
+<td>小（通常1~8MB）</td>
+<td>函数执行期间，结束时自动释放</td>
+<td>局部变量、函数参数</td>
+</tr>
+<tr>
+<td><strong>堆</strong></td>
+<td>程序员手动</td>
+<td>较慢</td>
+<td>大（可申请GB级）</td>
+<td>new/delete 或 malloc/free 控制</td>
+<td>大块数据、动态大小</td>
+</tr>
+<tr>
+<td><strong>静态区</strong></td>
+<td>编译器</td>
+<td>中等</td>
+<td>中等（全局区）</td>
+<td>整个程序运行期间</td>
+<td>全局变量、静态变量</td>
+</tr>
+</tbody></table></div>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+int global_var = 10;      // 静态区（全局变量）
+static int static_var = 20; // 静态区（静态全局变量）
+
+void func() {
+    int local_var = 30;   // 栈空间（局部变量）
+    static int local_static = 40; // 静态区（函数内静态变量，只初始化一次）
+
+    int* heap_var = new int(50);  // 堆空间（手动分配）
+    delete heap_var;              // 必须手动释放
+}
+
+int main() {
+    func();
+    return 0;
+}</code></pre>
+<ul>
+<li>本质上都是内存的某块区域，只是使用方式不同导致叫法不同，堆空间因为不是自动的，使用delete之后可能会存在内存空缺，而栈内存不会在中间某一块空缺。</li>
+</ul>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <a href="/">回到首页</a>
+    <span>© liangdingguan</span>
+  </footer>
+</body>
+</html>

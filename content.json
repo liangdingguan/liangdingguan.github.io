@@ -44,6 +44,14 @@
           "permalink": ""
         }
       ]
+    },
+    {
+      "title": "title: C/C++补充3:指针、引用、数组名",
+      "date": "2026-07-06",
+      "path": "posts/day3-c/",
+      "permalink": "https://liangdingguan.github.io/posts/day3-c/",
+      "categories": [],
+      "tags": []
     }
   ]
 }
