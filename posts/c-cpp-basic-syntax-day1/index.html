@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="梁鼎冠">
+  <meta name="description" content="C 与 C++ 基本语法对比、现代 C++ 语法补充与速查表。">
+  <title>day1：C与C++基本语法对比与补充 | liangdingguan</title>
+  <link rel="icon" href="/assets/favicon.ico">
+  <link rel="stylesheet" href="/css/redesign.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">liangdingguan</a>
+    <nav class="nav" aria-label="主导航">
+      <a href="/">首页</a>
+      <a href="/#notes">文章</a>
+      <a href="/archives/">归档</a>
+      <a href="/about/">关于</a>
+      <a href="https://github.com/liangdingguan" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </header>
+  <main class="article-page">
+    <article class="article-shell">
+      <header class="article-hero">
+        <p class="eyebrow">C++ Notes</p>
+        <h1>day1：C与C++基本语法对比与补充</h1>
+        <p>author：梁鼎冠 · 课程笔记 · 2026/07/06</p>
+      </header>
+      <div class="article-content">
+<h2>day1：C与C++基本语法对比与补充</h2>
+<blockquote>author：梁鼎冠</blockquote>
+<hr>
+<h3>一、C 与 C++ 的基本关系</h3>
+<ul>
+<li>C++ 是 C 的超集（绝大多数 C 代码可在 C++ 编译），但两者在思想上有本质区别。</li>
+<li>C 是<strong>面向过程</strong>，C++ 支持<strong>面向对象 + 泛型 + 函数式</strong>。</li>
+<li>基本语法：</li>
+<ul>
+<li>三大基础结构：顺序结构、分支结构、循环结构</li>
+<ul>
+<li>顺序结构：基本的输入输出、运算符应用、基本类型书写、类型转换问题</li>
+<li>分支结构：if -&gt;else if-&gt;else 、switch-case</li>
+<li>循环结构：while、for、break、continue、return</li>
+</ul>
+</ul>
+</ul>
+<ul>
+<ul>
+<li>函数、结构体、指针</li>
+<ul>
+<li>指针、引用、函数定义与调用、结构体</li>
+</ul>
+</ul>
+</ul>
+<ul>
+<ul>
+<li>面向对象基础</li>
+<ul>
+<li>封装</li>
+<li>继承</li>
+<li>多态</li>
+</ul>
+</ul>
+</ul>
+<hr>
+<h3>二、基础语法对比（C vs C++）</h3>
+<h4>2.1 头文件与命名空间</h4>
+<p><strong>C 风格</strong></p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;</code></pre>
+<p><strong>C++ 风格</strong></p>
+<pre><code class="language-cpp">#include &lt;cstdio&gt;   // C 库的 C++ 包装，声明在 std 命名空间
+#include &lt;cstdlib&gt;
+#include &lt;iostream&gt; // C++ 流库
+using namespace std; // 推荐仅在 cpp 文件中使用</code></pre>
+<ul>
+<li><strong>区别</strong>：C++ 引入命名空间 <code>namespace</code>，避免名字冲突；C 无命名空间概念。</li>
+</ul>
+<h4>2.2 基本数据类型</h4>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>数据类型</th>
+<th>C</th>
+<th>C++</th>
+</tr></thead><tbody>
+<tr>
+<td>布尔型</td>
+<td><code>_Bool</code> (C99)，需 <code>stdbool.h</code> 得 <code>bool</code></td>
+<td>内置 <code>bool</code>，字面值 <code>true/false</code></td>
+</tr>
+<tr>
+<td>字符型</td>
+<td><code>char</code></td>
+<td><code>char</code></td>
+</tr>
+<tr>
+<td>整型</td>
+<td><code>int, short, long, long long</code></td>
+<td>同左，增加 <code>wchar_t, char16_t, char32_t</code> (C++11)</td>
+</tr>
+<tr>
+<td>浮点型</td>
+<td><code>float, double, long double</code></td>
+<td>同左</td>
+</tr>
+<tr>
+<td>空类型</td>
+<td><code>void</code></td>
+<td><code>void</code></td>
+</tr>
+<tr>
+<td>空指针</td>
+<td><code>NULL</code> (通常为 <code>((void*)0)</code>)</td>
+<td><code>nullptr</code> (C++11，类型安全)</td>
+</tr>
+</tbody></table></div>
+<p><strong>示例</strong></p>
+<pre><code class="language-cpp">bool flag = true;            // C++ 内置
+int* p = nullptr;            // C++11，替代 NULL</code></pre>
+<h4>2.3 变量定义位置</h4>
+<ul>
+<li><strong>C89</strong>：变量必须在块开头定义。</li>
+<li><strong>C99 / C++</strong>：允许在任意位置定义变量（如 <code>for(int i=0;;)</code>）。</li>
+</ul>
+<pre><code class="language-cpp">for (int i = 0; i &lt; 5; ++i) { /*...*/ } // C++ 与 C99 均允许</code></pre>
+<h4>2.4 常量与 const</h4>
+<ul>
+<li>C 中 <code>const</code> 为只读变量，不可用于数组大小（除非 C99 VLA）。</li>
+<li>C++ 中 <code>const</code> 为编译期常量，可用于数组大小。</li>
+</ul>
+<pre><code class="language-cpp">const int MAX = 100;
+int arr[MAX]; // C++ 合法，C 中传统非法（C99 可变长数组另算）</code></pre>
+<h4>2.5 强制类型转换</h4>
+<ul>
+<li><strong>C 风格</strong>：<code>(type)value</code>。</li>
+</ul>
+<pre><code>double a=3.14;
+std::cout&lt;&lt;(int)a;</code></pre>
+<ul>
+<li><strong>C++ 风格</strong>：<code>static_cast</code>, <code>dynamic_cast</code>, <code>const_cast</code>, <code>reinterpret_cast</code>（更安全、可读）。</li>
+</ul>
+<pre><code class="language-cpp">double d = 3.14;
+int i = static_cast&lt;int&gt;(d); // C++ 推荐</code></pre>
+<h4>2.6 函数</h4>
+<h5>函数默认参数（C++ 有，C 无）</h5>
+<pre><code class="language-cpp">void func(int a, int b = 10) { /*...*/ } //这个也叫做缺省参数</code></pre>
+<h5>函数重载（C++ 有，C 无）</h5>
+<pre><code class="language-cpp">void print(int x);
+void print(double x);//若调用时函数重名了，会根据参数类型来选择不一样的函数来调用</code></pre>
+<h4>2.7 动态内存管理</h4>
+<ul>
+<li><strong>C</strong>：<code>malloc / free</code>，需手动计算大小，返回 <code>void*</code>。</li>
+<li><strong>C++</strong>：<code>new / delete</code>，自动计算大小，调用构造函数/析构函数。</li>
+</ul>
+<pre><code class="language-cpp">// C
+int* p = (int*)malloc(sizeof(int)*10);
+free(p);
+
+// C++
+int* p2 = new int[10];
+delete[] p2;</code></pre>
+<h4>2.8 结构体与枚举与pair&lt;&gt;</h4>
+<p><strong>结构体</strong></p>
+<pre><code class="language-cpp">// C 结构体
+typedef struct PointC{ int x,int y} PointC;  PointC p1={123,456}；
+struct PointC2{int x,int y};  struct PointC2 a;//声明时必须带上struct关键字
+typedef struct { int x,int y} PointC3;  PointC3 p3={123,456}；//匿名结构体写法
+// C++ 结构体 (直接使用类型名，且可包含成员函数)
+struct PointCPP { int x; void show() { /*...*/ } };
+PointCPP p; // 无需 typedef</code></pre>
+<p><strong>枚举</strong></p>
+<pre><code class="language-cpp">// C 枚举 (值暴露在外)
+enum Color { RED, GREEN };
+// C++11 强类型枚举
+enum class Color { RED, GREEN };
+Color c = Color::RED; // 必须带作用域</code></pre>
+<p><strong>pair&lt;&gt;</strong></p>
+<pre><code class="language-cpp">//多数时候可以平替两种类型聚合的结构体
+pair&lt;int,int&gt;p;
+p.first=123;
+p.second=456;
+//需要与map&lt;&gt;稍作区分，map是键值对，通过键可以以O(logn)的复杂度查寻值。pair只是单纯把两个值以一对的形式存储
+</code></pre>
+<h4>2.9函数重载与运算符重载</h4>
+<p><strong>函数重载</strong></p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// 打印整数
+void print(int x) {
+    cout &lt;&lt; &quot;int: &quot; &lt;&lt; x &lt;&lt; endl;
+}
+
+// 打印浮点数
+void print(double x) {
+    cout &lt;&lt; &quot;double: &quot; &lt;&lt; x &lt;&lt; endl;
+}
+
+// 打印字符串
+void print(const char* s) {
+    cout &lt;&lt; &quot;string: &quot; &lt;&lt; s &lt;&lt; endl;
+}
+
+// 打印两个整数
+void print(int a, int b) {
+    cout &lt;&lt; &quot;two ints: &quot; &lt;&lt; a &lt;&lt; &quot;, &quot; &lt;&lt; b &lt;&lt; endl;
+}
+
+int main() {
+    print(10);          // 调用 print(int)
+    print(3.14);        // 调用 print(double)
+    print(&quot;hello&quot;);     // 调用 print(const char*)
+    print(1, 2);        // 调用 print(int, int)
+    return 0;
+}
+/*
+顶层 const（指针本身是常量）不参与重载：void f(int) 与 void f(const int) 相同。
+
+底层 const（指向常量的指针/引用）可以参与重载：void f(int&amp;) 与 void f(const int&amp;) 不同。
+
+*/</code></pre>
+<p><strong>运算符重载</strong></p>
+<ul>
+<li>大部分运算都可以重载。<strong>不能重载</strong>的有：<code>.</code>, <code>.*</code>, <code>::</code>, <code>?:</code>, <code>sizeof</code>, <code>alignof</code>, <code>typeid</code>, <code>noexcept</code>。<code>-&gt;*</code> 是可以重载的，但很少用。</li>
+<li>两种实现方式</li>
+<ul>
+<li>成员函数</li>
+<ul>
+<li>左操作数为 <code>*this</code>，参数列表少一个（右操作数）。</li>
+<li>例如：<code>operator+(const T&amp; right)</code> 对应 <code>a + b</code> → <code>a.operator+(b)</code>。</li>
+</ul>
+<li>非成员函数(通常是友元函数)</li>
+<ul>
+<li>需要两个参数（二元运算符），左右操作数对称。</li>
+<li>适用于左操作数不是自定义类型的情况（如 <code>cout &lt;&lt; obj</code>）。</li>
+</ul>
+</ul>
+</ul>
+<pre><code class="language-cpp">//1.成员函数重载&lt; 实现结构体比大小
+struct Students{
+    int age;
+    int height;
+    // 成员函数版本（只需一个参数，右操作数）
+    bool operator &lt; (const Students&amp; y)const{
+        //这里可以写成 if(this-&gt;age!+y.age)return this-&gt;age&lt;y.age
+        if(age!=y.age)return age&lt;y.age; 
+        else return height&gt;y.height;
+    }
+}
+//2.友元函数
+struct Students{
+    private:
+        int age;
+        int height;
+   public:
+    	friend bool operator &lt; (const Students &amp; y)const{
+            .......
+        }
+}
+//3.非成员函数(在结构体或类之外的地方写)，类似于写sort排序中的cmp函数
+
+bool operator &lt; (const Students&amp; x,const Students&amp; y){
+    if(x.age!=y.age)return x.age&lt;y.age;
+    else return x.height&lt;y.height;
+}</code></pre>
+<pre><code class="language-cpp">//重载&lt;&lt;,使得输出时候可以直接输出整个结构体
+ostream&amp; operator&lt;&lt;(ostream&amp; os, const Point&amp; p) {
+    os &lt;&lt; &quot;(&quot; &lt;&lt; p.x &lt;&lt; &quot;, &quot; &lt;&lt; p.y &lt;&lt; &quot;)&quot;;
+    return os;
+}</code></pre>
+<h4>2.9 输入输出</h4>
+<ul>
+<li><strong>C</strong>：<code>printf / scanf</code>，格式字符串控制。</li>
+<li><strong>C++</strong>：<code>cin / cout</code>，类型安全，可重载。</li>
+</ul>
+<pre><code class="language-cpp">int age;
+cout &lt;&lt; &quot;Enter age: &quot;;
+cin &gt;&gt; age;
+cout &lt;&lt; &quot;Age: &quot; &lt;&lt; age &lt;&lt; endl;</code></pre>
+<h4>2.10 字符串</h4>
+<ul>
+<li><strong>C</strong>：<code>char str[]</code> 或 <code>char*</code>，以 <code>\0</code> 结尾，操作靠 <code>&lt;string.h&gt;</code>。</li>
+<li><strong>C++</strong>：<code>std::string</code> 类，功能丰富且安全。</li>
+</ul>
+<pre><code class="language-cpp">string s = &quot;Hello&quot;;
+s += &quot; World&quot;;
+cout &lt;&lt; s.length();</code></pre>
+<hr>
+<h3>三、现代 C++ 语法大全（C++11/14/17）</h3>
+<p>以下特性在编译时若无特别说明，均可使用 <code>-std=c++11</code> 或 <code>-std=c++14</code>。需要 C++17 的会标注。</p>
+<h4>3.1 类型推导（C++11）</h4>
+<h5>auto</h5>
+<pre><code class="language-cpp">auto x = 42;           // int
+auto y = 3.14;         // double
+auto z = &quot;hello&quot;;      // const char*
+vector&lt;int&gt; v;
+for (auto it = v.begin(); it != v.end(); ++it) { /*...*/ }</code></pre>
+<h5>decltype</h5>
+<pre><code class="language-cpp">int a = 5;
+decltype(a) b = 10;   // b 为 int</code></pre>
+<h5>返回类型后置（C++11）</h5>
+<pre><code class="language-cpp">auto add(int x, int y) -&gt; int { return x + y; }
+//最好的写法是
+auto add(int x, int y) -&gt; decltype(x+b){return x + y ;}</code></pre>
+<h4>3.2 范围 for 循环（C++11）</h4>
+<pre><code class="language-cpp">vector&lt;int&gt; arr = {1,2,3,4};
+for (int val : arr)        // 值拷贝
+    cout &lt;&lt; val;
+for (int&amp; val : arr)       // 引用修改
+    val *= 2;</code></pre>
+<h4>3.3 nullptr（C++11）</h4>
+<pre><code class="language-cpp">void func(int*);
+void func(int);
+func(nullptr); // 调用 int* 版本，避免二义性</code></pre>
+<h4>3.4 统一的初始化列表（C++11）</h4>
+<pre><code class="language-cpp">int a{5};
+vector&lt;int&gt; v{1,2,3,4};
+map&lt;string, int&gt; m{{&quot;a&quot;,1}, {&quot;b&quot;,2}};
+
+struct Point { int x, y; };
+Point p{3, 4};</code></pre>
+<h4>3.5 左右值引用与移动语义（C++11）</h4>
+<ul>
+<li><strong>左值</strong>与右值这两个概念是从 C 中传承而来的，左值指既能够出现在等号左边，也能出现在等号右边的变量；<strong>右值</strong>则是只能出现在等号右边的变量。</li>
+</ul>
+<pre><code class="language-cpp">int a; // a 为左值
+a = 3; // 3 为右值</code></pre>
+<ul>
+<li><strong>左值</strong>是可寻址的变量，有持久性；<strong>右值</strong>一般是不可寻址的常量，或在表达式求值过程中创建的无名临时对象，短暂性的。</li>
+<li>左值引用：引用一个对象；</li>
+<li>右值引用：就是必须绑定到右值的引用，C++11中右值引用可以实现<strong>移动语义</strong>，通过 &amp;&amp; 获得右值引用。</li>
+</ul>
+<pre><code class="language-cpp">int x = 6; // x是左值，6是右值
+int &amp;y = x; // 左值引用，y引用x
+
+int &amp;z1 = x * 6; // 错误，x*6是一个右值
+const int &amp;z2 =  x * 6; // 正确，可以将一个const引用绑定到一个右值
+
+int &amp;&amp;z3 = x * 6; // 正确，右值引用
+int &amp;&amp;z4 = x; // 错误，x是一个左值</code></pre>
+<pre><code class="language-cpp">string s1 = &quot;Hello&quot;;
+string s2 = std::move(s1); // s1 变为空，避免深拷贝
+vector&lt;int&gt; createVector() {
+    vector&lt;int&gt; res{1,2,3};
+    return res; // 编译器自动移动 (NRVO)
+}</code></pre>
+<ul>
+<li><strong>右值引用</strong> <code>&amp;&amp;</code> 绑定临时对象。</li>
+<li><strong><code>std::move</code></strong> 将左值强制转为右值。</li>
+</ul>
+<h4>3.6 智能指针（C++11/14）</h4>
+<pre><code class="language-cpp">#include &lt;memory&gt;
+// unique_ptr (独占所有权)
+auto u = unique_ptr&lt;int&gt;(new int(10));  // C++11
+auto u2 = make_unique&lt;int&gt;(20);        // C++14
+
+// shared_ptr (共享所有权)
+auto sp = make_shared&lt;int&gt;(30);        // C++11
+// weak_ptr (解决循环引用)
+weak_ptr&lt;int&gt; wp = sp;</code></pre>
+<h4>3.7 Lambda 表达式（C++11）</h4>
+<pre><code class="language-cpp">// 完整形式
+auto func = [/*捕获*/](int a, int b) -&gt; int { return a + b; };
+// 常用捕获
+int x = 10;
+auto add_x = [x](int y) { return x + y; };     // 值捕获
+auto add_ref = [&amp;x](int y) { x += y; };        // 引用捕获
+auto printAll = [=]() { cout &lt;&lt; x; };          // 隐式值捕获
+auto modifyAll = [&amp;]() { x = 5; };             // 隐式引用捕获</code></pre>
+<ul>
+<li><strong>泛型 Lambda（C++14）</strong></li>
+</ul>
+<pre><code class="language-cpp">auto identity = [](auto val) { return val; };
+cout &lt;&lt; identity(5) &lt;&lt; identity(3.14);</code></pre>
+<h4>3.8 constexpr 常量表达式（增强）</h4>
+<pre><code class="language-cpp">constexpr int square(int x) { return x * x; }   // C++11
+constexpr int val = square(5);                  // 编译期计算</code></pre>
+<ul>
+<li>C++14 放宽了 constexpr 函数约束，可包含局部变量、循环等。</li>
+</ul>
+<h4>3.9 委托构造函数（C++11）</h4>
+<pre><code class="language-cpp">class MyClass {
+public:
+    MyClass() : MyClass(0, 0) {}          // 委托
+    MyClass(int a, int b) : x(a), y(b) {}
+private:
+    int x, y;
+};</code></pre>
+<h4>3.10 继承构造函数（C++11）</h4>
+<pre><code class="language-cpp">class Base {
+public:
+    Base(int x) {}
+};
+class Derived : public Base {
+    using Base::Base;  // 继承基类所有构造函数
+};</code></pre>
+<h4>3.11 默认/删除函数（C++11）</h4>
+<pre><code class="language-cpp">class NonCopyable {
+public:
+    NonCopyable() = default;            // 使用编译器默认生成
+    NonCopyable(const NonCopyable&amp;) = delete;       // 禁止拷贝构造
+    NonCopyable&amp; operator=(const NonCopyable&amp;) = delete;
+};</code></pre>
+<h4>3.12 override 和 final（C++11）</h4>
+<pre><code class="language-cpp">class Base {
+    virtual void f() const;
+};
+class Derived : public Base {
+    void f() const override;   // 确保重写正确
+    // void f(int) override;   // 编译错误，签名不匹配
+};
+class FinalClass final {};      // 禁止被继承
+void func() final;              // 禁止虚函数被进一步重写</code></pre>
+<h4>3.13 强类型枚举（C++11）</h4>
+<pre><code class="language-cpp">enum class Color { Red, Green, Blue };
+Color c = Color::Red;
+// int i = Color::Red;  // 错误，无法隐式转换
+int i = static_cast&lt;int&gt;(Color::Red); // 需显式转换</code></pre>
+<h4>3.14 静态断言（C++11）</h4>
+<pre><code class="language-cpp">static_assert(sizeof(int) &gt;= 4, &quot;int must be at least 4 bytes&quot;);</code></pre>
+<h4>3.15 类型别名（C++11）</h4>
+<pre><code class="language-cpp">using uint = unsigned int;                // 等同于 typedef
+template&lt;typename T&gt;
+using Vec = std::vector&lt;T&gt;;               // 模板别名，typedef 无法做到
+Vec&lt;int&gt; vi;</code></pre>
+<h4>3.16 可变参数模板（C++11）</h4>
+<pre><code class="language-cpp">template&lt;typename... Args&gt;
+void print(Args... args) {
+    // 通常配合递归或逗号表达式展开
+}
+// 使用 sizeof...(Args) 获取参数个数</code></pre>
+<h4>3.17 线程支持（C++11）</h4>
+<pre><code class="language-cpp">#include &lt;thread&gt;
+void hello() { cout &lt;&lt; &quot;Hello from thread&quot; &lt;&lt; endl; }
+std::thread t(hello);
+t.join();</code></pre>
+<p>另有 <code>std::mutex</code>, <code>std::lock_guard</code>, <code>std::condition_variable</code> 等。</p>
+<h4>3.18 正则表达式、计时等库（C++11）</h4>
+<pre><code class="language-cpp">#include &lt;regex&gt;
+#include &lt;chrono&gt;
+std::regex pattern(R&quot;(\d+)&quot;);
+auto start = std::chrono::steady_clock::now();</code></pre>
+<hr>
+<h4>3.19 C++14 新增特性补充</h4>
+<ul>
+<li><strong>泛型 lambda</strong> （见 3.7）</li>
+<li><strong>变量模板</strong></li>
+</ul>
+<pre><code class="language-cpp">template&lt;typename T&gt;
+constexpr T pi = T(3.1415926535897932385);
+float f = pi&lt;float&gt;;</code></pre>
+<ul>
+<li><strong><code>std::make_unique</code></strong> （见 3.6）</li>
+<li><strong>二进制字面量</strong> <code>0b1010</code></li>
+<li><strong>数字分位符</strong> <code>1&#x27;000&#x27;000</code></li>
+<li><strong><code>decltype(auto)</code></strong></li>
+</ul>
+<pre><code class="language-cpp">int x = 5;
+decltype(auto) y = x;  // int
+decltype(auto) z = (x); // int&amp;</code></pre>
+<hr>
+<h4>3.20 C++17 新特性（常用，C++20 之前）</h4>
+<p>以下特性需 <code>-std=c++17</code> 支持。</p>
+<h5>结构化绑定</h5>
+<pre><code class="language-cpp">pair&lt;int, string&gt; p{1, &quot;hello&quot;};
+auto [id, msg] = p;  // id=1, msg=&quot;hello&quot;
+
+map&lt;int, string&gt; m{{1,&quot;a&quot;}};
+for (const auto&amp; [key, value] : m) { ... }</code></pre>
+<h5>if constexpr (编译期 if)</h5>
+<pre><code class="language-cpp">template&lt;typename T&gt;
+auto getValue(T t) {
+    if constexpr (std::is_pointer_v&lt;T&gt;)
+        return *t;
+    else
+        return t;
+}</code></pre>
+<h5>内联变量</h5>
+<pre><code class="language-cpp">// 头文件中可定义
+inline int myVar = 42;</code></pre>
+<h5>折叠表达式（配合可变参数模板）</h5>
+<pre><code class="language-cpp">template&lt;typename... Args&gt;
+auto sum(Args... args) {
+    return (... + args); // 一元右折叠
+}</code></pre>
+<h5>类模板参数推导 (CTAD)</h5>
+<pre><code class="language-cpp">vector v{1,2,3};         // 自动推导为 vector&lt;int&gt;
+pair p{2, &quot;world&quot;};      // pair&lt;int, const char*&gt;</code></pre>
+<h5>新标准库组件</h5>
+<ul>
+<li><code>std::optional&lt;T&gt;</code> 表示可能缺失的值。</li>
+<li><code>std::variant&lt;Ts...&gt;</code> 类型安全的联合体。</li>
+<li><code>std::any</code> 存储任意类型。</li>
+<li><code>std::string_view</code> 字符串视图，避免拷贝。</li>
+<li>文件系统库 <code>&lt;filesystem&gt;</code>。</li>
+</ul>
+<hr>
+<h3>四、总结：C/C++ 核心区分速查表</h3>
+<div class="table-wrap"><table>
+<thead><tr>
+<th>特性</th>
+<th>C 语言</th>
+<th>C++ 语言</th>
+</tr></thead><tbody>
+<tr>
+<td>编程范式</td>
+<td>面向过程</td>
+<td>面向对象、泛型、函数式</td>
+</tr>
+<tr>
+<td>布尔类型</td>
+<td>C99 <code>_Bool</code> (需宏)</td>
+<td>内置 <code>bool</code></td>
+</tr>
+<tr>
+<td>空指针</td>
+<td><code>NULL</code></td>
+<td><code>nullptr</code></td>
+</tr>
+<tr>
+<td>函数重载</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>默认参数</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>引用</td>
+<td>无</td>
+<td>左值引用 &amp;、右值引用 &amp;&amp;</td>
+</tr>
+<tr>
+<td>动态内存</td>
+<td><code>malloc/free</code></td>
+<td><code>new/delete</code>，智能指针</td>
+</tr>
+<tr>
+<td>字符串</td>
+<td>字符数组</td>
+<td><code>std::string</code></td>
+</tr>
+<tr>
+<td>命名空间</td>
+<td>无</td>
+<td><code>namespace</code></td>
+</tr>
+<tr>
+<td>类型转换</td>
+<td><code>(type)</code></td>
+<td><code>static_cast</code> 等四种</td>
+</tr>
+<tr>
+<td>结构体</td>
+<td>只能包含数据</td>
+<td>可以有成员函数、继承</td>
+</tr>
+<tr>
+<td>枚举</td>
+<td>普通枚举，值泄露</td>
+<td><code>enum class</code> 强作用域</td>
+</tr>
+<tr>
+<td>输入输出</td>
+<td><code>printf/scanf</code></td>
+<td><code>cin/cout</code> 流</td>
+</tr>
+<tr>
+<td>头文件</td>
+<td><code>&lt;stdio.h&gt;</code></td>
+<td><code>&lt;cstdio&gt;</code> 或 <code>&lt;iostream&gt;</code></td>
+</tr>
+<tr>
+<td>常量</td>
+<td><code>const</code> 只读变量（C99 VLA 例外）</td>
+<td><code>const</code> 编译期常量，<code>constexpr</code></td>
+</tr>
+<tr>
+<td>新标准</td>
+<td>C11 原子、线程等（很少用）</td>
+<td>C++11/14/17 大量现代特性</td>
+</tr>
+</tbody></table></div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <a href="/">回到首页</a>
+    <span>© liangdingguan</span>
+  </footer>
+</body>
+</html>
