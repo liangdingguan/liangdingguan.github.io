@@ -1,5 +1,5 @@
 ---
-title: content2
+title: C/C++补充2:面向对象与类详解
 date: 2026-07-06
 tags: [C++, 课程笔记]
 summary: 面向对象相关
