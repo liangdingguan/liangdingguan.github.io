@@ -36,5 +36,6 @@ jobs:
             echo "No generated changes to commit."
           else
             git commit -m "Build site from notes"
+            git pull --rebase origin master
             git push
           fi
