@@ -12,7 +12,18 @@
       "date": "2026-07-06",
       "path": "posts/c-cpp-basic-syntax-day1/",
       "permalink": "https://liangdingguan.github.io/posts/c-cpp-basic-syntax-day1/",
-      "categories": [],
+      "categories": [
+        {
+          "name": "C++",
+          "slug": "c",
+          "permalink": "https://liangdingguan.github.io/categories/#category-c"
+        },
+        {
+          "name": "课程笔记",
+          "slug": "topic-b88c9c84",
+          "permalink": "https://liangdingguan.github.io/categories/#category-topic-b88c9c84"
+        }
+      ],
       "tags": [
         {
           "name": "C++",
@@ -31,7 +42,18 @@
       "date": "2026-07-06",
       "path": "posts/c-cpp-basic-syntax-content2/",
       "permalink": "https://liangdingguan.github.io/posts/c-cpp-basic-syntax-content2/",
-      "categories": [],
+      "categories": [
+        {
+          "name": "C++",
+          "slug": "c",
+          "permalink": "https://liangdingguan.github.io/categories/#category-c"
+        },
+        {
+          "name": "课程笔记",
+          "slug": "topic-b88c9c84",
+          "permalink": "https://liangdingguan.github.io/categories/#category-topic-b88c9c84"
+        }
+      ],
       "tags": [
         {
           "name": "C++",
@@ -50,7 +72,18 @@
       "date": "2026-07-06",
       "path": "posts/c-cpp-basic-syntax-content23/",
       "permalink": "https://liangdingguan.github.io/posts/c-cpp-basic-syntax-content23/",
-      "categories": [],
+      "categories": [
+        {
+          "name": "C++",
+          "slug": "c",
+          "permalink": "https://liangdingguan.github.io/categories/#category-c"
+        },
+        {
+          "name": "笔记",
+          "slug": "topic-697dbde0",
+          "permalink": "https://liangdingguan.github.io/categories/#category-topic-697dbde0"
+        }
+      ],
       "tags": [
         {
           "name": "C++",
@@ -69,7 +102,13 @@
       "date": "2020-05-12",
       "path": "posts/legacy-process-thread-coroutine/",
       "permalink": "https://liangdingguan.github.io/posts/legacy-process-thread-coroutine/",
-      "categories": [],
+      "categories": [
+        {
+          "name": "Python 相关",
+          "slug": "python",
+          "permalink": "https://liangdingguan.github.io/categories/#category-python"
+        }
+      ],
       "tags": [
         {
           "name": "Python 相关",
@@ -83,7 +122,13 @@
       "date": "2020-05-12",
       "path": "posts/legacy-python-deep-dive/",
       "permalink": "https://liangdingguan.github.io/posts/legacy-python-deep-dive/",
-      "categories": [],
+      "categories": [
+        {
+          "name": "Python 相关",
+          "slug": "python",
+          "permalink": "https://liangdingguan.github.io/categories/#category-python"
+        }
+      ],
       "tags": [
         {
           "name": "Python 相关",
@@ -97,7 +142,13 @@
       "date": "2020-04-08",
       "path": "posts/legacy-beautiful-soup-notes/",
       "permalink": "https://liangdingguan.github.io/posts/legacy-beautiful-soup-notes/",
-      "categories": [],
+      "categories": [
+        {
+          "name": "爬虫",
+          "slug": "topic-e3f5212e",
+          "permalink": "https://liangdingguan.github.io/categories/#category-topic-e3f5212e"
+        }
+      ],
       "tags": [
         {
           "name": "爬虫",
@@ -111,7 +162,13 @@
       "date": "2020-04-07",
       "path": "posts/legacy-python-basic-review/",
       "permalink": "https://liangdingguan.github.io/posts/legacy-python-basic-review/",
-      "categories": [],
+      "categories": [
+        {
+          "name": "Python 相关",
+          "slug": "python",
+          "permalink": "https://liangdingguan.github.io/categories/#category-python"
+        }
+      ],
       "tags": [
         {
           "name": "Python 相关",
@@ -125,7 +182,13 @@
       "date": "2020-04-07",
       "path": "posts/legacy-basic-grammar/",
       "permalink": "https://liangdingguan.github.io/posts/legacy-basic-grammar/",
-      "categories": [],
+      "categories": [
+        {
+          "name": "英语",
+          "slug": "topic-e2c72f15",
+          "permalink": "https://liangdingguan.github.io/categories/#category-topic-e2c72f15"
+        }
+      ],
       "tags": [
         {
           "name": "英语",
@@ -139,7 +202,13 @@
       "date": "2020-04-07",
       "path": "posts/legacy-async-sync-concurrency/",
       "permalink": "https://liangdingguan.github.io/posts/legacy-async-sync-concurrency/",
-      "categories": [],
+      "categories": [
+        {
+          "name": "计算机网络相关",
+          "slug": "topic-78bc859d",
+          "permalink": "https://liangdingguan.github.io/categories/#category-topic-78bc859d"
+        }
+      ],
       "tags": [
         {
           "name": "计算机网络相关",
@@ -153,7 +222,13 @@
       "date": "2020-04-05",
       "path": "posts/legacy-session-load-balancing/",
       "permalink": "https://liangdingguan.github.io/posts/legacy-session-load-balancing/",
-      "categories": [],
+      "categories": [
+        {
+          "name": "计算机网络相关",
+          "slug": "topic-78bc859d",
+          "permalink": "https://liangdingguan.github.io/categories/#category-topic-78bc859d"
+        }
+      ],
       "tags": [
         {
           "name": "计算机网络相关",
@@ -167,7 +242,13 @@
       "date": "2020-03-31",
       "path": "posts/legacy-storage-units/",
       "permalink": "https://liangdingguan.github.io/posts/legacy-storage-units/",
-      "categories": [],
+      "categories": [
+        {
+          "name": "计算机基础",
+          "slug": "topic-44250f8f",
+          "permalink": "https://liangdingguan.github.io/categories/#category-topic-44250f8f"
+        }
+      ],
       "tags": [
         {
           "name": "计算机基础",
@@ -181,7 +262,13 @@
       "date": "2020-03-31",
       "path": "posts/legacy-xpath-notes/",
       "permalink": "https://liangdingguan.github.io/posts/legacy-xpath-notes/",
-      "categories": [],
+      "categories": [
+        {
+          "name": "爬虫相关",
+          "slug": "topic-49cf3c8e",
+          "permalink": "https://liangdingguan.github.io/categories/#category-topic-49cf3c8e"
+        }
+      ],
       "tags": [
         {
           "name": "爬虫相关",
@@ -195,7 +282,13 @@
       "date": "2020-03-31",
       "path": "posts/legacy-regex-notes/",
       "permalink": "https://liangdingguan.github.io/posts/legacy-regex-notes/",
-      "categories": [],
+      "categories": [
+        {
+          "name": "其他",
+          "slug": "topic-1a26edf9",
+          "permalink": "https://liangdingguan.github.io/categories/#category-topic-1a26edf9"
+        }
+      ],
       "tags": [
         {
           "name": "其他",
@@ -203,6 +296,68 @@
           "permalink": ""
         }
       ]
+    }
+  ],
+  "categories": [
+    {
+      "name": "C++",
+      "slug": "c",
+      "permalink": "https://liangdingguan.github.io/categories/#category-c",
+      "count": 3
+    },
+    {
+      "name": "Python 相关",
+      "slug": "python",
+      "permalink": "https://liangdingguan.github.io/categories/#category-python",
+      "count": 3
+    },
+    {
+      "name": "计算机网络相关",
+      "slug": "topic-78bc859d",
+      "permalink": "https://liangdingguan.github.io/categories/#category-topic-78bc859d",
+      "count": 2
+    },
+    {
+      "name": "课程笔记",
+      "slug": "topic-b88c9c84",
+      "permalink": "https://liangdingguan.github.io/categories/#category-topic-b88c9c84",
+      "count": 2
+    },
+    {
+      "name": "其他",
+      "slug": "topic-1a26edf9",
+      "permalink": "https://liangdingguan.github.io/categories/#category-topic-1a26edf9",
+      "count": 1
+    },
+    {
+      "name": "爬虫",
+      "slug": "topic-e3f5212e",
+      "permalink": "https://liangdingguan.github.io/categories/#category-topic-e3f5212e",
+      "count": 1
+    },
+    {
+      "name": "爬虫相关",
+      "slug": "topic-49cf3c8e",
+      "permalink": "https://liangdingguan.github.io/categories/#category-topic-49cf3c8e",
+      "count": 1
+    },
+    {
+      "name": "笔记",
+      "slug": "topic-697dbde0",
+      "permalink": "https://liangdingguan.github.io/categories/#category-topic-697dbde0",
+      "count": 1
+    },
+    {
+      "name": "英语",
+      "slug": "topic-e2c72f15",
+      "permalink": "https://liangdingguan.github.io/categories/#category-topic-e2c72f15",
+      "count": 1
+    },
+    {
+      "name": "计算机基础",
+      "slug": "topic-44250f8f",
+      "permalink": "https://liangdingguan.github.io/categories/#category-topic-44250f8f",
+      "count": 1
     }
   ]
 }

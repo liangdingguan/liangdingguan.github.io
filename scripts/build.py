@@ -1,4 +1,5 @@
 import html
+import hashlib
 import json
 import pathlib
 import re
@@ -312,6 +313,23 @@ def tag_text(post):
     return "、".join(post["tags"]) if post["tags"] else "Notes"
 
 
+def collect_categories(posts):
+    categories = {}
+    for post in posts:
+        tags = post["tags"] or ["Notes"]
+        for tag in tags:
+            categories.setdefault(tag, []).append(post)
+    return dict(sorted(categories.items(), key=lambda item: (-len(item[1]), item[0].lower())))
+
+
+def category_slug(name):
+    slug = slugify(name)
+    if slug != "note" or name.lower() in {"note", "notes"}:
+        return slug
+    digest = hashlib.sha1(name.encode("utf-8")).hexdigest()[:8]
+    return f"topic-{digest}"
+
+
 def render_post(post):
     old_link = ""
     if post.get("old_url"):
@@ -334,6 +352,7 @@ def render_post(post):
       <a href="/">首页</a>
       <a href="/#notes">文章</a>
       <a href="/posts/">全部文章</a>
+      <a href="/categories/">文章分类</a>
       <a href="/about/">关于</a>
       <a href="https://github.com/liangdingguan" target="_blank" rel="noreferrer">GitHub</a>
     </nav>
@@ -408,6 +427,7 @@ def render_sidebar(posts):
             </div>
           </section>
           <a class="archive-all-link" href="/posts/">查看全部文章</a>
+          <a class="archive-all-link" href="/categories/">按分类浏览</a>
 {chr(10).join(sections)}"""
 
 
@@ -452,6 +472,7 @@ def render_archive_index(posts):
     <nav class="nav" aria-label="主导航">
       <a href="/">首页</a>
       <a href="/posts/">全部文章</a>
+      <a href="/categories/">文章分类</a>
       <a href="/about/">关于</a>
       <a href="https://github.com/liangdingguan" target="_blank" rel="noreferrer">GitHub</a>
     </nav>
@@ -462,6 +483,77 @@ def render_archive_index(posts):
       <h1>全部文章</h1>
       <p>共 {len(posts)} 篇，按年份归档。主页只保留最近文章和折叠入口，这里保留完整列表。</p>
     </header>
+{chr(10).join(sections)}
+  </main>
+  <footer class="site-footer">
+    <a href="/">回到首页</a>
+    <span>© liangdingguan</span>
+  </footer>
+</body>
+</html>
+"""
+
+
+def render_categories_index(posts):
+    categories = collect_categories(posts)
+    category_nav = "\n".join(
+        f'        <a href="#category-{html.escape(category_slug(name))}">{html.escape(name)}<span>{len(items)}</span></a>'
+        for name, items in categories.items()
+    )
+    sections = []
+    for name, items in categories.items():
+        cards = "\n".join(
+            f"""          <article class="archive-page-item">
+            <a href="{html.escape(post['url'])}">{html.escape(post['title'])}</a>
+            <p>{html.escape(post['summary'])}</p>
+            <span>{html.escape(post['date'].replace('-', '/'))} · {html.escape(tag_text(post))}</span>
+          </article>"""
+            for post in items
+        )
+        sections.append(
+            f"""      <section class="category-group" id="category-{html.escape(category_slug(name))}">
+        <div class="category-heading">
+          <h2>{html.escape(name)}</h2>
+          <span>{len(items)} 篇</span>
+        </div>
+        <div class="archive-page-list">
+{cards}
+        </div>
+      </section>"""
+        )
+
+    return f"""<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="liangdingguan">
+  <meta name="description" content="liangdingguan 的文章分类索引。">
+  <title>文章分类 | liangdingguan</title>
+  <link rel="icon" href="/assets/favicon.ico">
+  <link rel="stylesheet" href="/css/redesign.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">liangdingguan</a>
+    <nav class="nav" aria-label="主导航">
+      <a href="/">首页</a>
+      <a href="/#notes">文章</a>
+      <a href="/posts/">全部文章</a>
+      <a href="/categories/">文章分类</a>
+      <a href="/about/">关于</a>
+      <a href="https://github.com/liangdingguan" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </header>
+  <main class="archive-page">
+    <header class="archive-page-hero">
+      <p class="eyebrow">Categories</p>
+      <h1>文章分类</h1>
+      <p>共 {len(posts)} 篇文章，按主题聚合为 {len(categories)} 个分类。点选分类可以快速跳到对应文章列表。</p>
+    </header>
+    <nav class="category-index" aria-label="文章分类索引">
+{category_nav}
+    </nav>
 {chr(10).join(sections)}
   </main>
   <footer class="site-footer">
@@ -496,6 +588,7 @@ def render_index(posts):
     <a class="brand" href="/">liangdingguan</a>
     <nav class="nav" aria-label="主导航">
       <a href="#notes">文章</a>
+      <a href="/categories/">文章分类</a>
       <a href="/about/">关于</a>
       <a href="https://github.com/liangdingguan" target="_blank" rel="noreferrer">GitHub</a>
     </nav>
@@ -511,6 +604,7 @@ def render_index(posts):
         <div class="hero-actions">
           <a class="button primary" href="#notes">查看文章</a>
           <a class="button" href="mailto:2280426623@qq.com">联系我</a>
+          <a class="button" href="/categories/">文章分类</a>
         </div>
       </div>
     </section>
@@ -568,6 +662,7 @@ def render_index(posts):
 
 
 def build_content_json(posts):
+    categories = collect_categories(posts)
     return {
         "meta": {
             "title": "liangdingguan",
@@ -582,10 +677,19 @@ def build_content_json(posts):
                 "date": post["date"],
                 "path": f"posts/{post['slug']}/",
                 "permalink": f"https://liangdingguan.github.io/posts/{post['slug']}/",
-                "categories": [],
+                "categories": [{"name": tag, "slug": category_slug(tag), "permalink": f"https://liangdingguan.github.io/categories/#category-{category_slug(tag)}"} for tag in post["tags"]],
                 "tags": [{"name": tag, "slug": slugify(tag), "permalink": ""} for tag in post["tags"]],
             }
             for post in posts
+        ],
+        "categories": [
+            {
+                "name": name,
+                "slug": category_slug(name),
+                "permalink": f"https://liangdingguan.github.io/categories/#category-{category_slug(name)}",
+                "count": len(items),
+            }
+            for name, items in categories.items()
         ],
     }
 
@@ -601,6 +705,9 @@ def main():
         target.mkdir(parents=True, exist_ok=True)
         (target / "index.html").write_text(render_post(post), encoding="utf-8")
     (POSTS_DIR / "index.html").write_text(render_archive_index(posts), encoding="utf-8")
+    categories_dir = ROOT / "categories"
+    categories_dir.mkdir(exist_ok=True)
+    (categories_dir / "index.html").write_text(render_categories_index(posts), encoding="utf-8")
     (ROOT / "index.html").write_text(render_index(posts), encoding="utf-8")
     (ROOT / "content.json").write_text(
         json.dumps(build_content_json(posts), ensure_ascii=False, indent=2),
